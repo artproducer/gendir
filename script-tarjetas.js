@@ -385,45 +385,20 @@
 
         // Manejar click en botón de pegar
         pasteBinBtn.addEventListener("click", async () => {
-            // Enfocar el input primero
-            binInput.focus();
-            
-            // Verificar si la API del portapapeles está disponible y tiene permisos
-            if (navigator.clipboard && navigator.clipboard.readText) {
-                try {
-                    const clipboardText = await navigator.clipboard.readText();
-                    const trimmedText = clipboardText.trim();
+            let clipboardText = "";
 
-                    if (trimmedText) {
-                        if (processBinInput(trimmedText)) {
-                            showToast("Datos extraídos del BIN");
-                        } else {
-                            binInput.value = trimmedText;
-                            showToast("BIN pegado");
-                        }
-                        toggleButtons();
-                    } else {
-                        showToast("Portapapeles vacío", true);
-                    }
-                    return;
-                } catch (err) {
-                    console.log("Clipboard API no disponible, usando fallback");
-                }
-            }
-            
-            // Fallback: intentar con execCommand (deprecated pero funciona en algunos móviles)
             try {
-                // Crear un textarea temporal para recibir el pegado
-                const tempInput = document.createElement('textarea');
-                tempInput.style.position = 'fixed';
-                tempInput.style.left = '-9999px';
-                tempInput.style.top = '0';
-                document.body.appendChild(tempInput);
-                tempInput.focus();
-                
-                const successful = document.execCommand('paste');
-                if (successful && tempInput.value) {
-                    const trimmedText = tempInput.value.trim();
+                // Intentar usar la interfaz nativa de Android primero
+                if (typeof AndroidClipboard !== 'undefined' && AndroidClipboard.getClipboardText) {
+                    clipboardText = AndroidClipboard.getClipboardText();
+                } else {
+                    // Fallback a la API del navegador
+                    clipboardText = await navigator.clipboard.readText();
+                }
+
+                const trimmedText = clipboardText.trim();
+
+                if (trimmedText) {
                     if (processBinInput(trimmedText)) {
                         showToast("Datos extraídos del BIN");
                     } else {
@@ -431,18 +406,14 @@
                         showToast("BIN pegado");
                     }
                     toggleButtons();
-                    document.body.removeChild(tempInput);
                     binInput.focus();
-                    return;
+                } else {
+                    showToast("Portapapeles vacío", true);
                 }
-                document.body.removeChild(tempInput);
-            } catch (e) {
-                console.log("execCommand paste no soportado");
+            } catch (err) {
+                console.error("Error al leer portapapeles:", err);
+                showToast("No se pudo acceder al portapapeles", true);
             }
-            
-            // Último fallback: mostrar mensaje indicando que use mantener presionado
-            binInput.select();
-            showToast("Mantén presionado para pegar");
         });
 
         // Manejar evento de pegado específicamente
