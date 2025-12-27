@@ -730,9 +730,10 @@ select.text-input {
 }
 
 .tab-btn.active {
-    background: rgba(50, 50, 50, 0.9);
-    color: var(--text);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    background: rgba(20, 184, 166, 0.1);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.15);
 }
 
 .tab-content {
