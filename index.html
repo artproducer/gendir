@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Generador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="dark-mode">
+    <div class="container">
+        <!-- Tabs de navegación -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('direcciones')">Direcciones</button>
+            <button class="tab-btn" onclick="switchTab('tarjetas')">Tarjetas</button>
+        </div>
+
+        <!-- Tab: Direcciones -->
+        <div id="tab-direcciones" class="tab-content active">
+            <!-- Tarjeta de dirección -->
+            <div class="address-card">
+                <div class="loading-overlay" id="loading">
+                    <div class="spinner"></div>
+                </div>
+
+                <div class="address-content" id="address-content">
+                    <div class="field-group">
+                        <!-- Nombre -->
+                        <div class="field">
+                            <label>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                Nombre Completo
+                            </label>
+                            <div class="value-container">
+                                <span id="name" class="value">Toca generar</span>
+                                <button class="copy-btn" onclick="copyToClipboard('name', event)">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Dirección -->
+                        <div class="field">
+                            <label>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" />
+                                </svg>
+                                Dirección
+                            </label>
+                            <div class="value-container">
+                                <span id="street" class="value">Toca generar</span>
+                                <button class="copy-btn" onclick="copyToClipboard('street', event)">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Fila: Ciudad / Estado -->
+                        <div class="field-row two-col">
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="2" y1="12" x2="22" y2="12" />
+                                        <path
+                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                                    </svg>
+                                    Ciudad
+                                </label>
+                                <div class="value-container">
+                                    <span id="city" class="value">-</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('city', event)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                        <line x1="3" y1="9" x2="21" y2="9" />
+                                        <line x1="9" y1="21" x2="9" y2="9" />
+                                    </svg>
+                                    Estado
+                                </label>
+                                <div class="value-container">
+                                    <span id="state" class="value">-</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('state', event)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fila: Código Postal / Teléfono -->
+                        <div class="field-row two-col">
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path
+                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                    </svg>
+                                    Código Postal
+                                </label>
+                                <div class="value-container">
+                                    <span id="zip" class="value">-</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('zip', event)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                    </svg>
+                                    Teléfono
+                                </label>
+                                <div class="value-container">
+                                    <span id="phone" class="value">-</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('phone', event)">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles -->
+            <div class="top-actions">
+                <div class="country-control">
+                    <button id="country-button" class="country-button" type="button">
+                        <span class="country-button-content">
+                            <span id="flag" class="fi fi-us"></span>
+                            <span id="country-label" class="country-label">Estados Unidos</span>
+                        </span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" class="chevron-icon">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <select id="country-select" class="country-select" onchange="generateNewAddress()">
+                        <option value="us" selected>Estados Unidos</option>
+                        <option value="de">Alemania</option>
+                        <option value="sa">Arabia Saudita</option>
+                        <option value="au">Australia</option>
+                        <option value="bh">Baréin</option>
+                        <option value="br">Brasil</option>
+                        <option value="ca">Canadá</option>
+                        <option value="cl">Chile</option>
+                        <option value="co">Colombia</option>
+                        <option value="kr">Corea del Sur</option>
+                        <option value="dk">Dinamarca</option>
+                        <option value="ec">Ecuador</option>
+                        <option value="ae">Emiratos Árabes</option>
+                        <option value="es">España</option>
+                        <option value="ee">Estonia</option>
+                        <option value="ph">Filipinas</option>
+                        <option value="fi">Finlandia</option>
+                        <option value="fr">Francia</option>
+                        <option value="hk">Hong Kong</option>
+                        <option value="in">India</option>
+                        <option value="id">Indonesia</option>
+                        <option value="ie">Irlanda</option>
+                        <option value="it">Italia</option>
+                        <option value="jp">Japón</option>
+                        <option value="kz">Kazajistán</option>
+                        <option value="my">Malasia</option>
+                        <option value="ma">Marruecos</option>
+                        <option value="mx">México</option>
+                        <option value="ng">Nigeria</option>
+                        <option value="no">Noruega</option>
+                        <option value="nz">Nueva Zelanda</option>
+                        <option value="nl">Países Bajos</option>
+                        <option value="pk">Pakistán</option>
+                        <option value="pa">Panamá</option>
+                        <option value="pe">Perú</option>
+                        <option value="gb">Reino Unido</option>
+                        <option value="do">Rep. Dominicana</option>
+                        <option value="ro">Rumania</option>
+                        <option value="rs">Serbia</option>
+                        <option value="sg">Singapur</option>
+                        <option value="za">Sudáfrica</option>
+                        <option value="se">Suecia</option>
+                        <option value="ch">Suiza</option>
+                        <option value="th">Tailandia</option>
+                        <option value="tr">Turquía</option>
+                        <option value="ve">Venezuela</option>
+                    </select>
+                    <div id="country-dropdown" class="country-dropdown" hidden></div>
+                </div>
+
+                <div class="action-grid">
+                    <button class="action-btn primary-btn" onclick="generateNewAddress()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="23 4 23 10 17 10" />
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                        </svg>
+                        Generar
+                    </button>
+                    <button class="action-btn" onclick="copyAll()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copiar todo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Tarjetas -->
+        <div id="tab-tarjetas" class="tab-content">
+            <!-- Formulario de generación -->
+            <div class="address-card">
+                <div class="field-group">
+                    <!-- BIN Input -->
+                    <div class="field">
+                        <label>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg>
+                            BIN (Primeros 6+ dígitos)
+                        </label>
+                        <div class="input-container">
+                            <input type="text" id="bin-input" class="text-input" placeholder="Ej: 411111, 551234xx"
+                                maxlength="16" style="padding-right: 40px;">
+                            <button id="paste-bin" class="clear-input-btn" title="Pegar">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                                </svg>
+                            </button>
+                            <button id="clear-bin" class="clear-input-btn" hidden title="Borrar">&times;</button>
+                        </div>
+                    </div>
+
+                    <!-- Cantidad -->
+                    <div class="field">
+                        <label>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                            Cantidad
+                        </label>
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn qty-minus" onclick="decrementQty()">−</button>
+                            <input type="number" id="quantity-input" class="qty-input" value="10" min="1" max="50">
+                            <button type="button" class="qty-btn qty-plus" onclick="incrementQty()">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Opciones en fila de 3 -->
+                    <div class="field-row three-col">
+                        <div class="field">
+                            <label>Mes</label>
+                            <div class="select-wrapper">
+                                <button type="button" class="select-btn" id="month-btn">
+                                    <span id="month-label">Auto</span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                                <select id="month-select" class="hidden-select">
+                                    <option value="">Auto</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <div id="month-dropdown" class="mini-dropdown" hidden></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Año</label>
+                            <div class="select-wrapper">
+                                <button type="button" class="select-btn" id="year-btn">
+                                    <span id="year-label">Auto</span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                                <select id="year-select" class="hidden-select">
+                                    <option value="">Auto</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                    <option value="2029">2029</option>
+                                    <option value="2030">2030</option>
+                                    <option value="2031">2031</option>
+                                    <option value="2032">2032</option>
+                                    <option value="2033">2033</option>
+                                    <option value="2034">2034</option>
+                                    <option value="2035">2035</option>
+                                </select>
+                                <div id="year-dropdown" class="mini-dropdown" hidden></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>CVV</label>
+                            <div class="input-container">
+                                <input type="text" id="cvv-input" class="text-input" placeholder="Auto" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón generar -->
+            <div class="top-actions">
+                <div class="action-grid">
+                    <button class="action-btn primary-btn" onclick="generateCards()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        Generar
+                    </button>
+                    <button class="action-btn" onclick="copyResults()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        Copiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sub-tabs Navigation -->
+            <div class="sub-tabs-container">
+                <button class="sub-tab-btn active" onclick="switchSubTab('resultado')">Resultado</button>
+                <button class="sub-tab-btn" onclick="switchSubTab('historial')">
+                    Historial
+                    <span id="history-badge" class="history-badge" style="display: none;">0</span>
+                </button>
+            </div>
+
+            <!-- Sub-tabs Content Container -->
+            <div class="sub-tabs-content">
+                <!-- Resultado -->
+                <div id="sub-tab-resultado" class="sub-tab-content active">
+                    <div class="address-card result-card">
+                        <div class="field">
+                            <label>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>
+                                Resultado
+                                <span id="card-type-badge" class="badge"></span>
+                            </label>
+                            <div class="output-container">
+                                <pre id="output" class="output-text">Ingresa un BIN y genera...</pre>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="stats-row" id="stats-row" style="display: none;">
+                            <div class="stat-item">
+                                <span class="stat-label">Generadas</span>
+                                <span class="stat-value" id="stat-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Tipo</span>
+                                <span class="stat-value" id="stat-type">-</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Longitud</span>
+                                <span class="stat-value" id="stat-length">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Historial -->
+                <div id="sub-tab-historial" class="sub-tab-content">
+                    <div class="address-card history-card" id="history-section">
+                        <div class="field">
+                            <label class="history-header">
+                                <div class="header-content">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Historial
+                                </div>
+                                <button class="clear-history-btn" onclick="clearHistory()" title="Borrar historial">
+                                    Borrar
+                                </button>
+                            </label>
+                            <div id="history-list" class="history-list">
+                                <!-- History items will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de confirmación -->
+        <div class="modal-overlay" id="confirm-modal" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D42426" stroke-width="2">
+                        <path
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <h3 id="modal-title">¿Borrar historial?</h3>
+                </div>
+                <p class="modal-body" id="modal-message">Esta acción no se puede deshacer y se perderán todos los BINs
+                    guardados.</p>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel-btn" id="modal-cancel">Cancelar</button>
+                    <button class="modal-btn confirm-btn" id="modal-confirm">Confirmar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast" id="toast">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span id="toast-text">¡Copiado!</span>
+        </div>
+    </div>
+
+    <script src="offline-database.js"></script>
+    <script src="script-direcciones.js"></script>
+    <script src="script-tarjetas.js"></script>
+    <script>
+        // Función para cambiar entre pestañas
+        function switchTab(tabName) {
+            // Remover clase active de todos los tabs y botones
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Activar contenido
+            const content = document.getElementById('tab-' + tabName);
+            if (content) content.classList.add('active');
+
+            // Activar botón (buscando por el atributo onclick que contiene el tabName)
+            const tabBtn = document.querySelector(`.tab-btn[onclick*="'${tabName}'"]`);
+            if (tabBtn) tabBtn.classList.add('active');
+
+            // Guardar tab seleccionado
+            localStorage.setItem('activeTab', tabName);
+        }
+
+        // Cargar tab guardado al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTab = localStorage.getItem('activeTab') || 'direcciones';
+            switchTab(savedTab);
+        });
+    </script>
+</body>
+
+</html>
