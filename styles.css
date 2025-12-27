@@ -701,8 +701,15 @@ select.text-input {
 }
 
 /* Tabs */
+.tabs-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .tabs-container {
     display: flex;
+    flex: 1;
     background: rgba(30, 30, 30, 0.8);
     border-radius: 16px;
     padding: 4px;
