@@ -1,14 +1,31 @@
 :root {
-    --primary: #D42426;
-    /* Christmas Red */
-    --primary-dark: #A81D1E;
+    --primary: #14B8A6;
+    /* Teal/Turquoise */
+    --primary-dark: #0D9488;
     --surface: #1A1A1A;
     --background: #000000;
     --text: #FFFFFF;
     --text-secondary: #808080;
-    --border: rgba(212, 36, 38, 0.25);
-    --success: #D42426;
-    --error: #D42426;
+    --border: rgba(20, 184, 166, 0.25);
+    --success: #14B8A6;
+    --error: #EF4444;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --dropdown-shadow: rgba(0, 0, 0, 0.7);
+    --modal-overlay: rgba(0, 0, 0, 0.7);
+}
+
+/* Light Mode */
+body.light-mode {
+    --surface: #FFFFFF;
+    --background: #F1F5F9;
+    --text: #0F172A;
+    --text-secondary: #475569;
+    --border: rgba(20, 184, 166, 0.3);
+    --card-bg: rgba(0, 0, 0, 0.03);
+    --input-bg: rgba(0, 0, 0, 0.04);
+    --dropdown-shadow: rgba(0, 0, 0, 0.15);
+    --modal-overlay: rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -26,6 +43,11 @@ body {
 }
 
 body.dark-mode {
+    background: var(--background);
+    color: var(--text);
+}
+
+body.light-mode {
     background: var(--background);
     color: var(--text);
 }
@@ -48,7 +70,7 @@ body.dark-mode {
 }
 
 .result-card {
-    background: rgba(212, 36, 38, 0.08);
+    background: rgba(20, 184, 166, 0.08);
 }
 
 /* Fields */
@@ -94,7 +116,7 @@ body.dark-mode {
     gap: 12px;
     padding: 12px 16px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     border: 1px solid var(--border);
 }
 
@@ -118,7 +140,7 @@ body.dark-mode {
     padding: 12px 14px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     color: var(--text);
     font-size: 1rem;
     font-family: inherit;
@@ -128,7 +150,7 @@ body.dark-mode {
 
 .text-input:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(212, 36, 38, 0.2);
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.2);
 }
 
 .text-input::placeholder {
@@ -150,7 +172,7 @@ select.text-input {
     gap: 0;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     overflow: hidden;
 }
 
@@ -158,7 +180,7 @@ select.text-input {
     width: 48px;
     height: 48px;
     border: none;
-    background: rgba(212, 36, 38, 0.15);
+    background: rgba(20, 184, 166, 0.15);
     color: var(--primary);
     font-size: 1.4rem;
     font-weight: 600;
@@ -170,12 +192,12 @@ select.text-input {
 }
 
 .qty-btn:hover {
-    background: rgba(212, 36, 38, 0.25);
+    background: rgba(20, 184, 166, 0.25);
 }
 
 .qty-btn:active {
     transform: scale(0.95);
-    background: rgba(212, 36, 38, 0.35);
+    background: rgba(20, 184, 166, 0.35);
 }
 
 .qty-minus {
@@ -208,7 +230,7 @@ select.text-input {
     height: 36px;
     border-radius: 20px;
     border: none;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--input-bg);
     color: var(--text-secondary);
     display: flex;
     align-items: center;
@@ -244,7 +266,7 @@ select.text-input {
     border: none;
     border-radius: 10px;
     padding: 8px 12px;
-    background: rgba(212, 36, 38, 0.2);
+    background: rgba(20, 184, 166, 0.2);
     color: var(--primary);
     cursor: pointer;
     display: inline-flex;
@@ -255,7 +277,7 @@ select.text-input {
 
 .copy-btn:hover {
     transform: translateY(-1px);
-    background: rgba(212, 36, 38, 0.3);
+    background: rgba(20, 184, 166, 0.3);
 }
 
 .copy-btn:active {
@@ -286,7 +308,7 @@ select.text-input {
     min-height: 52px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(212, 36, 38, 0.1);
+    background: rgba(20, 184, 166, 0.1);
     color: var(--primary);
     font-weight: 600;
     font-size: 0.95rem;
@@ -296,7 +318,7 @@ select.text-input {
 
 .action-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(212, 36, 38, 0.15);
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.15);
 }
 
 .action-btn:active {
@@ -330,7 +352,7 @@ select.text-input {
     padding: 0 18px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(212, 36, 38, 0.1);
+    background: rgba(20, 184, 166, 0.1);
     color: var(--primary);
     font-weight: 600;
     font-size: 1rem;
@@ -422,11 +444,11 @@ select.text-input {
 }
 
 .country-option:hover {
-    background: rgba(212, 36, 38, 0.15);
+    background: rgba(20, 184, 166, 0.15);
 }
 
 .country-option[aria-selected="true"] {
-    background: rgba(212, 36, 38, 0.2);
+    background: rgba(20, 184, 166, 0.2);
     color: var(--primary);
 }
 
@@ -449,7 +471,7 @@ select.text-input {
     padding: 12px 14px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--input-bg);
     color: var(--text);
     font-family: inherit;
     font-size: 0.95rem;
@@ -519,11 +541,11 @@ select.text-input {
 }
 
 .mini-option:hover {
-    background: rgba(212, 36, 38, 0.15);
+    background: rgba(20, 184, 166, 0.15);
 }
 
 .mini-option.selected {
-    background: rgba(212, 36, 38, 0.2);
+    background: rgba(20, 184, 166, 0.2);
     color: var(--primary);
 }
 
@@ -638,7 +660,7 @@ select.text-input {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 3px solid rgba(212, 36, 38, 0.2);
+    border: 3px solid rgba(20, 184, 166, 0.2);
     border-top-color: var(--primary);
     animation: spin 0.8s linear infinite;
 }
@@ -659,7 +681,7 @@ select.text-input {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(212, 36, 38, 0.3);
+    background: rgba(20, 184, 166, 0.3);
     border-radius: 3px;
 }
 
@@ -755,7 +777,7 @@ select.text-input {
 }
 
 .sub-tab-btn.active {
-    background: rgba(212, 36, 38, 0.15);
+    background: rgba(20, 184, 166, 0.15);
     color: var(--primary);
 }
 
@@ -791,8 +813,8 @@ select.text-input {
 }
 
 .clear-history-btn {
-    background: rgba(212, 36, 38, 0.1);
-    color: #D42426;
+    background: rgba(20, 184, 166, 0.1);
+    color: #14B8A6;
     border: none;
     border-radius: 8px;
     padding: 4px 10px;
@@ -803,7 +825,7 @@ select.text-input {
 }
 
 .clear-history-btn:hover {
-    background: rgba(212, 36, 38, 0.2);
+    background: rgba(20, 184, 166, 0.2);
     transform: translateY(-1px);
 }
 
@@ -831,7 +853,7 @@ select.text-input {
 }
 
 .history-item:hover {
-    background: rgba(212, 36, 38, 0.08);
+    background: rgba(20, 184, 166, 0.08);
     border-color: var(--primary);
     transform: translateX(4px);
 }
@@ -898,7 +920,7 @@ select.text-input {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #D42426, #ff8080);
+    background: linear-gradient(90deg, #14B8A6, #5EEAD4);
 }
 
 .modal-header {
@@ -952,15 +974,15 @@ select.text-input {
 }
 
 .confirm-btn {
-    background: #D42426;
+    background: #14B8A6;
     color: white;
-    box-shadow: 0 4px 15px rgba(212, 36, 38, 0.2);
+    box-shadow: 0 4px 15px rgba(20, 184, 166, 0.2);
 }
 
 .confirm-btn:hover {
-    background: #e63939;
+    background: #0D9488;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 76, 76, 0.4);
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
 }
 
 .confirm-btn:active {
@@ -986,5 +1008,332 @@ select.text-input {
 
     to {
         opacity: 1;
+    }
+}
+
+/* Theme Toggle */
+.theme-toggle-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.theme-toggle:hover {
+    background: rgba(20, 184, 166, 0.1);
+    border-color: var(--primary);
+}
+
+.theme-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(20deg);
+}
+
+/* Inline Theme Toggle Icon (next to BIN label) */
+.label-with-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.label-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-icon:hover {
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--primary);
+    transform: rotate(15deg);
+}
+
+.theme-toggle-icon:active {
+    transform: scale(0.9);
+}
+
+/* Light mode specific adjustments */
+body.light-mode .tabs-container {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .tab-btn.active {
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .address-card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .result-card {
+    background: rgba(20, 184, 166, 0.05);
+}
+
+body.light-mode .output-container {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode .country-dropdown {
+    box-shadow: 0 -10px 40px var(--dropdown-shadow);
+}
+
+body.light-mode .mini-dropdown {
+    box-shadow: 0 -8px 30px var(--dropdown-shadow);
+}
+
+body.light-mode .modal-overlay {
+    background: var(--modal-overlay);
+}
+
+body.light-mode .history-item {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+body.light-mode .sub-tabs-container {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+body.light-mode .loading-overlay {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+body.light-mode .action-btn.primary-btn {
+    color: #FFFFFF;
+}
+
+body.light-mode .toast {
+    color: #FFFFFF;
+}
+
+body.light-mode .badge {
+    color: #FFFFFF;
+}
+
+body.light-mode .history-badge {
+    color: #FFFFFF;
+}
+
+/* Desktop improvements (768px and up) */
+@media (min-width: 768px) {
+    body {
+        padding: 32px;
+    }
+
+    .container {
+        max-width: 720px;
+        gap: 20px;
+    }
+
+    .address-card {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .field-group {
+        gap: 20px;
+    }
+
+    .field-row.two-col {
+        gap: 20px;
+    }
+
+    .field-row.three-col {
+        gap: 16px;
+    }
+
+    .value-container {
+        padding: 14px 20px;
+    }
+
+    .value {
+        font-size: 1.05rem;
+    }
+
+    .text-input {
+        padding: 14px 18px;
+        font-size: 1.05rem;
+    }
+
+    .action-grid {
+        gap: 16px;
+    }
+
+    .action-btn {
+        min-height: 56px;
+        font-size: 1rem;
+        border-radius: 16px;
+    }
+
+    .country-button {
+        min-height: 56px;
+        padding: 0 22px;
+        font-size: 1.05rem;
+    }
+
+    .tabs-container {
+        padding: 5px;
+        border-radius: 18px;
+    }
+
+    .tab-btn {
+        padding: 16px 24px;
+        font-size: 0.9rem;
+        border-radius: 14px;
+    }
+
+    .output-container {
+        padding: 20px;
+        max-height: 280px;
+        border-radius: 14px;
+    }
+
+    .output-text {
+        font-size: 0.9rem;
+    }
+
+    .stats-row {
+        padding-top: 20px;
+        margin-top: 20px;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    .stat-value {
+        font-size: 1.1rem;
+    }
+
+    .history-list {
+        max-height: 400px;
+    }
+
+    .history-item {
+        padding: 14px 18px;
+        border-radius: 14px;
+    }
+
+    .history-bin {
+        font-size: 1.05rem;
+    }
+
+    .sub-tabs-container {
+        padding: 4px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+    }
+
+    .sub-tab-btn {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+
+    .modal-content {
+        max-width: 420px;
+        padding: 36px;
+    }
+
+    .copy-btn {
+        padding: 10px 14px;
+    }
+
+    .qty-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+    }
+
+    .qty-input {
+        font-size: 1.2rem;
+    }
+
+    .quantity-control {
+        border-radius: 16px;
+    }
+
+    .select-btn {
+        padding: 14px 16px;
+    }
+
+    .theme-toggle-container {
+        margin-bottom: 16px;
+    }
+}
+
+/* Wide screen two-column layout (1024px and up) */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1100px;
+    }
+
+    /* Two-column layout for Tarjetas tab */
+    .tarjetas-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .tarjetas-form-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .tarjetas-results-column {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: sticky;
+        top: 20px;
+    }
+
+    .tarjetas-results-column .output-container {
+        max-height: 340px;
+    }
+
+    .tarjetas-results-column .history-list {
+        max-height: 340px;
+    }
+
+    .tarjetas-form-column .top-actions {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
