@@ -20,11 +20,117 @@
         }
 
         detectCardType(cardNumber) {
-            if (/^5[1-5][0-9]{14}$/.test(cardNumber)) return "Mastercard";
+            // Visa: empieza con 4
             if (/^4[0-9]{12}(?:[0-9]{3})?$/.test(cardNumber)) return "Visa";
+
+            // Mastercard: 51-55 o 2221-2720
+            if (/^5[1-5][0-9]{14}$/.test(cardNumber)) return "Mastercard";
+            if (/^2(?:2(?:2[1-9]|[3-9][0-9])|[3-6][0-9]{2}|7(?:[01][0-9]|20))[0-9]{12}$/.test(cardNumber)) return "Mastercard";
+
+            // American Express: 34 o 37
             if (/^3[47][0-9]{13}$/.test(cardNumber)) return "Amex";
+
+            // Discover: 6011, 622126-622925, 644-649, 65
             if (/^6(?:011|5[0-9]{2})[0-9]{12}$/.test(cardNumber)) return "Discover";
+            if (/^64[4-9][0-9]{13}$/.test(cardNumber)) return "Discover";
+            if (/^6221(?:2[6-9]|[3-9][0-9])[0-9]{10}$/.test(cardNumber)) return "Discover";
+            if (/^622[2-8][0-9]{12}$/.test(cardNumber)) return "Discover";
+            if (/^6229(?:[01][0-9]|2[0-5])[0-9]{10}$/.test(cardNumber)) return "Discover";
+
+            // JCB: 3528-3589
+            if (/^35(?:2[89]|[3-8][0-9])[0-9]{12}$/.test(cardNumber)) return "JCB";
+
+            // Diners Club: 300-305, 36, 38, 39
+            if (/^3(?:0[0-5]|[689])[0-9]{11,14}$/.test(cardNumber)) return "Diners Club";
+
+            // UnionPay: 62, 81
+            if (/^62[0-9]{14,17}$/.test(cardNumber)) return "UnionPay";
+            if (/^81[0-9]{14,17}$/.test(cardNumber)) return "UnionPay";
+
+            // Maestro: 50, 56-69 (12-19 dígitos)
+            if (/^(?:50|5[6-9]|6[0-9])[0-9]{10,17}$/.test(cardNumber)) return "Maestro";
+
+            // Mir (Rusia): 2200-2204
+            if (/^220[0-4][0-9]{12}$/.test(cardNumber)) return "Mir";
+
+            // Elo (Brasil): varios rangos
+            if (/^(?:4011|4312|4389|4514|4576|5041|5066|5067|6277|6362|6363|6504|6505|6506|6507|6509|6516|6550)[0-9]{12}$/.test(cardNumber)) return "Elo";
+
+            // Hipercard (Brasil): 606282
+            if (/^606282[0-9]{10}$/.test(cardNumber)) return "Hipercard";
+
+            // Troy (Turquía): 9792
+            if (/^9792[0-9]{12}$/.test(cardNumber)) return "Troy";
+
+            // RuPay (India): 60, 65, 81, 82, 508
+            if (/^(?:508|60|65|81|82)[0-9]{12,15}$/.test(cardNumber)) return "RuPay";
+
             return "Desconocido";
+        }
+
+        // Detectar tipo de tarjeta desde el prefijo (para mostrar mientras se escribe)
+        detectCardTypeFromPrefix(prefix) {
+            // Limpiar el prefijo de caracteres no numéricos
+            const cleanPrefix = prefix.replace(/[^0-9]/g, '');
+            if (cleanPrefix.length < 1) return null;
+
+            const p = cleanPrefix;
+
+            // Visa: empieza con 4
+            if (/^4/.test(p)) return "Visa";
+
+            // Mastercard: 51-55 o 2221-2720
+            if (/^5[1-5]/.test(p)) return "Mastercard";
+            if (/^2[2-7]/.test(p)) {
+                if (p.length >= 4) {
+                    const fourDigit = parseInt(p.substring(0, 4));
+                    if (fourDigit >= 2221 && fourDigit <= 2720) return "Mastercard";
+                } else if (/^2[2-6]/.test(p) || /^27[0-1]/.test(p)) {
+                    return "Mastercard";
+                }
+            }
+
+            // American Express: 34 o 37
+            if (/^3[47]/.test(p)) return "Amex";
+
+            // JCB: 3528-3589
+            if (/^35[2-8]/.test(p)) return "JCB";
+
+            // Diners Club: 300-305, 36, 38, 39
+            if (/^30[0-5]/.test(p)) return "Diners Club";
+            if (/^3[689]/.test(p)) return "Diners Club";
+
+            // Discover: 6011, 622126-622925, 644-649, 65
+            if (/^6011/.test(p)) return "Discover";
+            if (/^65/.test(p)) return "Discover";
+            if (/^64[4-9]/.test(p)) return "Discover";
+            if (/^622[1-9]/.test(p)) return "Discover";
+
+            // UnionPay: 62
+            if (/^62/.test(p)) return "UnionPay";
+
+            // Maestro: 50, 56-69
+            if (/^50/.test(p)) return "Maestro";
+            if (/^5[6-9]/.test(p)) return "Maestro";
+            if (/^6[0-9]/.test(p) && !/^6011/.test(p) && !/^65/.test(p) && !/^64[4-9]/.test(p) && !/^62/.test(p)) return "Maestro";
+
+            // Mir: 2200-2204
+            if (/^220[0-4]/.test(p)) return "Mir";
+
+            // Hipercard: 606282
+            if (/^6062/.test(p)) return "Hipercard";
+
+            // Troy: 9792
+            if (/^9792/.test(p)) return "Troy";
+
+            // Elo: varios rangos comunes
+            if (/^(4011|4312|4389|4514|4576|5041|5066|5067|6277|6362|6363|6504|6505|6506|6507|6509|6516|6550)/.test(p)) return "Elo";
+
+            // RuPay: 508, 60, 65, 81, 82
+            if (/^508/.test(p)) return "RuPay";
+            if (/^8[12]/.test(p)) return "UnionPay"; // 81, 82 también son UnionPay
+
+            return null;
         }
 
         normalizeBin(bin) {
@@ -325,54 +431,152 @@
     const clearBinBtn = document.getElementById("clear-bin");
     const pasteBinBtn = document.getElementById("paste-bin");
 
-    // Función para procesar el BIN con formato de tuberías
+    // Función inteligente para procesar el BIN desde varios formatos
     function processBinInput(rawValue) {
-        if (!rawValue.includes('|')) return false;
+        let bin = "";
+        let month = "";
+        let year = "";
+        let cvv = "";
+        let extracted = false;
 
-        const parts = rawValue.split('|').map(p => p.trim());
-        console.log("Partes extraídas:", parts);
+        // Limpiar emojis y caracteres especiales para búsqueda
+        const cleanText = rawValue.replace(/[\u{1F300}-\u{1F9FF}]/gu, ' ').replace(/[➡️✅🟢😵‍💫📺🌐]/g, ' ');
 
-        // BIN/Número
-        binInput.value = parts[0] || "";
+        // FORMATO 1: Tubería simple (515462002xxxx|07|32|rnd)
+        const pipeMatch = rawValue.match(/^([0-9xX]{6,19})\|([0-9]{1,2}|rnd|rdn)\|([0-9]{2,4}|rnd|rdn)(?:\|([0-9]{3,4}|rnd|rdn))?$/i);
+        if (pipeMatch) {
+            bin = pipeMatch[1];
+            month = pipeMatch[2];
+            year = pipeMatch[3];
+            cvv = pipeMatch[4] || "";
+            extracted = true;
+        }
 
-        // Mes
-        if (parts[1] !== undefined && parts[1] !== '') {
-            const monthSelect = document.getElementById("month-select");
-            const monthLabel = document.getElementById("month-label");
-            const val = parts[1].toLowerCase() === 'rnd' ? "" : parts[1].padStart(2, '0');
+        // FORMATO 2: Texto complejo con etiquetas (BIN:, FECHA:, CVV:, etc.)
+        if (!extracted) {
+            // Buscar BIN con varios patrones
+            const binPatterns = [
+                /BIN\s*[:\-|]\s*([0-9xX]{6,19})/i,
+                /CARD\s*[:\-|]\s*([0-9xX]{6,19})/i,
+                /CC\s*[:\-|]\s*([0-9xX]{6,19})/i,
+                /TARJETA\s*[:\-|]\s*([0-9xX]{6,19})/i,
+                /N[UÚ]MERO\s*[:\-|]\s*([0-9xX]{6,19})/i
+            ];
+
+            for (const pattern of binPatterns) {
+                const match = cleanText.match(pattern);
+                if (match) {
+                    bin = match[1];
+                    extracted = true;
+                    break;
+                }
+            }
+
+            // Buscar fecha con formato MM/YY o MM/YYYY
+            const datePatterns = [
+                /FECHA\s*[:\-|]\s*([0-9]{1,2})\s*[\/\-]\s*([0-9]{2,4})/i,
+                /DATE\s*[:\-|]\s*([0-9]{1,2})\s*[\/\-]\s*([0-9]{2,4})/i,
+                /EXP(?:IRY)?\s*[:\-|]\s*([0-9]{1,2})\s*[\/\-]\s*([0-9]{2,4})/i,
+                /VENCE?\s*[:\-|]\s*([0-9]{1,2})\s*[\/\-]\s*([0-9]{2,4})/i,
+                /([0-9]{2})\s*[\/\-]\s*([0-9]{2,4})(?:\s|$)/
+            ];
+
+            for (const pattern of datePatterns) {
+                const match = cleanText.match(pattern);
+                if (match) {
+                    month = match[1];
+                    year = match[2];
+                    break;
+                }
+            }
+
+            // Buscar CVV
+            const cvvPatterns = [
+                /CVV\s*[:\-|]\s*([0-9]{3,4}|rnd|rdn)/i,
+                /CVC\s*[:\-|]\s*([0-9]{3,4}|rnd|rdn)/i,
+                /CVV2?\s*[:\-|]\s*([0-9]{3,4}|rnd|rdn)/i,
+                /C[OÓ]DIGO\s*[:\-|]\s*([0-9]{3,4}|rnd|rdn)/i
+            ];
+
+            for (const pattern of cvvPatterns) {
+                const match = cleanText.match(pattern);
+                if (match) {
+                    cvv = match[1];
+                    break;
+                }
+            }
+        }
+
+        // Si no se encontró nada, buscar cualquier secuencia de 6-16 dígitos con x
+        if (!extracted && !bin) {
+            const anyBinMatch = rawValue.match(/([0-9]{6,16}[xX]{0,10}|[0-9xX]{6,19})/);
+            if (anyBinMatch && anyBinMatch[1].replace(/[xX]/g, '').length >= 6) {
+                bin = anyBinMatch[1];
+                extracted = true;
+            }
+        }
+
+        if (!bin && !extracted) return false;
+
+        console.log("Datos extraídos:", { bin, month, year, cvv });
+
+        // Aplicar valores extraídos
+        binInput.value = bin;
+
+        // Aplicar Mes
+        const monthSelect = document.getElementById("month-select");
+        const monthLabel = document.getElementById("month-label");
+        if (month && !/rnd|rdn/i.test(month)) {
+            const monthVal = month.padStart(2, '0');
             if (monthSelect) {
-                monthSelect.value = val;
+                monthSelect.value = monthVal;
                 if (monthSelect.selectedIndex === -1) monthSelect.value = "";
                 const selectedOption = monthSelect.options[monthSelect.selectedIndex];
                 if (monthLabel && selectedOption) monthLabel.textContent = selectedOption.textContent;
             }
         }
 
-        // Año
-        if (parts[2] !== undefined && parts[2] !== '') {
-            const yearSelect = document.getElementById("year-select");
-            const yearLabel = document.getElementById("year-label");
-            let val = parts[2].toLowerCase() === 'rnd' ? "" : parts[2];
-            if (val && val.length === 2) {
-                val = "20" + val;
-            }
+        // Aplicar Año
+        const yearSelect = document.getElementById("year-select");
+        const yearLabel = document.getElementById("year-label");
+        if (year && !/rnd|rdn/i.test(year)) {
+            let yearVal = year;
+            if (yearVal.length === 2) yearVal = "20" + yearVal;
             if (yearSelect) {
-                yearSelect.value = val;
+                yearSelect.value = yearVal;
                 if (yearSelect.selectedIndex === -1) yearSelect.value = "";
                 const selectedOption = yearSelect.options[yearSelect.selectedIndex];
                 if (yearLabel && selectedOption) yearLabel.textContent = selectedOption.textContent;
             }
         }
 
-        // CVV
-        if (parts[3] !== undefined && parts[3] !== '') {
-            const cvvInput = document.getElementById("cvv-input");
-            if (cvvInput) {
-                cvvInput.value = parts[3].toLowerCase() === 'rnd' ? "" : parts[3];
-            }
+        // Aplicar CVV
+        const cvvInputEl = document.getElementById("cvv-input");
+        if (cvv && !/rnd|rdn/i.test(cvv) && cvvInputEl) {
+            cvvInputEl.value = cvv;
         }
 
         return true;
+    }
+
+    // Función para actualizar el badge del tipo de tarjeta en tiempo real
+    function updateBinTypeBadge(binValue) {
+        const badge = document.getElementById("bin-type-badge");
+        if (!badge) return;
+
+        const cleanBin = binValue.replace(/[^0-9]/g, '');
+
+        if (cleanBin.length >= 1) {
+            const cardType = generator.detectCardTypeFromPrefix(cleanBin);
+            if (cardType) {
+                badge.textContent = cardType;
+                badge.style.display = "inline-block";
+                return;
+            }
+        }
+
+        badge.style.display = "none";
+        badge.textContent = "";
     }
 
     if (binInput && clearBinBtn && pasteBinBtn) {
@@ -406,6 +610,7 @@
                         showToast("BIN pegado");
                     }
                     toggleButtons();
+                    updateBinTypeBadge(binInput.value);
                     binInput.focus();
                 } else {
                     showToast("Portapapeles vacío", true);
@@ -428,6 +633,7 @@
                 binInput.value = pastedText;
             }
             toggleButtons();
+            updateBinTypeBadge(binInput.value);
         });
 
         binInput.addEventListener("input", (e) => {
@@ -439,6 +645,7 @@
             }
 
             toggleButtons();
+            updateBinTypeBadge(binInput.value);
         });
 
         clearBinBtn.addEventListener("click", () => {
@@ -467,6 +674,9 @@
             if (cvvInput) {
                 cvvInput.value = "";
             }
+
+            // Limpiar badge del tipo de tarjeta
+            updateBinTypeBadge("");
 
             binInput.focus();
         });
@@ -532,13 +742,18 @@
                 item.cvv || 'Auto'
             ].filter(Boolean).join(' | ');
 
+            const dateObj = new Date(item.timestamp);
+            const dateStr = dateObj.toLocaleDateString([], { day: '2-digit', month: '2-digit' });
+            const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
             div.innerHTML = `
                 <div class="history-info">
                     <span class="history-bin">${item.bin}</span>
                     <span class="history-meta">${item.type} • ${metaStr}</span>
                 </div>
                 <div class="history-date">
-                    ${new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    <span>${dateStr}</span>
+                    <span>${timeStr}</span>
                 </div>
             `;
 
