@@ -566,6 +566,73 @@ select.text-input {
     color: var(--text);
     white-space: pre-wrap;
     word-break: break-all;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Interactive Card Items */
+.card-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.card-item:hover {
+    background: rgba(20, 184, 166, 0.08);
+}
+
+.card-item.last-copied {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.3);
+}
+
+.card-separator {
+    color: var(--text-secondary);
+    opacity: 0.5;
+    margin: 0 2px;
+    pointer-events: none;
+}
+
+.card-number,
+.card-date,
+.card-cvv {
+    transition: all 0.15s ease;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+}
+
+.card-number:hover,
+.card-date:hover,
+.card-cvv:hover {
+    background: rgba(20, 184, 166, 0.25);
+    color: var(--primary);
+}
+
+.card-number:active,
+.card-date:active,
+.card-cvv:active {
+    transform: scale(0.98);
+}
+
+.card-number {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.card-date {
+    color: var(--text-secondary);
+}
+
+.card-cvv {
+    color: var(--text-secondary);
 }
 
 /* Stats */

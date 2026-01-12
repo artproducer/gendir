@@ -267,7 +267,7 @@
                 customCvv: cvv
             });
 
-            // Formatear resultado
+            // Formatear resultado para copiar todo
             lastResult = cards.map(card => {
                 let line = card.number;
                 if (card.month && card.year) line += `|${card.month}|${card.year}`;
@@ -275,7 +275,68 @@
                 return line;
             }).join("\n");
 
-            if (output) output.textContent = lastResult;
+            // Renderizar tarjetas interactivas
+            if (output) {
+                output.innerHTML = '';
+                cards.forEach((card, index) => {
+                    const cardEl = document.createElement('div');
+                    cardEl.className = 'card-item';
+                    cardEl.dataset.index = index;
+
+                    const fullData = `${card.number}|${card.month}|${card.year}|${card.cvv}`;
+                    cardEl.dataset.full = fullData;
+
+                    // Número de tarjeta
+                    const numberSpan = document.createElement('span');
+                    numberSpan.className = 'card-number';
+                    numberSpan.textContent = card.number;
+                    numberSpan.onclick = (e) => {
+                        e.stopPropagation();
+                        copyCardPart(card.number, 'Número copiado', cardEl);
+                    };
+
+                    // Separador
+                    const sep1 = document.createElement('span');
+                    sep1.className = 'card-separator';
+                    sep1.textContent = '|';
+
+                    // Fecha (mes|año)
+                    const dateSpan = document.createElement('span');
+                    dateSpan.className = 'card-date';
+                    dateSpan.textContent = `${card.month}|${card.year.slice(-2)}`;
+                    dateSpan.onclick = (e) => {
+                        e.stopPropagation();
+                        copyCardPart(`${card.month}/${card.year.slice(-2)}`, 'Fecha copiada', cardEl);
+                    };
+
+                    // Separador
+                    const sep2 = document.createElement('span');
+                    sep2.className = 'card-separator';
+                    sep2.textContent = '|';
+
+                    // CVV
+                    const cvvSpan = document.createElement('span');
+                    cvvSpan.className = 'card-cvv';
+                    cvvSpan.textContent = card.cvv;
+                    cvvSpan.onclick = (e) => {
+                        e.stopPropagation();
+                        copyCardPart(card.cvv, 'CVV copiado', cardEl);
+                    };
+
+                    // Doble click para copiar todo
+                    cardEl.ondblclick = () => {
+                        copyCardPart(fullData, 'Tarjeta completa copiada', cardEl);
+                    };
+
+                    cardEl.appendChild(numberSpan);
+                    cardEl.appendChild(sep1);
+                    cardEl.appendChild(dateSpan);
+                    cardEl.appendChild(sep2);
+                    cardEl.appendChild(cvvSpan);
+
+                    output.appendChild(cardEl);
+                });
+            }
 
             // Mostrar estadísticas
             if (statsRow) statsRow.style.display = "flex";
@@ -340,6 +401,25 @@
         setTimeout(() => {
             toast.classList.remove("show");
         }, 2000);
+    }
+
+    // Copiar parte de tarjeta y marcar como última copiada
+    function copyCardPart(text, message, cardElement) {
+        navigator.clipboard.writeText(text).then(() => {
+            // Quitar clase de todas las tarjetas anteriores
+            document.querySelectorAll('.card-item.last-copied').forEach(el => {
+                el.classList.remove('last-copied');
+            });
+
+            // Marcar esta tarjeta como última copiada
+            if (cardElement) {
+                cardElement.classList.add('last-copied');
+            }
+
+            showToast(message);
+        }).catch(() => {
+            showToast("Error al copiar", true);
+        });
     }
 
     // Enter para generar
