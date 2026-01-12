@@ -286,14 +286,38 @@
                     const fullData = `${card.number}|${card.month}|${card.year}|${card.cvv}`;
                     cardEl.dataset.full = fullData;
 
+                    // Helper para agregar long press a un elemento
+                    function addLongPress(element, callback) {
+                        let pressTimer = null;
+                        let longPressTriggered = false;
+
+                        element.addEventListener('touchstart', (e) => {
+                            longPressTriggered = false;
+                            pressTimer = setTimeout(() => {
+                                longPressTriggered = true;
+                                callback(e);
+                            }, 400);
+                        }, { passive: true });
+
+                        element.addEventListener('touchend', () => {
+                            clearTimeout(pressTimer);
+                        });
+
+                        element.addEventListener('touchmove', () => {
+                            clearTimeout(pressTimer);
+                        });
+                    }
+
                     // Número de tarjeta
                     const numberSpan = document.createElement('span');
                     numberSpan.className = 'card-number';
                     numberSpan.textContent = card.number;
-                    numberSpan.onclick = (e) => {
+                    const copyNumber = (e) => {
                         e.stopPropagation();
                         copyCardPart(card.number, 'Número copiado', cardEl);
                     };
+                    numberSpan.onclick = copyNumber;
+                    addLongPress(numberSpan, copyNumber);
 
                     // Separador
                     const sep1 = document.createElement('span');
@@ -304,10 +328,12 @@
                     const dateSpan = document.createElement('span');
                     dateSpan.className = 'card-date';
                     dateSpan.textContent = `${card.month}|${card.year.slice(-2)}`;
-                    dateSpan.onclick = (e) => {
+                    const copyDate = (e) => {
                         e.stopPropagation();
                         copyCardPart(`${card.month}/${card.year.slice(-2)}`, 'Fecha copiada', cardEl);
                     };
+                    dateSpan.onclick = copyDate;
+                    addLongPress(dateSpan, copyDate);
 
                     // Separador
                     const sep2 = document.createElement('span');
@@ -318,10 +344,12 @@
                     const cvvSpan = document.createElement('span');
                     cvvSpan.className = 'card-cvv';
                     cvvSpan.textContent = card.cvv;
-                    cvvSpan.onclick = (e) => {
+                    const copyCvv = (e) => {
                         e.stopPropagation();
                         copyCardPart(card.cvv, 'CVV copiado', cardEl);
                     };
+                    cvvSpan.onclick = copyCvv;
+                    addLongPress(cvvSpan, copyCvv);
 
                     // Doble click para copiar todo
                     cardEl.ondblclick = () => {
