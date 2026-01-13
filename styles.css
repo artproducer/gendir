@@ -114,6 +114,10 @@ body.light-mode {
     gap: 8px;
 }
 
+.field-row.four-col>.field label {
+    padding-left: 8px;
+}
+
 .quantity-control.compact {
     height: 46px;
 }
