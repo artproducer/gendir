@@ -1258,7 +1258,6 @@ select.text-input {
     background: rgba(20, 184, 166, 0.15);
     border-color: var(--primary);
     color: var(--primary);
-    transform: rotate(15deg);
 }
 
 .theme-toggle-icon:active {
