@@ -433,93 +433,93 @@
 
                         </div>
                     </div>
-                </div>
 
-                <!-- Botón generar -->
-                <div class="top-actions">
-                    <div class="action-grid">
-                        <button class="action-btn primary-btn" onclick="generateCards()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                            </svg>
-                            <span data-translate="generate">Generar</span>
-                        </button>
-                        <button class="action-btn" onclick="copyResults()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                            </svg>
-                            <span data-translate="copy_cards">Copiar tarjetas</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: Results -->
-            <div class="tarjetas-results-column">
-                <!-- Sub-tabs Navigation -->
-                <div class="sub-tabs-container">
-                    <button class="sub-tab-btn active" onclick="switchSubTab('resultado')"
-                        data-translate="result">Resultado</button>
-                    <button class="sub-tab-btn" onclick="switchSubTab('historial')">
-                        <span data-translate="history">Historial</span>
-                        <span id="history-badge" class="history-badge" style="display: none;">0</span>
-                    </button>
-                </div>
-
-                <!-- Sub-tabs Content Container -->
-                <div class="sub-tabs-content">
-                    <!-- Resultado -->
-                    <div id="sub-tab-resultado" class="sub-tab-content active">
-                        <div class="address-card result-card">
-                            <div class="field">
-                                <label class="result-header">
-                                    <div class="result-title">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2">
-                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                                        </svg>
-                                        <span data-translate="result">Resultado</span>
-                                        <span id="card-type-badge" class="badge"></span>
-                                    </div>
-                                    <div class="result-stats" id="result-stats" style="display: none;">
-                                        <span class="mini-stat"><span class="stat-value" id="stat-count">0</span>
-                                            <span data-translate="cards_stat">tarjetas</span></span>
-                                        <span class="mini-stat-divider">•</span>
-                                        <span class="mini-stat"><span class="stat-value" id="stat-length">16</span>
-                                            <span data-translate="digits_stat">dígitos</span></span>
-                                    </div>
-                                </label>
-                                <div class="output-container">
-                                    <pre id="output" class="output-text"
-                                        data-translate="empty_result">Ingresa un BIN y genera...</pre>
-                                </div>
-                            </div>
-
+                    <!-- Botón generar -->
+                    <div class="top-actions">
+                        <div class="action-grid">
+                            <button class="action-btn primary-btn" onclick="generateCards()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                </svg>
+                                <span data-translate="generate">Generar</span>
+                            </button>
+                            <button class="action-btn" onclick="copyResults()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                </svg>
+                                <span data-translate="copy_cards">Copiar tarjetas</span>
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Historial -->
-                    <div id="sub-tab-historial" class="sub-tab-content">
-                        <div class="address-card history-card" id="history-section">
-                            <div class="field">
-                                <label class="history-header">
-                                    <div class="header-content">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2">
-                                            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span data-translate="history">Historial</span>
+                <!-- Right Column: Results -->
+                <div class="tarjetas-results-column">
+                    <!-- Sub-tabs Navigation -->
+                    <div class="sub-tabs-container">
+                        <button class="sub-tab-btn active" onclick="switchSubTab('resultado')"
+                            data-translate="result">Resultado</button>
+                        <button class="sub-tab-btn" onclick="switchSubTab('historial')">
+                            <span data-translate="history">Historial</span>
+                            <span id="history-badge" class="history-badge" style="display: none;">0</span>
+                        </button>
+                    </div>
+
+                    <!-- Sub-tabs Content Container -->
+                    <div class="sub-tabs-content">
+                        <!-- Resultado -->
+                        <div id="sub-tab-resultado" class="sub-tab-content active">
+                            <div class="address-card result-card">
+                                <div class="field">
+                                    <label class="result-header">
+                                        <div class="result-title">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                            </svg>
+                                            <span data-translate="result">Resultado</span>
+                                            <span id="card-type-badge" class="badge"></span>
+                                        </div>
+                                        <div class="result-stats" id="result-stats" style="display: none;">
+                                            <span class="mini-stat"><span class="stat-value" id="stat-count">0</span>
+                                                <span data-translate="cards_stat">tarjetas</span></span>
+                                            <span class="mini-stat-divider">•</span>
+                                            <span class="mini-stat"><span class="stat-value" id="stat-length">16</span>
+                                                <span data-translate="digits_stat">dígitos</span></span>
+                                        </div>
+                                    </label>
+                                    <div class="output-container">
+                                        <pre id="output" class="output-text"
+                                            data-translate="empty_result">Ingresa un BIN y genera...</pre>
                                     </div>
-                                    <button class="clear-history-btn" onclick="clearHistory()" title="Borrar historial"
-                                        data-translate-title="clear_history">
-                                        <span data-translate="clear">Borrar</span>
-                                    </button>
-                                </label>
-                                <div id="history-list" class="history-list">
-                                    <!-- History items will be injected here -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Historial -->
+                        <div id="sub-tab-historial" class="sub-tab-content">
+                            <div class="address-card history-card" id="history-section">
+                                <div class="field">
+                                    <label class="history-header">
+                                        <div class="header-content">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span data-translate="history">Historial</span>
+                                        </div>
+                                        <button class="clear-history-btn" onclick="clearHistory()"
+                                            title="Borrar historial" data-translate-title="clear_history">
+                                            <span data-translate="clear">Borrar</span>
+                                        </button>
+                                    </label>
+                                    <div id="history-list" class="history-list">
+                                        <!-- History items will be injected here -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -527,35 +527,34 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Modal de confirmación -->
-    <div class="modal-overlay" id="confirm-modal" hidden>
-        <div class="modal-content">
-            <div class="modal-header">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2">
-                    <path
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-                <h3 id="modal-title" data-translate="modal_clear_title">¿Borrar historial?</h3>
-            </div>
-            <p class="modal-body" id="modal-message" data-translate="modal_clear_message">Esta acción no se puede
-                deshacer y se perderán todos los BINs
-                guardados.</p>
-            <div class="modal-actions">
-                <button class="modal-btn cancel-btn" id="modal-cancel" data-translate="cancel">Cancelar</button>
-                <button class="modal-btn confirm-btn" id="modal-confirm" data-translate="confirm">Confirmar</button>
+        <!-- Modal de confirmación -->
+        <div class="modal-overlay" id="confirm-modal" hidden>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="2">
+                        <path
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <h3 id="modal-title" data-translate="modal_clear_title">¿Borrar historial?</h3>
+                </div>
+                <p class="modal-body" id="modal-message" data-translate="modal_clear_message">Esta acción no se puede
+                    deshacer y se perderán todos los BINs
+                    guardados.</p>
+                <div class="modal-actions">
+                    <button class="modal-btn cancel-btn" id="modal-cancel" data-translate="cancel">Cancelar</button>
+                    <button class="modal-btn confirm-btn" id="modal-confirm" data-translate="confirm">Confirmar</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12" />
-        </svg>
-        <span id="toast-text">¡Copiado!</span>
-    </div>
+        <!-- Toast -->
+        <div class="toast" id="toast">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span id="toast-text">¡Copiado!</span>
+        </div>
     </div>
 
     <script src="offline-database.js"></script>
