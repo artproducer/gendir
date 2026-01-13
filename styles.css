@@ -578,7 +578,7 @@ select.text-input {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 12px;
     padding: 16px;
-    max-height: 220px;
+    max-height: 340px;
     overflow-y: auto;
 }
 
@@ -659,6 +659,41 @@ select.text-input {
     color: var(--text-secondary);
 }
 
+/* Result Header with inline stats */
+.result-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.result-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.result-stats {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+}
+
+.mini-stat {
+    color: var(--text-secondary);
+}
+
+.mini-stat .stat-value {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.mini-stat-divider {
+    color: var(--text-hint);
+    font-size: 0.6rem;
+}
+
 /* Stats */
 .stats-row {
     display: flex;
@@ -670,9 +705,9 @@ select.text-input {
 
 .stat-item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
 .stat-label {
@@ -1318,7 +1353,7 @@ body.light-mode .history-badge {
 
     .output-container {
         padding: 20px;
-        max-height: 280px;
+        max-height: 360px;
         border-radius: 14px;
     }
 
@@ -1424,7 +1459,7 @@ body.light-mode .history-badge {
     }
 
     .tarjetas-results-column .output-container {
-        max-height: 340px;
+        max-height: 500px;
     }
 
     .tarjetas-results-column .history-list {

@@ -440,34 +440,28 @@
                         <div id="sub-tab-resultado" class="sub-tab-content active">
                             <div class="address-card result-card">
                                 <div class="field">
-                                    <label>
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2">
-                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-                                        </svg>
-                                        Resultado
-                                        <span id="card-type-badge" class="badge"></span>
+                                    <label class="result-header">
+                                        <div class="result-title">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                            </svg>
+                                            Resultado
+                                            <span id="card-type-badge" class="badge"></span>
+                                        </div>
+                                        <div class="result-stats" id="result-stats" style="display: none;">
+                                            <span class="mini-stat"><span class="stat-value" id="stat-count">0</span>
+                                                tarjetas</span>
+                                            <span class="mini-stat-divider">•</span>
+                                            <span class="mini-stat"><span class="stat-value" id="stat-length">16</span>
+                                                dígitos</span>
+                                        </div>
                                     </label>
                                     <div class="output-container">
                                         <pre id="output" class="output-text">Ingresa un BIN y genera...</pre>
                                     </div>
                                 </div>
 
-                                <!-- Stats -->
-                                <div class="stats-row" id="stats-row" style="display: none;">
-                                    <div class="stat-item">
-                                        <span class="stat-label">Generadas</span>
-                                        <span class="stat-value" id="stat-count">0</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-label">Tipo</span>
-                                        <span class="stat-value" id="stat-type">-</span>
-                                    </div>
-                                    <div class="stat-item">
-                                        <span class="stat-label">Longitud</span>
-                                        <span class="stat-value" id="stat-length">-</span>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 

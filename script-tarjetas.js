@@ -244,7 +244,7 @@
         const yearSelect = document.getElementById("year-select");
         const cvvInput = document.getElementById("cvv-input");
         const output = document.getElementById("output");
-        const statsRow = document.getElementById("stats-row");
+        const resultStats = document.getElementById("result-stats");
         const badge = document.getElementById("card-type-badge");
 
         const bin = binInput ? binInput.value.trim() : "";
@@ -367,14 +367,12 @@
             }
 
             // Mostrar estadísticas
-            if (statsRow) statsRow.style.display = "flex";
+            if (resultStats) resultStats.style.display = "flex";
 
             const statCount = document.getElementById("stat-count");
-            const statType = document.getElementById("stat-type");
             const statLength = document.getElementById("stat-length");
 
             if (statCount) statCount.textContent = cards.length;
-            if (statType) statType.textContent = cards[0].type;
             if (statLength) statLength.textContent = cards[0].number.length;
 
             if (badge) {
