@@ -309,26 +309,9 @@
                                 </div>
                             </div>
 
-                            <!-- Cantidad -->
-                            <div class="field">
-                                <label>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <line x1="12" y1="1" x2="12" y2="23" />
-                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                                    </svg>
-                                    Cantidad
-                                </label>
-                                <div class="quantity-control">
-                                    <button type="button" class="qty-btn qty-minus" onclick="decrementQty()">−</button>
-                                    <input type="number" id="quantity-input" class="qty-input" value="10" min="1"
-                                        max="50">
-                                    <button type="button" class="qty-btn qty-plus" onclick="incrementQty()">+</button>
-                                </div>
-                            </div>
+                            <!-- Cantidad + Opciones en fila de 4 -->
+                            <div class="field-row four-col">
 
-                            <!-- Opciones en fila de 3 -->
-                            <div class="field-row three-col">
                                 <div class="field">
                                     <label>Mes</label>
                                     <div class="select-wrapper">
@@ -393,6 +376,25 @@
                                             maxlength="4">
                                     </div>
                                 </div>
+                                <div class="field">
+                                    <label>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="1" x2="12" y2="23" />
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                        </svg>
+                                        Cantidad
+                                    </label>
+                                    <div class="quantity-control compact">
+                                        <button type="button" class="qty-btn qty-minus"
+                                            onclick="decrementQty()">−</button>
+                                        <input type="number" id="quantity-input" class="qty-input" value="10" min="1"
+                                            max="50">
+                                        <button type="button" class="qty-btn qty-plus"
+                                            onclick="incrementQty()">+</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
