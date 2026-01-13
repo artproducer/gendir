@@ -568,14 +568,14 @@ select.text-input {
     word-break: break-all;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
 }
 
 /* Interactive Card Items */
 .card-item {
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 2px 10px;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.03);
     transition: all 0.2s ease;
