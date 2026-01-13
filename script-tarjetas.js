@@ -538,7 +538,8 @@
     const pasteBinBtn = document.getElementById("paste-bin");
 
     // Función inteligente para procesar el BIN desde varios formatos
-    function processBinInput(rawValue) {
+    // Solo procesa formatos complejos (con pipes o etiquetas), no BINs simples
+    function processBinInput(rawValue, isManualTyping = false) {
         let bin = "";
         let month = "";
         let year = "";
@@ -613,8 +614,15 @@
             }
         }
 
-        // Si no se encontró nada, buscar cualquier secuencia de 6-16 dígitos con x
-        if (!extracted && !bin) {
+        // Si es escritura manual y no se encontró formato con tuberías ni etiquetas, no hacer nada
+        // Esto permite al usuario escribir y editar libremente el BIN
+        if (isManualTyping && !pipeMatch && !extracted) {
+            return false;
+        }
+
+        // Si no se encontró un formato especial pero hay datos, intentar extraer BIN simple
+        // Solo si NO es escritura manual (es decir, es paste o botón de pegar)
+        if (!extracted && !bin && !isManualTyping) {
             const anyBinMatch = rawValue.match(/([0-9]{6,16}[xX]{0,10}|[0-9xX]{6,19})/);
             if (anyBinMatch && anyBinMatch[1].replace(/[xX]/g, '').length >= 6) {
                 bin = anyBinMatch[1];
@@ -743,11 +751,14 @@
         });
 
         binInput.addEventListener("input", (e) => {
-            const rawValue = binInput.value.trim();
-            console.log("Input detectado:", rawValue);
+            const rawValue = binInput.value;
 
-            if (processBinInput(rawValue)) {
-                showToast("Datos extraídos del BIN");
+            // Solo intentar procesar si parece tener formato especial (pipes o etiquetas)
+            // De lo contrario, dejar que el usuario escriba libremente
+            if (rawValue.includes('|') || /BIN|CARD|CC|TARJETA/i.test(rawValue)) {
+                if (processBinInput(rawValue, true)) {
+                    showToast("Datos extraídos del BIN");
+                }
             }
 
             toggleButtons();
