@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Generador</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 
 </head>
@@ -15,28 +15,35 @@
         <!-- Tabs de navegación -->
         <div class="tabs-header">
             <div class="tabs-container">
-                <button class="tab-btn active" onclick="switchTab('direcciones')">Direcciones</button>
-                <button class="tab-btn" onclick="switchTab('tarjetas')">Tarjetas</button>
+                <button class="tab-btn active" onclick="switchTab('direcciones')"
+                    data-translate="tab_addresses">Direcciones</button>
+                <button class="tab-btn" onclick="switchTab('tarjetas')" data-translate="tab_cards">Tarjetas</button>
             </div>
-            <button type="button" class="theme-toggle-icon" id="theme-toggle-global" onclick="toggleTheme()"
-                title="Cambiar tema">
-                <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2" style="display: none;">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
-                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-            </button>
+            <div class="header-controls">
+                <button type="button" class="lang-toggle" id="lang-toggle" onclick="toggleLanguage()"
+                    title="Change language">
+                    <span class="lang-text" id="lang-text">ES</span>
+                </button>
+                <button type="button" class="theme-toggle-icon" id="theme-toggle-global" onclick="toggleTheme()"
+                    title="Cambiar tema">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" style="display: none;">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- Tab: Direcciones -->
@@ -57,10 +64,10 @@
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                     <circle cx="12" cy="7" r="4" />
                                 </svg>
-                                Nombre Completo
+                                <span data-translate="full_name">Nombre Completo</span>
                             </label>
                             <div class="value-container">
-                                <span id="name" class="value">Toca generar</span>
+                                <span id="name" class="value" data-translate="tap_generate">Toca generar</span>
                                 <button class="copy-btn" onclick="copyToClipboard('name', event)">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
@@ -79,10 +86,10 @@
                                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                                     <circle cx="12" cy="10" r="3" />
                                 </svg>
-                                Dirección
+                                <span data-translate="address">Dirección</span>
                             </label>
                             <div class="value-container">
-                                <span id="street" class="value">Toca generar</span>
+                                <span id="street" class="value" data-translate="tap_generate">Toca generar</span>
                                 <button class="copy-btn" onclick="copyToClipboard('street', event)">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2">
@@ -104,7 +111,7 @@
                                         <path
                                             d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                                     </svg>
-                                    Ciudad
+                                    <span data-translate="city">Ciudad</span>
                                 </label>
                                 <div class="value-container">
                                     <span id="city" class="value">-</span>
@@ -126,7 +133,7 @@
                                         <line x1="3" y1="9" x2="21" y2="9" />
                                         <line x1="9" y1="21" x2="9" y2="9" />
                                     </svg>
-                                    Estado
+                                    <span data-translate="state">Estado</span>
                                 </label>
                                 <div class="value-container">
                                     <span id="state" class="value">-</span>
@@ -150,7 +157,7 @@
                                         <path
                                             d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
                                     </svg>
-                                    Código Postal
+                                    <span data-translate="zip_code">Código Postal</span>
                                 </label>
                                 <div class="value-container">
                                     <span id="zip" class="value">-</span>
@@ -171,7 +178,7 @@
                                         <path
                                             d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                                     </svg>
-                                    Teléfono
+                                    <span data-translate="phone">Teléfono</span>
                                 </label>
                                 <div class="value-container">
                                     <span id="phone" class="value">-</span>
@@ -260,7 +267,7 @@
                             <polyline points="23 4 23 10 17 10" />
                             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
                         </svg>
-                        Generar
+                        <span data-translate="generate">Generar</span>
                     </button>
                     <button class="action-btn" onclick="copyAll()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -268,7 +275,7 @@
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                         </svg>
-                        Copiar todo
+                        <span data-translate="copy_all">Copiar todo</span>
                     </button>
                 </div>
             </div>
@@ -291,7 +298,7 @@
                                             <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
                                             <line x1="1" y1="10" x2="23" y2="10" />
                                         </svg>
-                                        BIN (Primeros 6+ dígitos)
+                                        <span data-translate="bin_label">BIN (Primeros 6+ dígitos)</span>
                                         <span id="bin-type-badge" class="badge bin-badge" style="display: none;"></span>
                                     </span>
                                     <button type="button" class="help-icon-btn" id="bin-help-btn" title="Ayuda">
@@ -308,18 +315,24 @@
                                     <div class="help-tooltip-content">
                                         <button type="button" class="help-close-btn"
                                             id="bin-help-close">&times;</button>
-                                        <p><strong>¿Cómo usar el campo BIN?</strong></p>
+                                        <p><strong data-translate="help_title">¿Cómo usar el campo BIN?</strong></p>
                                         <ul>
-                                            <li>Escribe los primeros 6+ dígitos de una tarjeta</li>
-                                            <li>Usa <code>x</code> para dígitos aleatorios: <code>411111xxxx</code></li>
-                                            <li>Pega texto con formato y se extraerá automáticamente el BIN y fecha</li>
-                                            <li>Ejemplo: "VISA 4111|12/25" detecta BIN, mes y año</li>
+                                            <li data-translate="help_tip1">Escribe los primeros 6+ dígitos de una
+                                                tarjeta</li>
+                                            <li data-translate="help_tip2">Usa <code>x</code> para dígitos aleatorios:
+                                                <code>411111xxxx</code>
+                                            </li>
+                                            <li data-translate="help_tip3">Pega texto con formato y se extraerá
+                                                automáticamente el BIN y fecha</li>
+                                            <li data-translate="help_tip4">Ejemplo: "VISA 4111|12/25" detecta BIN, mes y
+                                                año</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="input-container">
                                     <input type="text" id="bin-input" class="text-input"
-                                        placeholder="Ej: 411111, 551234xx" maxlength="16" style="padding-right: 40px;">
+                                        placeholder="Ej: 411111, 551234xx" data-translate-placeholder="bin_placeholder"
+                                        maxlength="16" style="padding-right: 40px;">
                                     <button id="paste-bin" class="clear-input-btn" title="Pegar">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2">
@@ -337,7 +350,7 @@
                             <div class="field-row four-col">
 
                                 <div class="field">
-                                    <label>Mes</label>
+                                    <label data-translate="month">Mes</label>
                                     <div class="select-wrapper">
                                         <button type="button" class="select-btn" id="month-btn">
                                             <span id="month-label">Auto</span>
@@ -366,7 +379,7 @@
                                 </div>
 
                                 <div class="field">
-                                    <label>Año</label>
+                                    <label data-translate="year">Año</label>
                                     <div class="select-wrapper">
                                         <button type="button" class="select-btn" id="year-btn">
                                             <span id="year-label">Auto</span>
@@ -394,7 +407,7 @@
                                 </div>
 
                                 <div class="field">
-                                    <label>CVV</label>
+                                    <label data-translate="cvv">CVV</label>
                                     <div class="input-container">
                                         <input type="text" id="cvv-input" class="text-input" placeholder="Auto"
                                             maxlength="4">
@@ -409,7 +422,7 @@
                                             <line x1="10" y1="3" x2="8" y2="21" />
                                             <line x1="16" y1="3" x2="14" y2="21" />
                                         </svg>
-                                        Cantidad
+                                        <span data-translate="quantity">Cantidad</span>
                                     </label>
                                     <div class="quantity-control compact">
                                         <button type="button" class="qty-btn qty-minus"
@@ -433,7 +446,7 @@
                                     stroke-width="2">
                                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                                 </svg>
-                                Generar
+                                <span data-translate="generate">Generar</span>
                             </button>
                             <button class="action-btn" onclick="copyResults()">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -441,7 +454,7 @@
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                                 </svg>
-                                Copiar tarjetas
+                                <span data-translate="copy_cards">Copiar tarjetas</span>
                             </button>
                         </div>
                     </div>
@@ -451,9 +464,10 @@
                 <div class="tarjetas-results-column">
                     <!-- Sub-tabs Navigation -->
                     <div class="sub-tabs-container">
-                        <button class="sub-tab-btn active" onclick="switchSubTab('resultado')">Resultado</button>
+                        <button class="sub-tab-btn active" onclick="switchSubTab('resultado')"
+                            data-translate="result">Resultado</button>
                         <button class="sub-tab-btn" onclick="switchSubTab('historial')">
-                            Historial
+                            <span data-translate="history">Historial</span>
                             <span id="history-badge" class="history-badge" style="display: none;">0</span>
                         </button>
                     </div>
@@ -470,19 +484,20 @@
                                                 stroke="currentColor" stroke-width="2">
                                                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
                                             </svg>
-                                            Resultado
+                                            <span data-translate="result">Resultado</span>
                                             <span id="card-type-badge" class="badge"></span>
                                         </div>
                                         <div class="result-stats" id="result-stats" style="display: none;">
                                             <span class="mini-stat"><span class="stat-value" id="stat-count">0</span>
-                                                tarjetas</span>
+                                                <span data-translate="cards_stat">tarjetas</span></span>
                                             <span class="mini-stat-divider">•</span>
                                             <span class="mini-stat"><span class="stat-value" id="stat-length">16</span>
-                                                dígitos</span>
+                                                <span data-translate="digits_stat">dígitos</span></span>
                                         </div>
                                     </label>
                                     <div class="output-container">
-                                        <pre id="output" class="output-text">Ingresa un BIN y genera...</pre>
+                                        <pre id="output" class="output-text"
+                                            data-translate="empty_result">Ingresa un BIN y genera...</pre>
                                     </div>
                                 </div>
 
@@ -499,11 +514,11 @@
                                                 stroke="currentColor" stroke-width="2">
                                                 <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            Historial
+                                            <span data-translate="history">Historial</span>
                                         </div>
                                         <button class="clear-history-btn" onclick="clearHistory()"
-                                            title="Borrar historial">
-                                            Borrar
+                                            title="Borrar historial" data-translate-title="clear_history">
+                                            <span data-translate="clear">Borrar</span>
                                         </button>
                                     </label>
                                     <div id="history-list" class="history-list">
@@ -525,13 +540,14 @@
                         <path
                             d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
-                    <h3 id="modal-title">¿Borrar historial?</h3>
+                    <h3 id="modal-title" data-translate="modal_clear_title">¿Borrar historial?</h3>
                 </div>
-                <p class="modal-body" id="modal-message">Esta acción no se puede deshacer y se perderán todos los BINs
+                <p class="modal-body" id="modal-message" data-translate="modal_clear_message">Esta acción no se puede
+                    deshacer y se perderán todos los BINs
                     guardados.</p>
                 <div class="modal-actions">
-                    <button class="modal-btn cancel-btn" id="modal-cancel">Cancelar</button>
-                    <button class="modal-btn confirm-btn" id="modal-confirm">Confirmar</button>
+                    <button class="modal-btn cancel-btn" id="modal-cancel" data-translate="cancel">Cancelar</button>
+                    <button class="modal-btn confirm-btn" id="modal-confirm" data-translate="confirm">Confirmar</button>
                 </div>
             </div>
         </div>
@@ -603,6 +619,194 @@
                 moonIcons.forEach(icon => icon.style.display = 'block');
             }
         }
+
+        // Translation system
+        const translations = {
+            es: {
+                // Tabs
+                tab_addresses: 'Direcciones',
+                tab_cards: 'Tarjetas',
+
+                // Address fields
+                full_name: 'Nombre Completo',
+                address: 'Dirección',
+                city: 'Ciudad',
+                state: 'Estado',
+                zip_code: 'Código Postal',
+                phone: 'Teléfono',
+                tap_generate: 'Toca generar',
+
+                // Buttons
+                generate: 'Generar',
+                copy_all: 'Copiar todo',
+                copy_cards: 'Copiar tarjetas',
+                cancel: 'Cancelar',
+                confirm: 'Confirmar',
+                clear: 'Borrar',
+
+                // Cards tab
+                bin_label: 'BIN (Primeros 6+ dígitos)',
+                bin_placeholder: 'Ej: 411111, 551234xx',
+                month: 'Mes',
+                year: 'Año',
+                cvv: 'CVV',
+                quantity: 'Cantidad',
+                result: 'Resultado',
+                history: 'Historial',
+                cards_stat: 'tarjetas',
+                digits_stat: 'dígitos',
+                empty_result: 'Ingresa un BIN y genera...',
+
+                // Help tooltip
+                help_title: '¿Cómo usar el campo BIN?',
+                help_tip1: 'Escribe los primeros 6+ dígitos de una tarjeta',
+                help_tip2: 'Usa <code>x</code> para dígitos aleatorios: <code>411111xxxx</code>',
+                help_tip3: 'Pega texto con formato y se extraerá automáticamente el BIN y fecha',
+                help_tip4: 'Ejemplo: "VISA 4111|12/25" detecta BIN, mes y año',
+
+                // Modal
+                modal_clear_title: '¿Borrar historial?',
+                modal_clear_message: 'Esta acción no se puede deshacer y se perderán todos los BINs guardados.',
+                clear_history: 'Borrar historial',
+
+                // Toast messages
+                toast_copied: '¡Copiado!',
+                toast_generated: '¡Generado!',
+                toast_number_copied: 'Número copiado',
+                toast_date_copied: 'Fecha copiada',
+                toast_cvv_copied: 'CVV copiado',
+                toast_full_card_copied: 'Tarjeta completa copiada',
+                toast_data_extracted: 'Datos extraídos del BIN',
+                toast_bin_pasted: 'BIN pegado',
+                toast_clipboard_empty: 'Portapapeles vacío',
+                toast_clipboard_error: 'No se pudo acceder al portapapeles',
+                toast_nothing_to_copy: 'Nada que copiar',
+                toast_copy_error: 'Error al copiar',
+                toast_bin_min_digits: 'El BIN debe tener al menos 6 dígitos'
+            },
+            en: {
+                // Tabs
+                tab_addresses: 'Addresses',
+                tab_cards: 'Cards',
+
+                // Address fields
+                full_name: 'Full Name',
+                address: 'Address',
+                city: 'City',
+                state: 'State',
+                zip_code: 'Zip Code',
+                phone: 'Phone',
+                tap_generate: 'Tap to generate',
+
+                // Buttons
+                generate: 'Generate',
+                copy_all: 'Copy all',
+                copy_cards: 'Copy cards',
+                cancel: 'Cancel',
+                confirm: 'Confirm',
+                clear: 'Clear',
+
+                // Cards tab
+                bin_label: 'BIN (First 6+ digits)',
+                bin_placeholder: 'Ex: 411111, 551234xx',
+                month: 'Month',
+                year: 'Year',
+                cvv: 'CVV',
+                quantity: 'Quantity',
+                result: 'Result',
+                history: 'History',
+                cards_stat: 'cards',
+                digits_stat: 'digits',
+                empty_result: 'Enter a BIN and generate...',
+
+                // Help tooltip
+                help_title: 'How to use the BIN field?',
+                help_tip1: 'Type the first 6+ digits of a card',
+                help_tip2: 'Use <code>x</code> for random digits: <code>411111xxxx</code>',
+                help_tip3: 'Paste formatted text and the BIN and date will be extracted automatically',
+                help_tip4: 'Example: "VISA 4111|12/25" detects BIN, month and year',
+
+                // Modal
+                modal_clear_title: 'Clear history?',
+                modal_clear_message: 'This action cannot be undone and all saved BINs will be lost.',
+                clear_history: 'Clear history',
+
+                // Toast messages
+                toast_copied: 'Copied!',
+                toast_generated: 'Generated!',
+                toast_number_copied: 'Number copied',
+                toast_date_copied: 'Date copied',
+                toast_cvv_copied: 'CVV copied',
+                toast_full_card_copied: 'Full card copied',
+                toast_data_extracted: 'Data extracted from BIN',
+                toast_bin_pasted: 'BIN pasted',
+                toast_clipboard_empty: 'Clipboard empty',
+                toast_clipboard_error: 'Could not access clipboard',
+                toast_nothing_to_copy: 'Nothing to copy',
+                toast_copy_error: 'Copy error',
+                toast_bin_min_digits: 'BIN must have at least 6 digits'
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            localStorage.setItem('language', currentLang);
+            applyLanguage(currentLang);
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            // Update language text
+            const langText = document.getElementById('lang-text');
+            if (langText) {
+                langText.textContent = lang.toUpperCase();
+            }
+
+            // Update all elements with data-translate
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (t[key]) {
+                    // Check if the translation contains HTML (like <code> tags)
+                    if (t[key].includes('<')) {
+                        el.innerHTML = t[key];
+                    } else {
+                        el.textContent = t[key];
+                    }
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-translate-placeholder');
+                if (t[key]) {
+                    el.placeholder = t[key];
+                }
+            });
+
+            // Update titles
+            document.querySelectorAll('[data-translate-title]').forEach(el => {
+                const key = el.getAttribute('data-translate-title');
+                if (t[key]) {
+                    el.title = t[key];
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+
+            // Make translations available globally for JS files
+            window.currentTranslations = t;
+            window.currentLang = lang;
+        }
+
+        // Initialize language on load
+        document.addEventListener('DOMContentLoaded', () => {
+            applyLanguage(currentLang);
+        });
     </script>
 </body>
 

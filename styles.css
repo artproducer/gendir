@@ -833,6 +833,45 @@ select.text-input {
     gap: 12px;
 }
 
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Language Toggle */
+.lang-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 36px;
+}
+
+.lang-toggle:hover {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.lang-toggle:active {
+    transform: scale(0.95);
+}
+
+.lang-text {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
 .tabs-container {
     display: flex;
     flex: 1;
