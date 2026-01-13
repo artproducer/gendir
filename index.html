@@ -284,15 +284,39 @@
                         <div class="field-group">
                             <!-- BIN Input -->
                             <div class="field">
-                                <label>
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                                        <line x1="1" y1="10" x2="23" y2="10" />
-                                    </svg>
-                                    BIN (Primeros 6+ dígitos)
-                                    <span id="bin-type-badge" class="badge bin-badge" style="display: none;"></span>
+                                <label class="bin-label-row">
+                                    <span class="label-content">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                            <line x1="1" y1="10" x2="23" y2="10" />
+                                        </svg>
+                                        BIN (Primeros 6+ dígitos)
+                                        <span id="bin-type-badge" class="badge bin-badge" style="display: none;"></span>
+                                    </span>
+                                    <button type="button" class="help-icon-btn" id="bin-help-btn" title="Ayuda">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                                        </svg>
+                                    </button>
                                 </label>
+                                <!-- Tooltip de ayuda -->
+                                <div class="help-tooltip" id="bin-help-tooltip" hidden>
+                                    <div class="help-tooltip-content">
+                                        <button type="button" class="help-close-btn"
+                                            id="bin-help-close">&times;</button>
+                                        <p><strong>¿Cómo usar el campo BIN?</strong></p>
+                                        <ul>
+                                            <li>Escribe los primeros 6+ dígitos de una tarjeta</li>
+                                            <li>Usa <code>x</code> para dígitos aleatorios: <code>411111xxxx</code></li>
+                                            <li>Pega texto con formato y se extraerá automáticamente el BIN y fecha</li>
+                                            <li>Ejemplo: "VISA 4111|12/25" detecta BIN, mes y año</li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <div class="input-container">
                                     <input type="text" id="bin-input" class="text-input"
                                         placeholder="Ej: 411111, 551234xx" maxlength="16" style="padding-right: 40px;">

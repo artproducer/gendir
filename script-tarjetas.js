@@ -932,4 +932,31 @@
 
     // Inicializar historial al cargar
     renderHistory();
+
+    // --- Tooltip de Ayuda del BIN ---
+    const helpBtn = document.getElementById('bin-help-btn');
+    const helpTooltip = document.getElementById('bin-help-tooltip');
+    const helpCloseBtn = document.getElementById('bin-help-close');
+
+    if (helpBtn && helpTooltip) {
+        helpBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isHidden = helpTooltip.hidden;
+            helpTooltip.hidden = !isHidden;
+        });
+
+        if (helpCloseBtn) {
+            helpCloseBtn.addEventListener('click', () => {
+                helpTooltip.hidden = true;
+            });
+        }
+
+        // Cerrar al hacer click fuera
+        document.addEventListener('click', (e) => {
+            if (!helpTooltip.hidden && !helpBtn.contains(e.target) && !helpTooltip.contains(e.target)) {
+                helpTooltip.hidden = true;
+            }
+        });
+    }
 })();

@@ -1471,3 +1471,131 @@ body.light-mode .history-badge {
         margin-bottom: 0;
     }
 }
+
+/* Help Icon and Tooltip */
+.bin-label-row {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.bin-label-row .label-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.help-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1.5px solid var(--primary);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.help-icon-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.help-icon-btn:hover {
+    background: rgba(20, 184, 166, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.4);
+}
+
+.help-icon-btn:active {
+    transform: scale(0.95);
+}
+
+.help-tooltip {
+    position: relative;
+    margin-top: 8px;
+    animation: fadeIn 0.2s ease;
+}
+
+.help-tooltip[hidden] {
+    display: none;
+}
+
+.help-tooltip-content {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--primary);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.2);
+}
+
+.help-tooltip-content p {
+    margin: 0 0 10px 0;
+    color: var(--text);
+    font-size: 0.85rem;
+}
+
+.help-tooltip-content ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.help-tooltip-content li {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.help-tooltip-content code {
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.help-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.help-close-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--error);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
