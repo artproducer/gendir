@@ -578,7 +578,7 @@ select.text-input {
     background: rgba(0, 0, 0, 0.4);
     border-radius: 12px;
     padding: 16px;
-    max-height: 340px;
+    max-height: 360px;
     overflow-y: auto;
 }
 
@@ -1353,7 +1353,7 @@ body.light-mode .history-badge {
 
     .output-container {
         padding: 20px;
-        max-height: 360px;
+        max-height: 400px;
         border-radius: 14px;
     }
 
@@ -1459,7 +1459,7 @@ body.light-mode .history-badge {
     }
 
     .tarjetas-results-column .output-container {
-        max-height: 500px;
+        max-height: 520px;
     }
 
     .tarjetas-results-column .history-list {
