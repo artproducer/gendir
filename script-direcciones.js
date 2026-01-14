@@ -6,6 +6,7 @@
     const countryLabel = document.getElementById("country-label");
     const countryDropdown = document.getElementById("country-dropdown");
     let dropdownOpen = false;
+    let dropdownBuilt = false; // Cache flag
 
     // Actualizar bandera
     function updateFlag() {
@@ -24,13 +25,26 @@
     function toggleDropdown() {
         dropdownOpen = !dropdownOpen;
         if (dropdownOpen) {
-            buildDropdown();
+            // Solo construir una vez
+            if (!dropdownBuilt) {
+                buildDropdown();
+                dropdownBuilt = true;
+            }
+            updateDropdownSelection(); // Actualizar selección actual
             countryDropdown.classList.add("open");
             countryDropdown.hidden = false;
         } else {
             countryDropdown.classList.remove("open");
             setTimeout(() => { countryDropdown.hidden = true; }, 200);
         }
+    }
+
+    // Actualizar cuál opción está seleccionada (sin reconstruir)
+    function updateDropdownSelection() {
+        if (!countryDropdown || !countrySelect) return;
+        countryDropdown.querySelectorAll('.country-option').forEach(btn => {
+            btn.setAttribute("aria-selected", btn.dataset.value === countrySelect.value ? "true" : "false");
+        });
     }
 
     // Construir dropdown
