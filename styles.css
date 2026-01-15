@@ -922,6 +922,40 @@ select.text-input {
     display: block;
 }
 
+/* Mobile responsive tabs */
+@media (max-width: 480px) {
+    .tabs-header {
+        gap: 6px;
+    }
+
+    .tabs-container {
+        padding: 3px;
+        border-radius: 12px;
+    }
+
+    .tab-btn {
+        padding: 10px 8px;
+        font-size: 0.7rem;
+        letter-spacing: 0.02em;
+        border-radius: 10px;
+    }
+
+    .tab-btn.active {
+        border-width: 1.5px;
+    }
+
+    .lang-toggle {
+        width: 28px;
+        height: 28px;
+        font-size: 0.65rem;
+    }
+
+    .theme-toggle-icon {
+        width: 28px;
+        height: 28px;
+    }
+}
+
 /* History Styles */
 .history-card {
     animation: slideUp 0.4s ease-out;
