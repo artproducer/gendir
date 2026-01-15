@@ -51,7 +51,7 @@ function resizeFakeidCanvas() {
 window.addEventListener('resize', resizeFakeidCanvas);
 
 // ==================== OPTIMIZACIÓN: BUFFER DE DATOS ====================
-let nameBuffer = ["JAMES SMITH", "MARIA GARCIA", "ROBERT JOHNSON", "LINDA MARTINEZ", "MICHAEL BROWN"];
+let nameBuffer = ["MICHAEL BROWN"];
 let faceBuffer = [];
 const MAX_FACES = 10;
 let isLoadingFace = false;
