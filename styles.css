@@ -1643,3 +1643,165 @@ body.light-mode .history-badge {
         transform: translateY(0);
     }
 }
+
+/* ==================== FAKE ID TAB STYLES ==================== */
+
+/* Expand container when Fake ID tab is active */
+#tab-fakeid.active~.container,
+body:has(#tab-fakeid.active) .container {
+    max-width: 1200px;
+}
+
+.fakeid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fakeid-canvas-wrapper {
+    background: var(--surface);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.fakeid-canvas-wrapper canvas {
+    max-width: 100%;
+    height: auto !important;
+    border-radius: 8px;
+}
+
+.fakeid-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fakeid-input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.fakeid-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.fakeid-mini-btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #000;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    white-space: nowrap;
+}
+
+.fakeid-mini-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.25);
+}
+
+.fakeid-mini-btn:active {
+    transform: scale(0.97);
+}
+
+.fakeid-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.fakeid-actions .action-btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+.fakeid-secondary-btn {
+    background: rgba(20, 184, 166, 0.15) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--primary) !important;
+}
+
+.fakeid-secondary-btn:hover {
+    background: rgba(20, 184, 166, 0.25) !important;
+}
+
+/* Light mode adjustments for Fake ID */
+body.light-mode .fakeid-canvas-wrapper {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .fakeid-mini-btn {
+    color: #fff;
+}
+
+/* Desktop layout for Fake ID */
+@media (min-width: 900px) {
+    .fakeid-layout {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .fakeid-canvas-column {
+        grid-column: 1;
+    }
+
+    .fakeid-controls-column {
+        grid-column: 2;
+    }
+
+    .fakeid-input-row {
+        flex-direction: column;
+    }
+
+    .fakeid-btn-group {
+        display: flex;
+        gap: 8px;
+    }
+
+    .fakeid-actions {
+        flex-direction: column;
+    }
+
+    .fakeid-actions .action-btn {
+        width: 100%;
+    }
+}
+
+/* Tablet layout */
+@media (min-width: 600px) and (max-width: 899px) {
+    .fakeid-layout {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .fakeid-input-row {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .fakeid-input-row .text-input {
+        flex: 1;
+    }
+
+    .fakeid-btn-group {
+        flex-shrink: 0;
+    }
+}

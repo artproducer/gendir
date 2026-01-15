@@ -13,6 +13,8 @@
     <link rel="preload" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" as="style">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- Fabric.js for Fake ID canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
 
 </head>
 
@@ -28,6 +30,7 @@
                 <button class="tab-btn active" onclick="switchTab('direcciones')"
                     data-translate="tab_addresses">Direcciones</button>
                 <button class="tab-btn" onclick="switchTab('tarjetas')" data-translate="tab_cards">Tarjetas</button>
+                <button class="tab-btn" onclick="switchTab('fakeid')" data-translate="tab_fakeid">Fake ID</button>
             </div>
             <button type="button" class="theme-toggle-icon" id="theme-toggle-global" onclick="toggleTheme()"
                 title="Cambiar tema">
@@ -533,6 +536,98 @@
             </div>
         </div>
 
+        <!-- Tab: Fake ID -->
+        <div id="tab-fakeid" class="tab-content">
+            <div class="fakeid-layout">
+                <!-- Canvas Area -->
+                <div class="fakeid-canvas-column">
+                    <div class="fakeid-canvas-wrapper">
+                        <canvas id="fakeid-canvas" width="843" height="600"></canvas>
+                    </div>
+                </div>
+
+                <!-- Controls Column -->
+                <div class="fakeid-controls-column">
+                    <div class="address-card fakeid-controls">
+                        <div class="field-group">
+                            <!-- Nombre Input -->
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                    </svg>
+                                    <span data-translate="fakeid_name">Nombre completo</span>
+                                </label>
+                                <div class="fakeid-input-row">
+                                    <input type="text" id="fakeid-nombre" class="text-input"
+                                        placeholder="JOHN DOE SMITH"
+                                        data-translate-placeholder="fakeid_name_placeholder">
+                                    <div class="fakeid-btn-group">
+                                        <button type="button" class="fakeid-mini-btn" id="fakeid-btn-random-name"
+                                            data-translate="random">Random</button>
+                                        <button type="button" class="fakeid-mini-btn" id="fakeid-btn-copy"
+                                            data-translate="copy">Copiar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dirección Input -->
+                            <div class="field">
+                                <label>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                        <circle cx="12" cy="10" r="3" />
+                                    </svg>
+                                    <span data-translate="fakeid_address">Dirección</span>
+                                </label>
+                                <div class="fakeid-input-row">
+                                    <input type="text" id="fakeid-direccion" class="text-input"
+                                        placeholder="Street 12 Avn 4"
+                                        data-translate-placeholder="fakeid_address_placeholder">
+                                    <div class="fakeid-btn-group">
+                                        <button type="button" class="fakeid-mini-btn" id="fakeid-btn-random-address"
+                                            data-translate="random">Random</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="fakeid-actions">
+                            <button type="button" class="action-btn fakeid-secondary-btn" id="fakeid-btn-new-face">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <span data-translate="new_photo">Nueva foto</span>
+                            </button>
+                            <button type="button" class="action-btn fakeid-secondary-btn" id="fakeid-btn-reload">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10" />
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                                </svg>
+                                <span data-translate="reload">Recargar</span>
+                            </button>
+                            <button type="button" class="action-btn primary-btn" id="fakeid-btn-download">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                                <span data-translate="download">Descargar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal de confirmación -->
         <div class="modal-overlay" id="confirm-modal" hidden>
             <div class="modal-content">
@@ -565,6 +660,7 @@
     <script src="offline-database.js"></script>
     <script src="script-direcciones.js"></script>
     <script src="script-tarjetas.js"></script>
+    <script src="script-fakeid.js"></script>
     <script>
         // Función para cambiar entre pestañas
         function switchTab(tabName) {
@@ -582,6 +678,11 @@
 
             // Guardar tab seleccionado
             localStorage.setItem('activeTab', tabName);
+
+            // Initialize Fake ID canvas when switching to that tab
+            if (tabName === 'fakeid' && typeof initFakeidCanvas === 'function') {
+                setTimeout(initFakeidCanvas, 100);
+            }
         }
 
         // Cargar tab guardado al iniciar
@@ -683,7 +784,19 @@
                 toast_clipboard_error: 'No se pudo acceder al portapapeles',
                 toast_nothing_to_copy: 'Nada que copiar',
                 toast_copy_error: 'Error al copiar',
-                toast_bin_min_digits: 'El BIN debe tener al menos 6 dígitos'
+                toast_bin_min_digits: 'El BIN debe tener al menos 6 dígitos',
+
+                // Fake ID
+                tab_fakeid: 'Fake ID',
+                fakeid_name: 'Nombre completo',
+                fakeid_name_placeholder: 'JOHN DOE SMITH',
+                fakeid_address: 'Dirección',
+                fakeid_address_placeholder: 'Calle 12 Av 4',
+                random: 'Aleatorio',
+                copy: 'Copiar',
+                new_photo: 'Nueva foto',
+                reload: 'Recargar',
+                download: 'Descargar'
             },
             en: {
                 // Tabs
@@ -745,7 +858,19 @@
                 toast_clipboard_error: 'Could not access clipboard',
                 toast_nothing_to_copy: 'Nothing to copy',
                 toast_copy_error: 'Copy error',
-                toast_bin_min_digits: 'BIN must have at least 6 digits'
+                toast_bin_min_digits: 'BIN must have at least 6 digits',
+
+                // Fake ID
+                tab_fakeid: 'Fake ID',
+                fakeid_name: 'Full Name',
+                fakeid_name_placeholder: 'JOHN DOE SMITH',
+                fakeid_address: 'Address',
+                fakeid_address_placeholder: 'Street 12 Av 4',
+                random: 'Random',
+                copy: 'Copy',
+                new_photo: 'New Photo',
+                reload: 'Reload',
+                download: 'Download'
             }
         };
 
