@@ -260,8 +260,17 @@ function setupFakeidEvents() {
     });
 
     document.getElementById("fakeid-btn-download").addEventListener("click", () => {
+        // Calculate multiplier to export at original resolution (843x600)
+        // regardless of current zoom/scale
+        const currentZoom = fakeidCanvas.getZoom();
+        const multiplier = 1 / currentZoom;
+
         const link = document.createElement('a');
-        link.href = fakeidCanvas.toDataURL({ format: 'png', quality: 1.0 });
+        link.href = fakeidCanvas.toDataURL({
+            format: 'png',
+            quality: 1.0,
+            multiplier: multiplier
+        });
         link.download = `ID-${randomCode()}.png`;
         link.click();
     });
