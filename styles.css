@@ -1681,16 +1681,25 @@ body.light-mode .history-badge {
 
 /* ==================== FAKE ID TAB STYLES ==================== */
 
-/* Expand container when Fake ID tab is active */
-#tab-fakeid.active~.container,
-body:has(#tab-fakeid.active) .container {
-    max-width: 1200px;
+/* Expand container when Fake ID tab is active - only on wide screens */
+@media (min-width: 1100px) {
+
+    #tab-fakeid.active~.container,
+    body:has(#tab-fakeid.active) .container {
+        max-width: 1200px;
+    }
 }
 
 .fakeid-layout {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
+}
+
+.fakeid-canvas-column,
+.fakeid-controls-column {
+    width: 100%;
 }
 
 .fakeid-canvas-wrapper {
@@ -1793,8 +1802,8 @@ body.light-mode .fakeid-mini-btn {
     color: #fff;
 }
 
-/* Desktop layout for Fake ID */
-@media (min-width: 900px) {
+/* Desktop layout for Fake ID - only activate on wider screens */
+@media (min-width: 1100px) {
     .fakeid-layout {
         display: grid;
         grid-template-columns: 1fr 350px;
@@ -1838,10 +1847,10 @@ body.light-mode .fakeid-mini-btn {
     }
 }
 
-/* Tablet layout */
-@media (min-width: 600px) and (max-width: 899px) {
+/* Tablet/Medium layout - single column centered */
+@media (min-width: 500px) and (max-width: 1099px) {
     .fakeid-layout {
-        max-width: 700px;
+        max-width: 600px;
         margin: 0 auto;
     }
 

@@ -140,7 +140,7 @@ function randomStreet() {
 
 function getRandomBirthDate() {
     const today = new Date();
-    const minDate = new Date(today.getFullYear() - 24, today.getMonth(), today.getDate());
+    const minDate = new Date(today.getFullYear() - 22, today.getMonth(), today.getDate());
     const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
     const randomTime = minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime());
     return new Date(randomTime);
@@ -348,9 +348,15 @@ async function loadFaceFallback() {
     } catch (e) { console.error(e); }
 }
 
-// Initialize when tab is switched to Fake ID
+// Preload data on page load (regardless of active tab)
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we should init on page load
+    // Start prefetching faces immediately
+    prefetchNextFace();
+
+    // Pre-fill name buffer
+    for (let i = 0; i < 5; i++) refillNameBuffer();
+
+    // Initialize canvas if Fake ID tab is already active
     const savedTab = localStorage.getItem('activeTab');
     if (savedTab === 'fakeid') {
         setTimeout(initFakeidCanvas, 100);
