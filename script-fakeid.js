@@ -36,10 +36,13 @@ function initFakeidCanvas() {
 }
 
 function resizeFakeidCanvas() {
-    const wrapper = document.querySelector('.fakeid-canvas-wrapper');
-    if (!wrapper || !fakeidCanvas) return;
-    const width = wrapper.clientWidth - 20;
-    const scale = width / originalWidth;
+    const canvasColumn = document.querySelector('.fakeid-canvas-column');
+    if (!canvasColumn || !fakeidCanvas) return;
+
+    // Get available width from the canvas column
+    const availableWidth = canvasColumn.clientWidth;
+    const maxWidth = Math.min(availableWidth, originalWidth);
+    const scale = maxWidth / originalWidth;
 
     fakeidCanvas.setDimensions({
         width: originalWidth * scale,
@@ -48,7 +51,12 @@ function resizeFakeidCanvas() {
     fakeidCanvas.setZoom(scale);
 }
 
-window.addEventListener('resize', resizeFakeidCanvas);
+// Debounced resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeFakeidCanvas, 100);
+});
 
 // ==================== OPTIMIZACIÓN: BUFFER DE DATOS ====================
 let nameBuffer = ["MICHAEL BROWN"];

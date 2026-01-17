@@ -1703,12 +1703,6 @@ body.light-mode .history-badge {
 }
 
 .fakeid-canvas-wrapper {
-    background: var(--surface);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    padding: 10px;
-    border: 1px solid var(--border);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1719,6 +1713,7 @@ body.light-mode .history-badge {
     max-width: 100%;
     height: auto !important;
     border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
 .fakeid-controls {

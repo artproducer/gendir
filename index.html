@@ -679,8 +679,14 @@
             localStorage.setItem('activeTab', tabName);
 
             // Initialize Fake ID canvas when switching to that tab
-            if (tabName === 'fakeid' && typeof initFakeidCanvas === 'function') {
-                setTimeout(initFakeidCanvas, 100);
+            if (tabName === 'fakeid') {
+                if (typeof initFakeidCanvas === 'function') {
+                    setTimeout(initFakeidCanvas, 100);
+                }
+                // Also resize if canvas already exists
+                if (typeof resizeFakeidCanvas === 'function') {
+                    setTimeout(resizeFakeidCanvas, 150);
+                }
             }
         }
 
