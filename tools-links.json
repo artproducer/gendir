@@ -3,112 +3,134 @@
         {
             "title": "AMZ Alemania",
             "url": "https://www.amazon.de/mc",
-            "icon": "globe"
+            "icon": "globe",
+            "image": "images/logos/amz-alemania.png"
         },
         {
             "title": "Comprar HBO Max",
             "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=hbomaxus",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/comprar-hbo-max.png"
         },
         {
             "title": "Comprar Crunchyroll",
             "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=crunchyrollus",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/comprar-crunchyroll.png"
         },
         {
             "title": "Activar Crunchyroll",
             "url": "https://sso.crunchyroll.com/register/amazon",
-            "icon": "key"
+            "icon": "key",
+            "image": "images/logos/activar-crunchyroll.png"
         },
         {
             "title": "Activar HBO Max",
             "url": "https://www.auth.hbomax.com/providers",
-            "icon": "key"
+            "icon": "key",
+            "image": "images/logos/comprar-hbo-max.png"
         },
         {
             "title": "Agregar CC (USA)",
             "url": "https://www.amazon.com/-/es/cpe/yourpayments/settings/manageoneclick",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/agregar-cc-usa.png"
         },
         {
             "title": "Agregar CC (DE)",
             "url": "https://www.amazon.de/cpe/yourpayments/settings/manageoneclick",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/agregar-cc-de.png"
         },
         {
             "title": "Subscripciones (USA)",
             "url": "https://www.amazon.com/hz5/yourmembershipsandsubscriptions",
-            "icon": "link"
+            "icon": "link",
+            "image": "images/logos/subscripciones-usa.png"
         },
         {
             "title": "Subscripciones (DE)",
             "url": "https://www.amazon.de/hz5/yourmembershipsandsubscriptions",
-            "icon": "link"
+            "icon": "link",
+            "image": "images/logos/subscripciones-de.png"
         },
         {
             "title": "Login Crunchyroll",
             "url": "https://www.crunchyroll.com/login",
-            "icon": "key"
+            "icon": "key",
+            "image": "images/logos/login-crunchyroll.png"
         },
         {
             "title": "Gmail Families",
             "url": "https://myaccount.google.com/family/details?hl=es",
-            "icon": "mail"
+            "icon": "mail",
+            "image": "images/logos/gmail-families.png"
         },
         {
             "title": "Disney+ Devices",
             "url": "https://www.disneyplus.com/identity/manage-devices",
-            "icon": "phone"
+            "icon": "phone",
+            "image": "images/logos/disney-devices.png"
         },
         {
             "title": "Gmail recuperacion",
             "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
-            "icon": "shield"
+            "icon": "shield",
+            "image": "images/logos/gmail-recuperacion.png"
         },
         {
             "title": "Tienda DSORAK",
             "url": "https://dsorak.com",
-            "icon": "globe"
+            "icon": "globe",
+            "image": "images/logos/tienda-dsorak.png"
         },
         {
             "title": "Gmail Dispositivos",
             "url": "https://myaccount.google.com/device-activity",
-            "icon": "phone"
+            "icon": "phone",
+            "image": "images/logos/gmail-dispositivos.png"
         },
         {
             "title": "Prime Video Devices",
             "url": "https://www.primevideo.com/settings/your-devices",
-            "icon": "phone"
+            "icon": "phone",
+            "image": "images/logos/prime-video-devices.png"
         },
         {
             "title": "Netflix Profiles",
             "url": "https://www.netflix.com/account/profiles",
-            "icon": "link"
+            "icon": "link",
+            "image": "images/logos/netflix-profiles.png"
         },
         {
             "title": "Disney Account",
             "url": "https://www.disneyplus.com/es-419/commerce/account",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/disney-account.png"
         },
         {
             "title": "HBO Max Account",
             "url": "https://auth.hbomax.com/account",
-            "icon": "link"
+            "icon": "link",
+            "image": "images/logos/comprar-hbo-max.png"
         },
         {
             "title": "Gmail Inbox",
             "url": "https://mail.google.com/mail/u/0/#inbox?hl=es",
-            "icon": "mail"
+            "icon": "mail",
+            "image": "images/logos/gmail-inbox.png"
         },
         {
             "title": "AMZ Transacciones (USA)",
             "url": "https://www.amazon.com/-/es/cpe/yourpayments/transactions",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/amz-transacciones-usa.png"
         },
         {
             "title": "AMZ Transacciones (DE)",
             "url": "https://www.amazon.de/cpe/yourpayments/transactions",
-            "icon": "credit-card"
+            "icon": "credit-card",
+            "image": "images/logos/amz-transacciones-de.png"
         }
     ]
 }

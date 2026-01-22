@@ -74,7 +74,14 @@ function renderTools(tools) {
     grid.innerHTML = '';
 
     tools.forEach((tool, index) => {
-        const iconSvg = toolIcons[tool.icon] || toolIcons.link;
+        let iconContent;
+
+        if (tool.image) {
+            iconContent = `<img src="${tool.image}" alt="${tool.title}" class="tool-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                           <div class="tool-icon-fallback" style="display:none">${toolIcons[tool.icon] || toolIcons.link}</div>`;
+        } else {
+            iconContent = toolIcons[tool.icon] || toolIcons.link;
+        }
 
         const toolElement = document.createElement('div');
         toolElement.className = 'tool-item';
@@ -82,7 +89,7 @@ function renderTools(tools) {
         toolElement.setAttribute('data-index', index);
 
         toolElement.innerHTML = `
-            <div class="tool-icon">${iconSvg}</div>
+            <div class="tool-icon">${iconContent}</div>
             <div class="tool-info">
                 <div class="tool-title">${tool.title}</div>
                 <div class="tool-url">${tool.url}</div>
