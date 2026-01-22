@@ -1,0 +1,39 @@
+{
+    "tools": [
+        {
+            "title": "AMZ Alemania",
+            "url": "https://www.amazon.de/mc",
+            "icon": "globe"
+        },
+        {
+            "title": "Comprar HBO Max",
+            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=hbomaxus",
+            "icon": "globe"
+        },
+        {
+            "title": "Comprar Crunchyroll",
+            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=crunchyrollus",
+            "icon": "globe"
+        },
+        {
+            "title": "Activar Crunchyroll",
+            "url": "https://sso.crunchyroll.com/register/amazon",
+            "icon": "globe"
+        },
+        {
+            "title": "Activar HBO Max",
+            "url": "https://www.auth.hbomax.com/providers",
+            "icon": "globe"
+        },
+        {
+            "title": "Agregar CC (USA)",
+            "url": "https://www.amazon.com/-/es/cpe/yourpayments/settings/manageoneclick",
+            "icon": "server"
+        },
+        {
+            "title": "Agregar CC (DE)",
+            "url": "https://www.amazon.de/cpe/yourpayments/settings/manageoneclick",
+            "icon": "server"
+        }
+    ]
+}

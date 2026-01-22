@@ -1862,3 +1862,148 @@ body.light-mode .fakeid-mini-btn {
         flex-shrink: 0;
     }
 }
+
+/* ========================================
+   TOOLS TAB STYLES
+   ======================================== */
+
+.tools-container {
+    padding: 0;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tool-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tool-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.15);
+}
+
+.tool-item:hover::before {
+    opacity: 1;
+}
+
+.tool-item:active {
+    transform: scale(0.98);
+}
+
+.tool-item.copied {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: var(--primary);
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(20, 184, 166, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover .tool-icon {
+    background: rgba(20, 184, 166, 0.25);
+    transform: scale(1.05);
+}
+
+.tool-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+}
+
+.tool-info {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.tool-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-url {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+.tool-copy-hint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(20, 184, 166, 0.1);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.tool-item:hover .tool-copy-hint {
+    background: rgba(20, 184, 166, 0.2);
+}
+
+.tool-copy-hint svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Responsive grid for tools */
+@media (min-width: 768px) {
+    .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .tools-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

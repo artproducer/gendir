@@ -31,6 +31,7 @@
                     data-translate="tab_addresses">Direcciones</button>
                 <button class="tab-btn" onclick="switchTab('tarjetas')" data-translate="tab_cards">Tarjetas</button>
                 <button class="tab-btn" onclick="switchTab('fakeid')" data-translate="tab_fakeid">Fake ID</button>
+                <button class="tab-btn" onclick="switchTab('tools')" data-translate="tab_tools">Tools</button>
             </div>
             <button type="button" class="theme-toggle-icon" id="theme-toggle-global" onclick="toggleTheme()"
                 title="Cambiar tema">
@@ -627,6 +628,15 @@
             </div>
         </div>
 
+        <!-- Tab: Tools -->
+        <div id="tab-tools" class="tab-content">
+            <div class="tools-container">
+                <div class="tools-grid" id="tools-grid">
+                    <!-- Links will be loaded from JSON -->
+                </div>
+            </div>
+        </div>
+
         <!-- Modal de confirmación -->
         <div class="modal-overlay" id="confirm-modal" hidden>
             <div class="modal-content">
@@ -660,6 +670,7 @@
     <script src="script-direcciones.js"></script>
     <script src="script-tarjetas.js"></script>
     <script src="script-fakeid.js"></script>
+    <script src="script-tools.js"></script>
     <script>
         // Función para cambiar entre pestañas
         function switchTab(tabName) {
@@ -801,7 +812,12 @@
                 copy: 'Copiar',
                 new_photo: 'Nueva foto',
                 reload: 'Recargar',
-                download: 'Descargar'
+                download: 'Descargar',
+
+                // Tools tab
+                tab_tools: 'Tools',
+                tools_click_to_copy: 'Clic para copiar',
+                toast_link_copied: '¡Link copiado!'
             },
             en: {
                 // Tabs
@@ -875,7 +891,12 @@
                 copy: 'Copy',
                 new_photo: 'New Photo',
                 reload: 'Reload',
-                download: 'Download'
+                download: 'Download',
+
+                // Tools tab
+                tab_tools: 'Tools',
+                tools_click_to_copy: 'Click to copy',
+                toast_link_copied: 'Link copied!'
             }
         };
 
