@@ -104,6 +104,11 @@
             "title": "AMZ Transacciones (USA)",
             "url": "https://www.amazon.com/-/es/cpe/yourpayments/transactions",
             "icon": "credit-card"
+        },
+        {
+            "title": "AMZ Transacciones (DE)",
+            "url": "https://www.amazon.de/cpe/yourpayments/transactions",
+            "icon": "credit-card"
         }
     ]
 }
