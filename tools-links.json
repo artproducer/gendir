@@ -64,6 +64,11 @@
             "title": "Gmail recuperacion",
             "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
             "icon": "globe"
+        },
+        {
+            "title": "Tienda DSORAK",
+            "url": "https://dsorak.com",
+            "icon": "globe"
         }
     ]
 }
