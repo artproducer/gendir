@@ -18,12 +18,12 @@
         {
             "title": "Activar Crunchyroll",
             "url": "https://sso.crunchyroll.com/register/amazon",
-            "icon": "globe"
+            "icon": "key"
         },
         {
             "title": "Activar HBO Max",
             "url": "https://www.auth.hbomax.com/providers",
-            "icon": "globe"
+            "icon": "key"
         },
         {
             "title": "Agregar CC (USA)",
@@ -38,37 +38,42 @@
         {
             "title": "Subscripciones (USA)",
             "url": "https://www.amazon.com/hz5/yourmembershipsandsubscriptions",
-            "icon": "globe"
+            "icon": "link"
         },
         {
             "title": "Subscripciones (DE)",
             "url": "https://www.amazon.de/hz5/yourmembershipsandsubscriptions",
-            "icon": "globe"
+            "icon": "link"
         },
         {
             "title": "Login Crunchyroll",
             "url": "https://www.crunchyroll.com/login",
-            "icon": "globe"
+            "icon": "key"
         },
         {
             "title": "Gmail Families",
             "url": "https://myaccount.google.com/family/details?hl=es",
-            "icon": "globe"
+            "icon": "mail"
         },
         {
             "title": "Disney+ Devices",
             "url": "https://www.disneyplus.com/identity/manage-devices",
-            "icon": "globe"
+            "icon": "phone"
         },
         {
             "title": "Gmail recuperacion",
             "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
-            "icon": "globe"
+            "icon": "shield"
         },
         {
             "title": "Tienda DSORAK",
             "url": "https://dsorak.com",
             "icon": "globe"
+        },
+        {
+            "title": "Gmail Dispositivos",
+            "url": "https://myaccount.google.com/device-activity",
+            "icon": "phone"
         }
     ]
 }

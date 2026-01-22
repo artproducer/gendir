@@ -70,18 +70,17 @@ async function loadTools() {
 function renderTools(tools) {
     const grid = document.getElementById('tools-grid');
     if (!grid) return;
-    
+
     grid.innerHTML = '';
-    
+
     tools.forEach((tool, index) => {
         const iconSvg = toolIcons[tool.icon] || toolIcons.link;
-        const copyHintText = window.currentTranslations?.tools_click_to_copy || 'Click to copy';
-        
+
         const toolElement = document.createElement('div');
         toolElement.className = 'tool-item';
         toolElement.setAttribute('data-url', tool.url);
         toolElement.setAttribute('data-index', index);
-        
+
         toolElement.innerHTML = `
             <div class="tool-icon">${iconSvg}</div>
             <div class="tool-info">
@@ -90,13 +89,12 @@ function renderTools(tools) {
             </div>
             <div class="tool-copy-hint">
                 ${copyIconSvg}
-                <span data-translate="tools_click_to_copy">${copyHintText}</span>
             </div>
         `;
-        
+
         // Add click handler
         toolElement.addEventListener('click', () => copyToolLink(tool.url, toolElement));
-        
+
         grid.appendChild(toolElement);
     });
 }
@@ -105,7 +103,7 @@ function renderTools(tools) {
 function renderToolsError() {
     const grid = document.getElementById('tools-grid');
     if (!grid) return;
-    
+
     grid.innerHTML = `
         <div class="tool-item" style="justify-content: center; cursor: default;">
             <div class="tool-info" style="text-align: center;">
@@ -120,17 +118,17 @@ function renderToolsError() {
 async function copyToolLink(url, element) {
     try {
         await navigator.clipboard.writeText(url);
-        
+
         // Visual feedback
         element.classList.add('copied');
         setTimeout(() => {
             element.classList.remove('copied');
         }, 1000);
-        
+
         // Show toast
         const toastText = window.currentTranslations?.toast_link_copied || 'Link copied!';
         showToolsToast(toastText);
-        
+
     } catch (error) {
         console.error('Failed to copy:', error);
         const errorText = window.currentTranslations?.toast_copy_error || 'Copy error';
@@ -142,7 +140,7 @@ async function copyToolLink(url, element) {
 function showToolsToast(message, isError = false) {
     const toast = document.getElementById('toast');
     const toastText = document.getElementById('toast-text');
-    
+
     if (toast && toastText) {
         toastText.textContent = message;
         toast.classList.remove('error');
@@ -150,7 +148,7 @@ function showToolsToast(message, isError = false) {
             toast.classList.add('error');
         }
         toast.classList.add('show');
-        
+
         setTimeout(() => {
             toast.classList.remove('show');
         }, 2000);
@@ -163,7 +161,7 @@ document.addEventListener('DOMContentLoaded', loadTools);
 // Re-render tools when language changes to update the copy hint text
 const originalApplyLanguage = window.applyLanguage;
 if (typeof originalApplyLanguage === 'function') {
-    window.applyLanguage = function(lang) {
+    window.applyLanguage = function (lang) {
         originalApplyLanguage(lang);
         // Re-load tools to update translations
         loadTools();

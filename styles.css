@@ -1920,9 +1920,9 @@ body.light-mode .fakeid-mini-btn {
 }
 
 .tool-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
     background: rgba(20, 184, 166, 0.15);
     display: flex;
     align-items: center;
@@ -1937,8 +1937,8 @@ body.light-mode .fakeid-mini-btn {
 }
 
 .tool-icon svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     color: var(--primary);
 }
 
@@ -1971,15 +1971,12 @@ body.light-mode .fakeid-mini-btn {
 .tool-copy-hint {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: 10px;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
     background: rgba(20, 184, 166, 0.1);
     color: var(--primary);
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     flex-shrink: 0;
     position: relative;
     z-index: 1;
