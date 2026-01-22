@@ -99,6 +99,11 @@
             "title": "Gmail Inbox",
             "url": "https://mail.google.com/mail/u/0/#inbox?hl=es",
             "icon": "mail"
+        },
+        {
+            "title": "AMZ Transacciones (USA)",
+            "url": "https://www.amazon.com/-/es/cpe/yourpayments/transactions",
+            "icon": "credit-card"
         }
     ]
 }
