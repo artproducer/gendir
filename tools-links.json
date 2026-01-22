@@ -34,6 +34,16 @@
             "title": "Agregar CC (DE)",
             "url": "https://www.amazon.de/cpe/yourpayments/settings/manageoneclick",
             "icon": "credit-card"
+        },
+        {
+            "title": "Subscripciones (USA)",
+            "url": "https://www.amazon.com/hz5/yourmembershipsandsubscriptions",
+            "icon": "credit-card"
+        },
+        {
+            "title": "Subscripciones (DE)",
+            "url": "https://www.amazon.de/hz5/yourmembershipsandsubscriptions",
+            "icon": "credit-card"
         }
     ]
 }
