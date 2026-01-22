@@ -38,12 +38,32 @@
         {
             "title": "Subscripciones (USA)",
             "url": "https://www.amazon.com/hz5/yourmembershipsandsubscriptions",
-            "icon": "credit-card"
+            "icon": "globe"
         },
         {
             "title": "Subscripciones (DE)",
             "url": "https://www.amazon.de/hz5/yourmembershipsandsubscriptions",
-            "icon": "credit-card"
+            "icon": "globe"
+        },
+        {
+            "title": "Login Crunchyroll",
+            "url": "https://www.crunchyroll.com/login",
+            "icon": "globe"
+        },
+        {
+            "title": "Gmail Families",
+            "url": "https://myaccount.google.com/family/details?hl=es",
+            "icon": "globe"
+        },
+        {
+            "title": "Disney+ Devices",
+            "url": "https://www.disneyplus.com/identity/manage-devices",
+            "icon": "globe"
+        },
+        {
+            "title": "Gmail recuperacion",
+            "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
+            "icon": "globe"
         }
     ]
 }
