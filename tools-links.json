@@ -8,12 +8,12 @@
         {
             "title": "Comprar HBO Max",
             "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=hbomaxus",
-            "icon": "globe"
+            "icon": "credit-card"
         },
         {
             "title": "Comprar Crunchyroll",
             "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=crunchyrollus",
-            "icon": "globe"
+            "icon": "credit-card"
         },
         {
             "title": "Activar Crunchyroll",
@@ -28,12 +28,12 @@
         {
             "title": "Agregar CC (USA)",
             "url": "https://www.amazon.com/-/es/cpe/yourpayments/settings/manageoneclick",
-            "icon": "server"
+            "icon": "credit-card"
         },
         {
             "title": "Agregar CC (DE)",
             "url": "https://www.amazon.de/cpe/yourpayments/settings/manageoneclick",
-            "icon": "server"
+            "icon": "credit-card"
         }
     ]
 }
