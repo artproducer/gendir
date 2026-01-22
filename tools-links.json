@@ -74,6 +74,31 @@
             "title": "Gmail Dispositivos",
             "url": "https://myaccount.google.com/device-activity",
             "icon": "phone"
+        },
+        {
+            "title": "Prime Video Devices",
+            "url": "https://www.primevideo.com/settings/your-devices",
+            "icon": "phone"
+        },
+        {
+            "title": "Netflix Profiles",
+            "url": "https://www.netflix.com/account/profiles",
+            "icon": "link"
+        },
+        {
+            "title": "Disney+ Account",
+            "url": "https://www.disneyplus.com/es-419/commerce/account",
+            "icon": "credit-card"
+        },
+        {
+            "title": "HBO Max Account",
+            "url": "https://auth.hbomax.com/account",
+            "icon": "link"
+        },
+        {
+            "title": "Gmail Inbox",
+            "url": "https://mail.google.com/mail/u/0/#inbox?hl=es",
+            "icon": "mail"
         }
     ]
 }
