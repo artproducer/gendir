@@ -42,6 +42,10 @@ const toolIcons = {
     </svg>`,
     tool: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </svg>`,
+    youtube: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"/>
+        <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
     </svg>`
 };
 
@@ -69,7 +73,7 @@ async function loadTools() {
         const data = await response.json();
         allTools = data.tools;
         renderTools(allTools);
-        
+
         // Setup search listener
         setupSearch();
     } catch (error) {
@@ -86,14 +90,14 @@ function setupSearch() {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
-            const filtered = allTools.filter(tool => 
-                tool.title.toLowerCase().includes(query) || 
+            const filtered = allTools.filter(tool =>
+                tool.title.toLowerCase().includes(query) ||
                 tool.url.toLowerCase().includes(query) ||
                 (tool.category && tool.category.toLowerCase().includes(query))
             );
-            
+
             renderTools(filtered, query.length > 0);
-            
+
             // Toggle clear button
             if (clearBtn) {
                 clearBtn.hidden = query.length === 0;
@@ -148,25 +152,25 @@ function renderTools(tools, isSearching = false) {
         const catSection = document.createElement('div');
         catSection.className = 'category-section';
         catSection.style.gridColumn = '1 / -1'; // Span full width
-        
+
         // Hide category header if we are searching and there's only one item? 
         // No, consistency is better. But maybe hide "Otros" if it's the only category?
-        
+
         const catHeader = document.createElement('div');
         catHeader.className = 'category-title';
         catHeader.innerHTML = `
             ${category}
             <span class="category-count">${grouped[category].length}</span>
         `;
-        
+
         // Grid specific for this category
         const catGrid = document.createElement('div');
-        catGrid.className = 'tools-grid inner-grid'; 
+        catGrid.className = 'tools-grid inner-grid';
         // We reuse .tools-grid styles but maybe need to adjust layout since it's nested
         // Actually, we can't nest grids easily if the parent is a grid.
         // Let's change the strategy: 
         // The main container shouldn't be the grid if we use headers.
-        
+
         // Better strategy:
         // Main container (tools-container) -> [ Header, Grid, Header, Grid ... ]
     });
@@ -174,7 +178,7 @@ function renderTools(tools, isSearching = false) {
     // REVISION: The original HTML has #tools-grid as a grid container.
     // If we want headers inside, we should probably change #tools-grid to be a flex column 
     // and have sub-grids. OR, we make #tools-grid display: block, and inside we put sections.
-    
+
     // Let's override #tools-grid style inline to display block if we use categories
     container.style.display = 'block';
 
@@ -190,14 +194,14 @@ function renderTools(tools, isSearching = false) {
                 <!-- items go here -->
             </div>
         `;
-        
+
         const gridInner = section.querySelector('.tools-grid-inner');
-        
+
         grouped[category].forEach(tool => {
             const toolElement = createToolElement(tool);
             gridInner.appendChild(toolElement);
         });
-        
+
         container.appendChild(section);
     });
 }
@@ -236,7 +240,7 @@ function createToolElement(tool) {
     toolElement.addEventListener('click', (e) => {
         // Prevent if clicked on open button
         if (e.target.closest('.tool-open-btn')) return;
-        
+
         copyToolLink(tool.url, toolElement);
     });
 
@@ -274,7 +278,7 @@ async function copyToolLink(url, element) {
 
         // Visual feedback
         element.classList.add('copied');
-        
+
         // Also animate the copy button
         const copyBtn = element.querySelector('.tool-copy-btn');
         if (copyBtn) {
