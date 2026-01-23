@@ -153,6 +153,13 @@
             "icon": "credit-card",
             "image": "images/logos/amz-transacciones-de.png",
             "category": "Amazon"
+        },
+        {
+            "title": "YouTube Premium",
+            "url": "https://www.youtube.com/premium",
+            "icon": "play",
+            "image": "images/logos/youtube-premium.png",
+            "category": "Streaming"
         }
     ]
 }
