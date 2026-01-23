@@ -157,7 +157,7 @@
         {
             "title": "YouTube Premium",
             "url": "https://www.youtube.com/premium",
-            "icon": "youtube",
+            "icon": "play",
             "image": "images/logos/youtube-premium.png",
             "category": "Streaming"
         }
