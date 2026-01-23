@@ -45,11 +45,19 @@ const toolIcons = {
     </svg>`
 };
 
-// Copy icon SVG
-const copyIconSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+// Icons (Copy / Open)
+const copyIconSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
 </svg>`;
+
+const openIconSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+    <polyline points="15 3 21 3 21 9"></polyline>
+    <line x1="10" y1="14" x2="21" y2="3"></line>
+</svg>`;
+
+let allTools = [];
 
 // Load tools from JSON file
 async function loadTools() {
@@ -59,51 +67,189 @@ async function loadTools() {
             throw new Error('Failed to load tools config');
         }
         const data = await response.json();
-        renderTools(data.tools);
+        allTools = data.tools;
+        renderTools(allTools);
+        
+        // Setup search listener
+        setupSearch();
     } catch (error) {
         console.error('Error loading tools:', error);
         renderToolsError();
     }
 }
 
+// Setup search functionality
+function setupSearch() {
+    const searchInput = document.getElementById('tools-search');
+    const clearBtn = document.getElementById('clear-search');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allTools.filter(tool => 
+                tool.title.toLowerCase().includes(query) || 
+                tool.url.toLowerCase().includes(query) ||
+                (tool.category && tool.category.toLowerCase().includes(query))
+            );
+            
+            renderTools(filtered, query.length > 0);
+            
+            // Toggle clear button
+            if (clearBtn) {
+                clearBtn.hidden = query.length === 0;
+            }
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.focus();
+            }
+        });
+    }
+}
+
 // Render tools to the grid
-function renderTools(tools) {
-    const grid = document.getElementById('tools-grid');
-    if (!grid) return;
+function renderTools(tools, isSearching = false) {
+    const container = document.getElementById('tools-grid');
+    if (!container) return;
 
-    grid.innerHTML = '';
+    container.innerHTML = '';
 
-    tools.forEach((tool, index) => {
-        let iconContent;
-
-        if (tool.image) {
-            iconContent = `<img src="${tool.image}" alt="${tool.title}" class="tool-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                           <div class="tool-icon-fallback" style="display:none">${toolIcons[tool.icon] || toolIcons.link}</div>`;
-        } else {
-            iconContent = toolIcons[tool.icon] || toolIcons.link;
-        }
-
-        const toolElement = document.createElement('div');
-        toolElement.className = 'tool-item';
-        toolElement.setAttribute('data-url', tool.url);
-        toolElement.setAttribute('data-index', index);
-
-        toolElement.innerHTML = `
-            <div class="tool-icon">${iconContent}</div>
-            <div class="tool-info">
-                <div class="tool-title">${tool.title}</div>
-                <div class="tool-url">${tool.url}</div>
-            </div>
-            <div class="tool-copy-hint">
-                ${copyIconSvg}
+    if (tools.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-secondary);">
+                <p>No se encontraron herramientas</p>
             </div>
         `;
+        return;
+    }
 
-        // Add click handler
-        toolElement.addEventListener('click', () => copyToolLink(tool.url, toolElement));
+    // Group by category if available and NOT searching (or if searching but we want to keep structure)
+    // Actually, let's group by category always, defaulting to "Otros"
+    const grouped = tools.reduce((acc, tool) => {
+        const cat = tool.category || 'Otros';
+        if (!acc[cat]) acc[cat] = [];
+        acc[cat].push(tool);
+        return acc;
+    }, {});
 
-        grid.appendChild(toolElement);
+    // Sort categories (optional: prioritized order?)
+    const categories = Object.keys(grouped).sort();
+
+    // If searching, we might want to just show a flat list if results are few, or keep categories.
+    // Let's keep categories for better organization even in search.
+
+    categories.forEach(category => {
+        // Create category header
+        const catSection = document.createElement('div');
+        catSection.className = 'category-section';
+        catSection.style.gridColumn = '1 / -1'; // Span full width
+        
+        // Hide category header if we are searching and there's only one item? 
+        // No, consistency is better. But maybe hide "Otros" if it's the only category?
+        
+        const catHeader = document.createElement('div');
+        catHeader.className = 'category-title';
+        catHeader.innerHTML = `
+            ${category}
+            <span class="category-count">${grouped[category].length}</span>
+        `;
+        
+        // Grid specific for this category
+        const catGrid = document.createElement('div');
+        catGrid.className = 'tools-grid inner-grid'; 
+        // We reuse .tools-grid styles but maybe need to adjust layout since it's nested
+        // Actually, we can't nest grids easily if the parent is a grid.
+        // Let's change the strategy: 
+        // The main container shouldn't be the grid if we use headers.
+        
+        // Better strategy:
+        // Main container (tools-container) -> [ Header, Grid, Header, Grid ... ]
     });
+
+    // REVISION: The original HTML has #tools-grid as a grid container.
+    // If we want headers inside, we should probably change #tools-grid to be a flex column 
+    // and have sub-grids. OR, we make #tools-grid display: block, and inside we put sections.
+    
+    // Let's override #tools-grid style inline to display block if we use categories
+    container.style.display = 'block';
+
+    categories.forEach(category => {
+        const section = document.createElement('div');
+        section.className = 'category-section';
+        section.innerHTML = `
+            <div class="category-title">
+                ${category}
+                <span class="category-count">${grouped[category].length}</span>
+            </div>
+            <div class="tools-grid-inner" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;">
+                <!-- items go here -->
+            </div>
+        `;
+        
+        const gridInner = section.querySelector('.tools-grid-inner');
+        
+        grouped[category].forEach(tool => {
+            const toolElement = createToolElement(tool);
+            gridInner.appendChild(toolElement);
+        });
+        
+        container.appendChild(section);
+    });
+}
+
+function createToolElement(tool) {
+    let iconContent;
+
+    if (tool.image) {
+        iconContent = `<img src="${tool.image}" alt="${tool.title}" class="tool-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                       <div class="tool-icon-fallback" style="display:none">${toolIcons[tool.icon] || toolIcons.link}</div>`;
+    } else {
+        iconContent = toolIcons[tool.icon] || toolIcons.link;
+    }
+
+    const toolElement = document.createElement('div');
+    toolElement.className = 'tool-item';
+    toolElement.setAttribute('data-url', tool.url);
+
+    toolElement.innerHTML = `
+        <div class="tool-icon">${iconContent}</div>
+        <div class="tool-info">
+            <div class="tool-title">${tool.title}</div>
+            <div class="tool-url">${tool.url}</div>
+        </div>
+        <div class="tool-actions">
+            <button class="tool-action-btn tool-copy-btn" title="Copiar enlace">
+                ${copyIconSvg}
+            </button>
+            <button class="tool-action-btn tool-open-btn" title="Abrir en nueva pestaña">
+                ${openIconSvg}
+            </button>
+        </div>
+    `;
+
+    // Click handler for the whole card updates copy
+    toolElement.addEventListener('click', (e) => {
+        // Prevent if clicked on open button
+        if (e.target.closest('.tool-open-btn')) return;
+        
+        copyToolLink(tool.url, toolElement);
+    });
+
+    // Open button handler
+    const openBtn = toolElement.querySelector('.tool-open-btn');
+    if (openBtn) {
+        openBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(tool.url, '_blank');
+        });
+    }
+
+    return toolElement;
 }
 
 // Render error state
@@ -128,6 +274,16 @@ async function copyToolLink(url, element) {
 
         // Visual feedback
         element.classList.add('copied');
+        
+        // Also animate the copy button
+        const copyBtn = element.querySelector('.tool-copy-btn');
+        if (copyBtn) {
+            copyBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`; // Check icon
+            setTimeout(() => {
+                copyBtn.innerHTML = copyIconSvg;
+            }, 1000);
+        }
+
         setTimeout(() => {
             element.classList.remove('copied');
         }, 1000);
