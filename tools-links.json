@@ -160,6 +160,13 @@
             "icon": "play",
             "image": "images/logos/youtube-premium-icon.png",
             "category": "Streaming"
+        },
+        {
+            "title": "Crunchyroll Password",
+            "url": "https://www.crunchyroll.com/es-es/account/password",
+            "icon": "key",
+            "image": "images/logos/login-crunchyroll.png",
+            "category": "Streaming"
         }
     ]
 }
