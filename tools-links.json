@@ -170,7 +170,7 @@
         },
         {
             "title": "Apple iForgot",
-            "url": "https://iforgot.apple.com/",
+            "url": "https://iforgot.apple.com/password/verify/appleid",
             "icon": "key",
             "image": "images/logos/apple-logo.png",
             "category": "Apple"
