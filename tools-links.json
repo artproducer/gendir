@@ -8,34 +8,6 @@
             "category": "Amazon"
         },
         {
-            "title": "Comprar HBO Max",
-            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=hbomaxus",
-            "icon": "credit-card",
-            "image": "images/logos/comprar-hbo-max.png",
-            "category": "Streaming"
-        },
-        {
-            "title": "Comprar Crunchyroll",
-            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=crunchyrollus",
-            "icon": "credit-card",
-            "image": "images/logos/comprar-crunchyroll.png",
-            "category": "Streaming"
-        },
-        {
-            "title": "Activar Crunchyroll",
-            "url": "https://sso.crunchyroll.com/register/amazon",
-            "icon": "key",
-            "image": "images/logos/activar-crunchyroll.png",
-            "category": "Streaming"
-        },
-        {
-            "title": "Activar HBO Max",
-            "url": "https://www.auth.hbomax.com/providers",
-            "icon": "key",
-            "image": "images/logos/comprar-hbo-max.png",
-            "category": "Streaming"
-        },
-        {
             "title": "Agregar CC (USA)",
             "url": "https://www.amazon.com/-/es/cpe/yourpayments/settings/manageoneclick",
             "icon": "credit-card",
@@ -64,6 +36,41 @@
             "category": "Amazon"
         },
         {
+            "title": "AMZ Transacciones (USA)",
+            "url": "https://www.amazon.com/-/es/cpe/yourpayments/transactions",
+            "icon": "credit-card",
+            "image": "images/logos/amz-transacciones-usa.png",
+            "category": "Amazon"
+        },
+        {
+            "title": "AMZ Transacciones (DE)",
+            "url": "https://www.amazon.de/cpe/yourpayments/transactions",
+            "icon": "credit-card",
+            "image": "images/logos/amz-transacciones-de.png",
+            "category": "Amazon"
+        },
+        {
+            "title": "Comprar HBO Max",
+            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=hbomaxus",
+            "icon": "credit-card",
+            "image": "images/logos/comprar-hbo-max.png",
+            "category": "Streaming"
+        },
+        {
+            "title": "Comprar Crunchyroll",
+            "url": "https://www.amazon.com/-/es/gp/video/signup?benefitId=crunchyrollus",
+            "icon": "credit-card",
+            "image": "images/logos/comprar-crunchyroll.png",
+            "category": "Streaming"
+        },
+        {
+            "title": "Activar Crunchyroll",
+            "url": "https://sso.crunchyroll.com/register/amazon",
+            "icon": "key",
+            "image": "images/logos/activar-crunchyroll.png",
+            "category": "Streaming"
+        },
+        {
             "title": "Login Crunchyroll",
             "url": "https://www.crunchyroll.com/login",
             "icon": "key",
@@ -71,11 +78,25 @@
             "category": "Streaming"
         },
         {
-            "title": "Gmail Families",
-            "url": "https://myaccount.google.com/family/details?hl=es",
-            "icon": "mail",
-            "image": "images/logos/gmail-families.png",
-            "category": "Google"
+            "title": "Crunchyroll Password",
+            "url": "https://www.crunchyroll.com/es-es/account/password",
+            "icon": "key",
+            "image": "images/logos/login-crunchyroll.png",
+            "category": "Streaming"
+        },
+        {
+            "title": "Activar HBO Max",
+            "url": "https://www.auth.hbomax.com/providers",
+            "icon": "key",
+            "image": "images/logos/comprar-hbo-max.png",
+            "category": "Streaming"
+        },
+        {
+            "title": "HBO Max Account",
+            "url": "https://auth.hbomax.com/account",
+            "icon": "link",
+            "image": "images/logos/comprar-hbo-max.png",
+            "category": "Streaming"
         },
         {
             "title": "Disney+ Devices",
@@ -85,25 +106,11 @@
             "category": "Streaming"
         },
         {
-            "title": "Gmail recuperacion",
-            "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
-            "icon": "shield",
-            "image": "images/logos/gmail-recuperacion.png",
-            "category": "Google"
-        },
-        {
-            "title": "Tienda DSORAK",
-            "url": "https://dsorak.com",
-            "icon": "globe",
-            "image": "images/logos/tienda-dsorak.png",
-            "category": "Utils"
-        },
-        {
-            "title": "Gmail Dispositivos",
-            "url": "https://myaccount.google.com/device-activity",
-            "icon": "phone",
-            "image": "images/logos/gmail-dispositivos.png",
-            "category": "Google"
+            "title": "Disney Account",
+            "url": "https://www.disneyplus.com/es-419/commerce/account",
+            "icon": "credit-card",
+            "image": "images/logos/disney-account.png",
+            "category": "Streaming"
         },
         {
             "title": "Prime Video Devices",
@@ -120,17 +127,17 @@
             "category": "Streaming"
         },
         {
-            "title": "Disney Account",
-            "url": "https://www.disneyplus.com/es-419/commerce/account",
-            "icon": "credit-card",
-            "image": "images/logos/disney-account.png",
+            "title": "YouTube Premium",
+            "url": "https://www.youtube.com/premium",
+            "icon": "play",
+            "image": "images/logos/youtube-premium-icon.png",
             "category": "Streaming"
         },
         {
-            "title": "HBO Max Account",
-            "url": "https://auth.hbomax.com/account",
-            "icon": "link",
-            "image": "images/logos/comprar-hbo-max.png",
+            "title": "Paramount+ Account",
+            "url": "https://www.paramountplus.com/account/",
+            "icon": "user",
+            "image": "images/logos/paramount-plus.png",
             "category": "Streaming"
         },
         {
@@ -141,32 +148,45 @@
             "category": "Google"
         },
         {
-            "title": "AMZ Transacciones (USA)",
-            "url": "https://www.amazon.com/-/es/cpe/yourpayments/transactions",
-            "icon": "credit-card",
-            "image": "images/logos/amz-transacciones-usa.png",
-            "category": "Amazon"
+            "title": "Gmail Families",
+            "url": "https://myaccount.google.com/family/details?hl=es",
+            "icon": "mail",
+            "image": "images/logos/gmail-families.png",
+            "category": "Google"
         },
         {
-            "title": "AMZ Transacciones (DE)",
-            "url": "https://www.amazon.de/cpe/yourpayments/transactions",
-            "icon": "credit-card",
-            "image": "images/logos/amz-transacciones-de.png",
-            "category": "Amazon"
+            "title": "Gmail recuperacion",
+            "url": "https://myaccount.google.com/recovery/email?continue=https://myaccount.google.com/security",
+            "icon": "shield",
+            "image": "images/logos/gmail-recuperacion.png",
+            "category": "Google"
         },
         {
-            "title": "YouTube Premium",
-            "url": "https://www.youtube.com/premium",
-            "icon": "play",
-            "image": "images/logos/youtube-premium-icon.png",
-            "category": "Streaming"
+            "title": "Gmail Dispositivos",
+            "url": "https://myaccount.google.com/device-activity",
+            "icon": "phone",
+            "image": "images/logos/gmail-dispositivos.png",
+            "category": "Google"
         },
         {
-            "title": "Crunchyroll Password",
-            "url": "https://www.crunchyroll.com/es-es/account/password",
+            "title": "Apple iForgot",
+            "url": "https://iforgot.apple.com/",
             "icon": "key",
-            "image": "images/logos/login-crunchyroll.png",
-            "category": "Streaming"
+            "image": "images/logos/apple-logo.png",
+            "category": "Apple"
+        },
+        {
+            "title": "Tienda DSORAK",
+            "url": "https://dsorak.com",
+            "icon": "globe",
+            "image": "images/logos/tienda-dsorak.png",
+            "category": "Utils"
+        },
+        {
+            "title": "Medios de Pago",
+            "url": "*MEDIOS DE PAGO*\n\nNequi, Dale, Llave o Daviplata: 3005965404\n\n_Recuerda enviar foto del comprobante para confirmar tu pago._😃👌",
+            "icon": "credit-card",
+            "category": "Utils"
         }
     ]
 }

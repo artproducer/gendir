@@ -247,10 +247,15 @@ function createToolElement(tool) {
     // Open button handler
     const openBtn = toolElement.querySelector('.tool-open-btn');
     if (openBtn) {
-        openBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            window.open(tool.url, '_blank');
-        });
+        // Hide open button if it's not a valid URL
+        if (!tool.url.match(/^https?:\/\//i)) {
+            openBtn.style.display = 'none';
+        } else {
+            openBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.open(tool.url, '_blank');
+            });
+        }
     }
 
     return toolElement;
