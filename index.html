@@ -74,15 +74,38 @@
                                 </svg>
                                 <span data-translate="full_name">Nombre Completo</span>
                             </label>
-                            <div class="value-container">
+                            <div class="value-container name-value-container">
                                 <span id="name" class="value" data-translate="tap_generate">Toca generar</span>
-                                <button class="copy-btn" onclick="copyToClipboard('name', event)">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                                    </svg>
-                                </button>
+                                <span id="name-first" style="display:none"></span>
+                                <span id="name-last" style="display:none"></span>
+                                <div class="name-copy-btns">
+                                    <button class="copy-btn name-part-btn" onclick="copyNamePart('first', event)"
+                                        title="Copiar nombre">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                        <span class="name-part-label" data-translate="first_name">Nombre</span>
+                                    </button>
+                                    <button class="copy-btn name-part-btn" onclick="copyNamePart('last', event)"
+                                        title="Copiar apellido">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                        <span class="name-part-label" data-translate="last_name">Apellido</span>
+                                    </button>
+                                    <button class="copy-btn" onclick="copyToClipboard('name', event)"
+                                        title="Copiar nombre completo">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -763,6 +786,8 @@
 
                 // Address fields
                 full_name: 'Nombre Completo',
+                first_name: 'Nombre',
+                last_name: 'Apellido',
                 address: 'Dirección',
                 city: 'Ciudad',
                 state: 'Estado',
@@ -842,6 +867,8 @@
 
                 // Address fields
                 full_name: 'Full Name',
+                first_name: 'First',
+                last_name: 'Last',
                 address: 'Address',
                 city: 'City',
                 state: 'State',

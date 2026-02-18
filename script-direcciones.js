@@ -110,6 +110,12 @@
             const address = generateAddress(country);
 
             document.getElementById("name").textContent = address.name;
+            // Store first/last name separately for individual copy
+            const firstEl = document.getElementById("name-first");
+            const lastEl = document.getElementById("name-last");
+            if (firstEl) firstEl.textContent = address.firstName || '';
+            if (lastEl) lastEl.textContent = address.lastName || '';
+
             document.getElementById("street").textContent = address.street;
             document.getElementById("city").textContent = address.city;
             document.getElementById("state").textContent = address.state;
@@ -126,6 +132,8 @@
         if (typeof getRandomOfflineAddress === 'function') {
             const data = getRandomOfflineAddress(country);
             return {
+                firstName: data.firstName,
+                lastName: data.lastName,
                 name: `${data.firstName} ${data.lastName}`,
                 street: `${data.streetNumber} ${data.streetName}`,
                 city: data.city,
@@ -137,6 +145,8 @@
 
         // Fallback
         return {
+            firstName: "John",
+            lastName: "Doe",
             name: "John Doe",
             street: "123 Main Street",
             city: "New York",
@@ -223,6 +233,20 @@
         const text = element.textContent;
         navigator.clipboard.writeText(text).then(() => {
             showToast("¡Copiado!");
+        }).catch(() => {
+            showToast("Error al copiar", true);
+        });
+    };
+
+    // Copiar parte del nombre (first / last)
+    window.copyNamePart = function (part, event) {
+        if (event) event.stopPropagation();
+        const el = document.getElementById(part === 'first' ? 'name-first' : 'name-last');
+        if (!el) return;
+        const text = el.textContent.trim();
+        if (!text) { showToast("Nada que copiar", true); return; }
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(part === 'first' ? "Nombre copiado" : "Apellido copiado");
         }).catch(() => {
             showToast("Error al copiar", true);
         });

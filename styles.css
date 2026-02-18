@@ -309,6 +309,34 @@ select.text-input {
     transform: scale(0.95);
 }
 
+/* Name field — three copy buttons */
+.name-value-container {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.name-copy-btns {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.name-part-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 10px;
+    line-height: 1;
+}
+
+.name-part-label {
+    pointer-events: none;
+}
+
 /* Actions */
 .top-actions {
     display: flex;
