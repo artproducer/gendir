@@ -31,7 +31,6 @@
                     data-translate="tab_addresses">Direcciones</button>
                 <button class="tab-btn" onclick="switchTab('tarjetas')" data-translate="tab_cards">Tarjetas</button>
                 <button class="tab-btn" onclick="switchTab('fakeid')" data-translate="tab_fakeid">Fake ID</button>
-                <button class="tab-btn" onclick="switchTab('tools')" data-translate="tab_tools">Tools</button>
             </div>
             <button type="button" class="theme-toggle-icon" id="theme-toggle-global" onclick="toggleTheme()"
                 title="Cambiar tema">
@@ -243,6 +242,7 @@
                     <select id="country-select" class="country-select" onchange="generateNewAddress()">
                         <option value="us" selected>Estados Unidos</option>
                         <option value="de">Alemania</option>
+                        <option value="ar">Argentina</option>
                         <option value="sa">Arabia Saudita</option>
                         <option value="au">Australia</option>
                         <option value="bh">Baréin</option>
@@ -536,7 +536,7 @@
                         <div id="sub-tab-historial" class="sub-tab-content">
                             <div class="address-card history-card" id="history-section">
                                 <div class="field">
-                                    <label class="history-header">
+                                    <div class="history-header">
                                         <div class="header-content">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2">
@@ -544,11 +544,35 @@
                                             </svg>
                                             <span data-translate="history">Historial</span>
                                         </div>
-                                        <button class="clear-history-btn" onclick="clearHistory()"
-                                            title="Borrar historial" data-translate-title="clear_history">
-                                            <span data-translate="clear">Borrar</span>
-                                        </button>
-                                    </label>
+                                        <div class="history-header-actions">
+                                            <button type="button" class="history-header-btn" id="history-sync-save">
+                                                <span id="history-sync-save-text" data-translate="sync_history_save">Save code</span>
+                                            </button>
+                                            <button type="button" class="history-header-btn" id="history-sync-now">
+                                                <span id="history-sync-now-text" data-translate="sync_history_now">Sync now</span>
+                                            </button>
+                                            <button class="history-header-btn clear-history-btn" onclick="clearHistory()"
+                                                title="Borrar historial" data-translate-title="clear_history">
+                                                <span data-translate="clear">Borrar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="history-sync-panel">
+                                        <div class="history-sync-copy">
+                                            <span class="history-sync-label" data-translate="sync_history_label">Sync</span>
+                                            <p class="history-sync-hint" data-translate="sync_history_hint">Use the same
+                                                code on your other devices.</p>
+                                            <p id="history-sync-saved" class="history-sync-saved" hidden></p>
+                                        </div>
+                                        <div class="history-sync-row">
+                                            <input type="password" id="history-sync-code" class="text-input"
+                                                autocomplete="off"
+                                                placeholder="Sync code"
+                                                data-translate-placeholder="sync_history_placeholder">
+                                        </div>
+                                        <div id="history-sync-status" class="history-sync-status" data-sync-status="local">
+                                        </div>
+                                    </div>
                                     <div id="history-list" class="history-list">
                                         <!-- History items will be injected here -->
                                     </div>
@@ -651,30 +675,6 @@
             </div>
         </div>
 
-        <!-- Tab: Tools -->
-        <div id="tab-tools" class="tab-content">
-            <div class="tools-container">
-                <div class="tools-search-container">
-                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" id="tools-search" class="tools-search-input" placeholder="Buscar herramientas..."
-                        data-translate-placeholder="search_tools">
-                    <button id="clear-search" class="clear-search-btn" hidden>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                    </button>
-                </div>
-                <div class="tools-grid" id="tools-grid">
-                    <!-- Links will be loaded from JSON -->
-                </div>
-            </div>
-        </div>
 
         <!-- Modal de confirmación -->
         <div class="modal-overlay" id="confirm-modal" hidden>
@@ -705,11 +705,13 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.public.js"></script>
     <script src="offline-database.js"></script>
+    <script src="script-backend.js"></script>
     <script src="script-direcciones.js"></script>
     <script src="script-tarjetas.js"></script>
     <script src="script-fakeid.js"></script>
-    <script src="script-tools.js"></script>
     <script>
         // Función para cambiar entre pestañas
         function switchTab(tabName) {
@@ -748,6 +750,13 @@
             // Load saved theme
             const savedTheme = localStorage.getItem('theme') || 'dark';
             applyTheme(savedTheme);
+
+            // Test Supabase connection on load
+            setTimeout(() => {
+                if (typeof testSupabaseConnection === 'function') {
+                    testSupabaseConnection();
+                }
+            }, 1000);
         });
 
         // Theme toggle functionality
@@ -812,6 +821,18 @@
                 quantity: 'Cantidad',
                 result: 'Resultado',
                 history: 'Historial',
+                sync_history_label: 'Sincronizacion',
+                sync_history_hint: 'Usa el mismo codigo en tus otros dispositivos.',
+                sync_history_placeholder: 'Codigo de sincronizacion',
+                sync_history_save: 'Guardar codigo',
+                sync_history_edit: 'Editar codigo',
+                sync_history_saved_as: 'Codigo activo:',
+                sync_history_now: 'Sincronizar',
+                sync_status_local: 'Historial solo local en este dispositivo.',
+                sync_status_ready: 'Sincronizacion activa.',
+                sync_status_syncing: 'Sincronizando historial...',
+                sync_status_error: 'No se pudo sincronizar el historial.',
+                sync_status_offline: 'Supabase no esta disponible. Se usa historial local.',
                 cards_stat: 'tarjetas',
                 digits_stat: 'dígitos',
                 empty_result: 'Ingresa un BIN y genera...',
@@ -841,6 +862,9 @@
                 toast_clipboard_error: 'No se pudo acceder al portapapeles',
                 toast_nothing_to_copy: 'Nada que copiar',
                 toast_copy_error: 'Error al copiar',
+                toast_history_synced: 'Historial sincronizado',
+                toast_sync_saved: 'Codigo de sincronizacion guardado',
+                toast_sync_disabled: 'Sincronizacion desactivada',
                 toast_bin_min_digits: 'El BIN debe tener al menos 6 dígitos',
 
                 // Fake ID
@@ -856,9 +880,6 @@
                 download: 'Descargar',
 
                 // Tools tab
-                tab_tools: 'Tools',
-                tools_click_to_copy: 'Clic para copiar',
-                toast_link_copied: '¡Link copiado!'
             },
             en: {
                 // Tabs
@@ -893,6 +914,18 @@
                 quantity: 'Quantity',
                 result: 'Result',
                 history: 'History',
+                sync_history_label: 'Sync',
+                sync_history_hint: 'Use the same code on your other devices.',
+                sync_history_placeholder: 'Sync code',
+                sync_history_save: 'Save code',
+                sync_history_edit: 'Edit code',
+                sync_history_saved_as: 'Active code:',
+                sync_history_now: 'Sync now',
+                sync_status_local: 'History is only stored on this device.',
+                sync_status_ready: 'Sync is active.',
+                sync_status_syncing: 'Syncing history...',
+                sync_status_error: 'Could not sync history.',
+                sync_status_offline: 'Supabase is not available. Local history only.',
                 cards_stat: 'cards',
                 digits_stat: 'digits',
                 empty_result: 'Enter a BIN and generate...',
@@ -922,6 +955,9 @@
                 toast_clipboard_error: 'Could not access clipboard',
                 toast_nothing_to_copy: 'Nothing to copy',
                 toast_copy_error: 'Copy error',
+                toast_history_synced: 'History synced',
+                toast_sync_saved: 'Sync code saved',
+                toast_sync_disabled: 'Sync disabled',
                 toast_bin_min_digits: 'BIN must have at least 6 digits',
 
                 // Fake ID
@@ -937,9 +973,6 @@
                 download: 'Download',
 
                 // Tools tab
-                tab_tools: 'Tools',
-                tools_click_to_copy: 'Click to copy',
-                toast_link_copied: 'Link copied!'
             }
         };
 

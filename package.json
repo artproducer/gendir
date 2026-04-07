@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@supabase/supabase-js": "^2.102.1",
     "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "supabase": "^2.87.2"
   }
 }

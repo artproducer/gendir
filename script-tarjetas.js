@@ -429,6 +429,15 @@
         }, 2000);
     }
 
+    function t(key, enFallback, esFallback) {
+        if (window.currentTranslations && window.currentTranslations[key]) {
+            return window.currentTranslations[key];
+        }
+
+        const lang = window.currentLang || localStorage.getItem('language') || 'en';
+        return lang === 'es' ? (esFallback || enFallback) : enFallback;
+    }
+
     // Copiar parte de tarjeta y marcar como última copiada
     function copyCardPart(text, message, cardElement) {
         navigator.clipboard.writeText(text).then(() => {
@@ -803,20 +812,336 @@
     }
 
     // --- Lógica de Historial ---
-    let history = JSON.parse(localStorage.getItem('binHistory') || '[]');
+    const MAX_HISTORY_ITEMS = 20;
+    const HISTORY_PENDING_RESET_KEY = 'binHistoryPendingResetAt';
+    const historySyncPanel = document.querySelector('.history-sync-panel');
+    const historySyncInput = document.getElementById("history-sync-code");
+    const historySyncSaved = document.getElementById("history-sync-saved");
+    const historySyncSaveBtn = document.getElementById("history-sync-save");
+    const historySyncSaveText = document.getElementById("history-sync-save-text");
+    const historySyncNowBtn = document.getElementById("history-sync-now");
+    const historySyncStatus = document.getElementById("history-sync-status");
+    let historySyncState = 'local';
+    let historySyncCompact = false;
+    let lastRemoteResetAt = null;
+    let pendingRemoteResetAt = localStorage.getItem(HISTORY_PENDING_RESET_KEY) || null;
+    let history = [];
 
-    function saveToHistory(item) {
-        // Evitar duplicados consecutivos con mismos parámetros
-        const last = history[0];
-        if (last && last.bin === item.bin && last.month === item.month && last.year === item.year && last.cvv === item.cvv) {
+    function toHistoryTimestamp(value) {
+        const date = value ? new Date(value) : new Date();
+        return Number.isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+    }
+
+    function makeHistoryEntryId() {
+        if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+            return window.crypto.randomUUID();
+        }
+
+        return `hist-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+    }
+
+    function normalizeHistoryItem(item) {
+        const source = item || {};
+
+        return {
+            entryId: String(source.entryId || source.id || makeHistoryEntryId()),
+            bin: String(source.bin || '').trim(),
+            month: source.month ? String(source.month) : '',
+            year: source.year ? String(source.year) : '',
+            cvv: source.cvv ? String(source.cvv) : '',
+            type: source.type ? String(source.type) : '',
+            timestamp: toHistoryTimestamp(source.timestamp)
+        };
+    }
+
+    function makeHistoryIdentity(item) {
+        const normalized = normalizeHistoryItem(item);
+        return [
+            normalized.bin,
+            normalized.month || '',
+            normalized.year || '',
+            normalized.cvv || ''
+        ].join('|');
+    }
+
+    function dedupeHistoryItems(items) {
+        const seenEntries = new Set();
+        const seenIdentities = new Set();
+        const uniqueItems = [];
+
+        items.forEach((item) => {
+            const normalizedItem = normalizeHistoryItem(item);
+            if (!normalizedItem.bin) return;
+            if (seenEntries.has(normalizedItem.entryId)) return;
+
+            seenEntries.add(normalizedItem.entryId);
+            uniqueItems.push(normalizedItem);
+        });
+
+        uniqueItems.sort((left, right) => new Date(right.timestamp).getTime() - new Date(left.timestamp).getTime());
+        const compactByIdentity = [];
+
+        uniqueItems.forEach((item) => {
+            const identity = makeHistoryIdentity(item);
+            if (seenIdentities.has(identity)) return;
+
+            seenIdentities.add(identity);
+            compactByIdentity.push(item);
+        });
+
+        return compactByIdentity.slice(0, MAX_HISTORY_ITEMS);
+    }
+
+    function persistHistory() {
+        if (history.length > 0) {
+            localStorage.setItem('binHistory', JSON.stringify(history));
+        } else {
+            localStorage.removeItem('binHistory');
+        }
+    }
+
+    function setPendingRemoteReset(resetAt) {
+        const normalized = resetAt ? toHistoryTimestamp(resetAt) : null;
+        pendingRemoteResetAt = normalized;
+
+        if (normalized) {
+            localStorage.setItem(HISTORY_PENDING_RESET_KEY, normalized);
+        } else {
+            localStorage.removeItem(HISTORY_PENDING_RESET_KEY);
+        }
+    }
+
+    function loadStoredHistory() {
+        try {
+            const parsedHistory = JSON.parse(localStorage.getItem('binHistory') || '[]');
+            return dedupeHistoryItems(Array.isArray(parsedHistory) ? parsedHistory : []);
+        } catch (error) {
+            console.error("Error leyendo historial local:", error);
+            return [];
+        }
+    }
+
+
+    function updateSyncStatus(state) {
+        historySyncState = state;
+
+        if (!historySyncStatus) return;
+
+        const statusMessages = {
+            local: t('sync_status_local', 'History is only stored on this device.', 'Historial solo local en este dispositivo.'),
+            ready: t('sync_status_ready', 'Sync is active.', 'Sincronizacion activa.'),
+            syncing: t('sync_status_syncing', 'Syncing history...', 'Sincronizando historial...'),
+            error: t('sync_status_error', 'Could not sync history.', 'No se pudo sincronizar el historial.'),
+            offline: t('sync_status_offline', 'Supabase is not available. Local history only.', 'Supabase no esta disponible. Se usa historial local.')
+        };
+
+        historySyncStatus.textContent = statusMessages[state] || statusMessages.local;
+        historySyncStatus.classList.toggle('is-ready', state === 'ready');
+        historySyncStatus.classList.toggle('is-error', state === 'error');
+        historySyncStatus.setAttribute('data-sync-status', state);
+
+        if (historySyncNowBtn) {
+            const backendUnavailable = typeof window.fetchSyncedBinHistory !== 'function';
+            const syncDisabled = typeof window.isBinHistorySyncEnabled === 'function' && !window.isBinHistorySyncEnabled();
+            historySyncNowBtn.disabled = state === 'syncing' || backendUnavailable || syncDisabled;
+        }
+    }
+
+    function maskSyncCode(value) {
+        const code = String(value || '').trim();
+        if (!code) return '****';
+        if (code.length <= 4) return '*'.repeat(code.length);
+        return `${code.slice(0, 2)}${'*'.repeat(Math.max(2, code.length - 4))}${code.slice(-2)}`;
+    }
+
+    function updateSyncPanelMode(compact) {
+        historySyncCompact = Boolean(compact);
+
+        if (historySyncPanel) {
+            historySyncPanel.classList.toggle('is-compact', historySyncCompact);
+        }
+
+        const storedCode = typeof window.getStoredBinSyncCode === 'function'
+            ? window.getStoredBinSyncCode()
+            : (historySyncInput ? historySyncInput.value.trim() : '');
+
+        if (historySyncSaved) {
+            if (historySyncCompact && storedCode) {
+                historySyncSaved.hidden = false;
+                historySyncSaved.textContent = `${t('sync_history_saved_as', 'Active code:', 'Codigo activo:')} ${maskSyncCode(storedCode)}`;
+            } else {
+                historySyncSaved.hidden = true;
+                historySyncSaved.textContent = '';
+            }
+        }
+
+        if (historySyncSaveText) {
+            historySyncSaveText.textContent = historySyncCompact
+                ? t('sync_history_edit', 'Edit code', 'Editar codigo')
+                : t('sync_history_save', 'Save code', 'Guardar codigo');
+        }
+    }
+
+    async function syncHistoryWithCloud(showSuccessToast = true) {
+        if (typeof window.fetchSyncedBinHistory !== 'function') {
+            updateSyncStatus('offline');
+            return false;
+        }
+
+        if (typeof window.isBinHistorySyncEnabled !== 'function' || !window.isBinHistorySyncEnabled()) {
+            updateSyncStatus('local');
+            return false;
+        }
+
+        updateSyncStatus('syncing');
+
+        try {
+            if (pendingRemoteResetAt && typeof window.resetSyncedBinHistory === 'function') {
+                await window.resetSyncedBinHistory(undefined, pendingRemoteResetAt);
+                lastRemoteResetAt = pendingRemoteResetAt;
+                setPendingRemoteReset(null);
+            }
+
+            const remoteSnapshot = await window.fetchSyncedBinHistory();
+            lastRemoteResetAt = remoteSnapshot.resetAt || null;
+
+            let localItems = history.slice();
+            if (lastRemoteResetAt) {
+                localItems = localItems.filter((item) => new Date(item.timestamp).getTime() > new Date(lastRemoteResetAt).getTime());
+            }
+
+            const remoteItems = dedupeHistoryItems(Array.isArray(remoteSnapshot.items) ? remoteSnapshot.items : []);
+            const remoteEntryIds = new Set(remoteItems.map((item) => item.entryId));
+
+            for (const item of localItems) {
+                if (remoteEntryIds.has(item.entryId)) continue;
+                if (typeof window.saveSyncedBinHistoryEntry === 'function') {
+                    await window.saveSyncedBinHistoryEntry(item);
+                }
+            }
+
+            history = dedupeHistoryItems(localItems.concat(remoteItems));
+            persistHistory();
+            renderHistory();
+            updateSyncStatus('ready');
+
+            if (showSuccessToast) {
+                showToast(t('toast_history_synced', 'History synced', 'Historial sincronizado'));
+            }
+
+            return true;
+        } catch (error) {
+            console.error("Error sincronizando historial:", error);
+            updateSyncStatus('error');
+            return false;
+        }
+    }
+
+    async function saveSyncCode() {
+        if (!historySyncInput || typeof window.setStoredBinSyncCode !== 'function') {
+            updateSyncStatus('offline');
             return;
         }
 
-        history.unshift(item);
-        if (history.length > 20) history.pop(); // Limitar a 20 items
+        if (historySyncCompact) {
+            updateSyncPanelMode(false);
+            historySyncInput.focus();
+            historySyncInput.select();
+            return;
+        }
 
-        localStorage.setItem('binHistory', JSON.stringify(history));
+        const syncCode = historySyncInput.value.trim();
+
+        if (!syncCode) {
+            window.setStoredBinSyncCode('');
+            lastRemoteResetAt = null;
+            setPendingRemoteReset(null);
+            updateSyncPanelMode(false);
+            updateSyncStatus('local');
+            showToast(t('toast_sync_disabled', 'Sync disabled', 'Sincronizacion desactivada'));
+            return;
+        }
+
+        window.setStoredBinSyncCode(syncCode);
+        updateSyncPanelMode(true);
+        showToast(t('toast_sync_saved', 'Sync code saved', 'Codigo de sincronizacion guardado'));
+
+        if (typeof window.fetchSyncedBinHistory !== 'function') {
+            updateSyncStatus('offline');
+            return;
+        }
+
+        updateSyncStatus('ready');
+    }
+
+    function setupHistorySyncControls() {
+        history = loadStoredHistory();
+        persistHistory();
+        const hasStoredSyncCode = typeof window.isBinHistorySyncEnabled === 'function' && window.isBinHistorySyncEnabled();
+
+        if (historySyncInput && typeof window.getStoredBinSyncCode === 'function') {
+            historySyncInput.value = window.getStoredBinSyncCode();
+            historySyncInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    saveSyncCode();
+                }
+            });
+        }
+
+        if (historySyncSaveBtn) {
+            historySyncSaveBtn.addEventListener('click', () => {
+                saveSyncCode();
+            });
+        }
+
+        if (historySyncNowBtn) {
+            historySyncNowBtn.addEventListener('click', () => {
+                syncHistoryWithCloud();
+            });
+        }
+
+        if (typeof window.fetchSyncedBinHistory !== 'function') {
+            updateSyncStatus('offline');
+            updateSyncPanelMode(hasStoredSyncCode);
+            return;
+        }
+
+        if (hasStoredSyncCode) {
+            updateSyncStatus('ready');
+            updateSyncPanelMode(true);
+        } else {
+            updateSyncStatus('local');
+            updateSyncPanelMode(false);
+        }
+    }
+
+    function saveToHistory(item) {
+        const normalizedItem = normalizeHistoryItem(item);
+        const itemIdentity = makeHistoryIdentity(normalizedItem);
+        const existingIndex = history.findIndex((entry) => makeHistoryIdentity(entry) === itemIdentity);
+
+        let nextItem = normalizedItem;
+        let baseHistory = history.slice();
+
+        if (existingIndex !== -1) {
+            const existing = history[existingIndex];
+            nextItem = normalizeHistoryItem({
+                ...existing,
+                ...normalizedItem,
+                entryId: existing.entryId,
+                timestamp: toHistoryTimestamp()
+            });
+            baseHistory.splice(existingIndex, 1);
+        }
+
+        history = dedupeHistoryItems([nextItem].concat(baseHistory));
+        persistHistory();
         renderHistory();
+
+        if (typeof window.isBinHistorySyncEnabled === 'function' && window.isBinHistorySyncEnabled()) {
+            syncHistoryWithCloud(false);
+        }
     }
 
     // --- Lógica de Sub-pestañas ---
@@ -843,7 +1168,7 @@
         updateHistoryBadge();
 
         if (history.length === 0) {
-            historyList.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-secondary); opacity: 0.5;">Sin historial...</div>';
+            historyList.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-secondary); opacity: 0.5;">${t('history_empty', 'No history yet...', 'Sin historial...')}</div>`;
             return;
         }
 
@@ -888,16 +1213,18 @@
                 if (mSelect) {
                     mSelect.value = item.month || "";
                     const mLabel = document.getElementById("month-label");
-                    if (mLabel) mLabel.textContent = mSelect.options[mSelect.selectedIndex].textContent;
+                    const mOption = mSelect.options[mSelect.selectedIndex];
+                    if (mLabel && mOption) mLabel.textContent = mOption.textContent;
                 }
                 if (ySelect) {
                     ySelect.value = item.year || "";
                     const yLabel = document.getElementById("year-label");
-                    if (yLabel) yLabel.textContent = ySelect.options[ySelect.selectedIndex].textContent;
+                    const yOption = ySelect.options[ySelect.selectedIndex];
+                    if (yLabel && yOption) yLabel.textContent = yOption.textContent;
                 }
                 if (cInput) cInput.value = item.cvv || "";
 
-                showToast("BIN cargado");
+                showToast(t('toast_bin_loaded', 'BIN loaded', 'BIN cargado'));
             };
 
             historyList.appendChild(div);
@@ -920,8 +1247,8 @@
             cancelBtn.onclick = null;
         };
 
-        confirmBtn.onclick = () => {
-            callback();
+        confirmBtn.onclick = async () => {
+            await callback();
             closeModal();
         };
 
@@ -933,15 +1260,24 @@
     }
 
     window.clearHistory = function () {
-        showConfirmModal(() => {
+        showConfirmModal(async () => {
+            const resetAt = new Date().toISOString();
             history = [];
-            localStorage.removeItem('binHistory');
+            persistHistory();
+            lastRemoteResetAt = resetAt;
+
+            if (typeof window.isBinHistorySyncEnabled === 'function' && window.isBinHistorySyncEnabled()) {
+                setPendingRemoteReset(resetAt);
+                updateSyncStatus('ready');
+            }
+
             renderHistory();
-            showToast("Historial borrado");
+            showToast(t('toast_history_cleared', 'History cleared', 'Historial borrado'));
         });
     };
 
     // Inicializar historial al cargar
+    setupHistorySyncControls();
     renderHistory();
 
     // --- Tooltip de Ayuda del BIN ---
@@ -970,4 +1306,18 @@
             }
         });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof window.applyLanguage === 'function' && !window.__gendirHistorySyncLanguagePatched) {
+            const originalApplyLanguage = window.applyLanguage;
+            window.applyLanguage = function (lang) {
+                originalApplyLanguage(lang);
+                updateSyncStatus(historySyncState);
+                updateSyncPanelMode(historySyncCompact);
+                renderHistory();
+            };
+            window.__gendirHistorySyncLanguagePatched = true;
+        }
+    });
 })();
+

@@ -1,4 +1,35 @@
 const offlineAddressDatabase = {
+  ar: {
+    firstNames: [
+      "Santiago", "Mateo", "Juan", "Matías", "Nicolás", "Benjamín", "Joaquín", "Felipe", "Bautista", "Tomás",
+      "Lucas", "Julián", "Agustín", "Leandro", "Sebastián", "Diego", "Franco", "Federico", "Ignacio", "Martín",
+      "Sofía", "Martina", "Valentina", "Lucía", "Catalina", "Victoria", "Camila", "Elena", "Delfina", "Antonella",
+      "Juana", "Julieta", "Abril", "Micaela", "Agostina", "Candela", "Lara", "Florencia", "Paloma", "Sol"
+    ],
+    lastNames: [
+      "González", "Rodríguez", "López", "García", "Martínez", "Pérez", "Sánchez", "Romero", "Álvarez", "Fernández",
+      "Gómez", "Díaz", "Vázquez", "Castro", "Ortiz", "Torres", "Suárez", "Ramírez", "Rojas", "Acosta",
+      "Sosa", "Benítez", "Medina", "Herrera", "Aguirre", "Giménez", "Gutiérrez", "Pereira", "Molina", "Silveira"
+    ],
+    cities: [
+      { city: "Buenos Aires", state: "CABA", zip: "1000", phone: "11" },
+      { city: "Córdoba", state: "Córdoba", zip: "5000", phone: "351" },
+      { city: "Rosario", state: "Santa Fe", zip: "2000", phone: "341" },
+      { city: "Mendoza", state: "Mendoza", zip: "5500", phone: "261" },
+      { city: "La Plata", state: "Buenos Aires", zip: "1900", phone: "221" },
+      { city: "San Miguel de Tucumán", state: "Tucumán", zip: "4000", phone: "381" },
+      { city: "Mar del Plata", state: "Buenos Aires", zip: "7600", phone: "223" },
+      { city: "Salta", state: "Salta", zip: "4400", phone: "387" },
+      { city: "Santa Fe", state: "Santa Fe", zip: "3000", phone: "342" },
+      { city: "San Juan", state: "San Juan", zip: "5400", phone: "264" }
+    ],
+    streets: [
+      "Avenida del Libertador", "Avenida Santa Fe", "Calle Rivadavia", "Calle Corrientes", "Avenida de Mayo",
+      "Avenida 9 de Julio", "Calle Florida", "Avenida Belgrano", "Calle San Martín", "Avenida Juan B. Justo"
+    ],
+    houseNumberRange: [1, 1800],
+    phoneFormat: "+54 9 {code} {range1}-{range2}"
+  },
   us: {
     firstNames: [
       "Liam",

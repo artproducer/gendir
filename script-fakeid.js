@@ -1,6 +1,5 @@
 // ==================== CONFIGURACION ====================
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxKYRJHmDWHLNjrZb73IGzSjyu-dIu5Hl267cQSOsPlM3gBptBiIb4DRxM5cLZqOASB/exec";
-const RENDER_URL = "https://tpde-proxy-t2wf.onrender.com";
+const GAS_URL = window.GENDIR_FAKEID_GAS_URL || "";
 
 // ==================== CANVAS SETUP ====================
 let fakeidCanvas = null;
@@ -63,8 +62,19 @@ let nameBuffer = ["MICHAEL BROWN"];
 let faceBuffer = [];
 const MAX_FACES = 10;
 let isLoadingFace = false;
+let hasShownFaceError = false;
+let hasShownGasWarning = false;
+let faceObjectUrl = null;
 
 async function refillNameBuffer() {
+    if (!GAS_URL) {
+        if (!hasShownGasWarning) {
+            hasShownGasWarning = true;
+            console.warn("GenDir: GENDIR_FAKEID_GAS_URL is missing. Name buffer will use defaults.");
+        }
+        return;
+    }
+
     try {
         const res = await fetch(GAS_URL, { method: "POST" });
         const json = await res.json();
@@ -78,28 +88,10 @@ async function prefetchNextFace() {
     if (isLoadingFace || faceBuffer.length >= MAX_FACES) return;
     isLoadingFace = true;
     try {
-        const response = await fetch(RENDER_URL);
-        const data = await response.json();
-        if (data.noError) {
-            fabric.Image.fromURL(data.imageBase64, function (img) {
-                const scaleX = POS.photo.width / img.width;
-                const scaleY = POS.photo.height / img.height;
-                img.set({
-                    left: POS.photo.left,
-                    top: POS.photo.top,
-                    scaleX: scaleX,
-                    scaleY: scaleY,
-                    selectable: false,
-                    evented: false
-                });
-                faceBuffer.push(img);
-                isLoadingFace = false;
-                prefetchNextFace();
-            });
-        } else {
-            isLoadingFace = false;
-            setTimeout(prefetchNextFace, 2000);
-        }
+        const img = await loadFaceFromProvider();
+        faceBuffer.push(img);
+        isLoadingFace = false;
+        prefetchNextFace();
     } catch (err) {
         console.error("Error prefetching face:", err);
         isLoadingFace = false;
@@ -156,6 +148,69 @@ function getRandomBirthDate() {
 
 function randomCode() {
     return Math.floor(Math.random() * 9000 + 1000).toString();
+}
+
+function revokeFaceObjectUrl() {
+    if (faceObjectUrl) {
+        URL.revokeObjectURL(faceObjectUrl);
+        faceObjectUrl = null;
+    }
+}
+
+function createFaceImage(url) {
+    return new Promise((resolve, reject) => {
+        fabric.Image.fromURL(url, function (img) {
+            if (!img || !img.width || !img.height) {
+                reject(new Error('No face image was returned by the provider.'));
+                return;
+            }
+
+            const scaleX = POS.photo.width / img.width;
+            const scaleY = POS.photo.height / img.height;
+            img.set({
+                left: POS.photo.left,
+                top: POS.photo.top,
+                scaleX: scaleX,
+                scaleY: scaleY,
+                selectable: false,
+                evented: false
+            });
+
+            resolve(img);
+        }, {
+            crossOrigin: null
+        });
+    });
+}
+
+async function loadFaceFromProvider() {
+    if (typeof window.fetchFaceImageViaSupabaseProxy !== 'function') {
+        throw new Error('Supabase face proxy is not available.');
+    }
+
+    const proxyImageUrl = await window.fetchFaceImageViaSupabaseProxy();
+    try {
+        const imageObject = await createFaceImage(proxyImageUrl);
+        faceObjectUrl = proxyImageUrl;
+        return imageObject;
+    } catch (error) {
+        URL.revokeObjectURL(proxyImageUrl);
+        throw error;
+    }
+}
+
+function showFakeidToast(message, isError = false) {
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toast-text");
+    if (!toast) return;
+
+    if (toastText) toastText.textContent = message;
+    toast.classList.toggle("error", isError);
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2200);
 }
 
 // ==================== POSICIONES (843x600) ====================
@@ -268,19 +323,24 @@ function setupFakeidEvents() {
     });
 
     document.getElementById("fakeid-btn-download").addEventListener("click", () => {
-        // Calculate multiplier to export at original resolution (843x600)
-        // regardless of current zoom/scale
-        const currentZoom = fakeidCanvas.getZoom();
-        const multiplier = 1 / currentZoom;
+        try {
+            // Calculate multiplier to export at original resolution (843x600)
+            // regardless of current zoom/scale
+            const currentZoom = fakeidCanvas.getZoom();
+            const multiplier = 1 / currentZoom;
 
-        const link = document.createElement('a');
-        link.href = fakeidCanvas.toDataURL({
-            format: 'png',
-            quality: 1.0,
-            multiplier: multiplier
-        });
-        link.download = `ID-${randomCode()}.png`;
-        link.click();
+            const link = document.createElement('a');
+            link.href = fakeidCanvas.toDataURL({
+                format: 'png',
+                quality: 1.0,
+                multiplier: multiplier
+            });
+            link.download = `ID-${randomCode()}.png`;
+            link.click();
+        } catch (error) {
+            console.error("Error exporting fake ID:", error);
+            showFakeidToast('No se pudo descargar la imagen.', true);
+        }
     });
 
     document.getElementById("fakeid-btn-reload").addEventListener("click", reloadFakeid);
@@ -317,14 +377,87 @@ function reloadFakeid() {
 // ==================== GESTIÓN DE FOTOS (PRE-FETCH) ====================
 let currentFaceImage = null;
 
+function removeCurrentFace() {
+    if (currentFaceImage && fakeidCanvas) {
+        fakeidCanvas.remove(currentFaceImage);
+    }
+    currentFaceImage = null;
+    revokeFaceObjectUrl();
+}
+
+function buildFacePlaceholder() {
+    const portraitBackground = new fabric.Rect({
+        left: POS.photo.left,
+        top: POS.photo.top,
+        width: POS.photo.width,
+        height: POS.photo.height,
+        fill: '#dbe4f0',
+        rx: 10,
+        ry: 10,
+        selectable: false,
+        evented: false
+    });
+
+    const head = new fabric.Circle({
+        radius: 46,
+        fill: '#94a3b8',
+        left: POS.photo.left + (POS.photo.width / 2) - 46,
+        top: POS.photo.top + 42,
+        selectable: false,
+        evented: false
+    });
+
+    const shoulders = new fabric.Rect({
+        width: 130,
+        height: 138,
+        rx: 64,
+        ry: 64,
+        fill: '#94a3b8',
+        left: POS.photo.left + (POS.photo.width / 2) - 65,
+        top: POS.photo.top + 130,
+        selectable: false,
+        evented: false
+    });
+
+    const label = new fabric.Text('PHOTO', {
+        left: POS.photo.left + 66,
+        top: POS.photo.top + POS.photo.height - 44,
+        fontFamily: 'Manrope',
+        fontSize: 20,
+        fontWeight: 700,
+        fill: '#475569',
+        selectable: false,
+        evented: false
+    });
+
+    return new fabric.Group([portraitBackground, shoulders, head, label], {
+        selectable: false,
+        evented: false
+    });
+}
+
+function applyFaceObject(faceObject) {
+    removeCurrentFace();
+    currentFaceImage = faceObject;
+    if (fakeidCanvas) {
+        fakeidCanvas.add(faceObject);
+        fakeidCanvas.renderAll();
+    }
+}
+
+function applyPlaceholderFace(showErrorToast = false) {
+    applyFaceObject(buildFacePlaceholder());
+
+    if (showErrorToast && !hasShownFaceError) {
+        hasShownFaceError = true;
+        showFakeidToast('No se pudo cargar la foto. Se usa un placeholder.', true);
+    }
+}
+
 async function applyFace() {
     if (faceBuffer.length > 0) {
-        if (currentFaceImage && fakeidCanvas) fakeidCanvas.remove(currentFaceImage);
-        currentFaceImage = faceBuffer.shift();
-        if (fakeidCanvas) {
-            fakeidCanvas.add(currentFaceImage);
-            fakeidCanvas.renderAll();
-        }
+        applyFaceObject(faceBuffer.shift());
+        hasShownFaceError = false;
         prefetchNextFace();
     } else {
         await loadFaceFallback();
@@ -333,27 +466,14 @@ async function applyFace() {
 
 async function loadFaceFallback() {
     try {
-        const response = await fetch(RENDER_URL);
-        const data = await response.json();
-        if (data.noError) {
-            fabric.Image.fromURL(data.imageBase64, function (img) {
-                const scaleX = POS.photo.width / img.width;
-                const scaleY = POS.photo.height / img.height;
-                img.set({
-                    left: POS.photo.left, top: POS.photo.top,
-                    scaleX: scaleX, scaleY: scaleY,
-                    selectable: false, evented: false
-                });
-                if (currentFaceImage && fakeidCanvas) fakeidCanvas.remove(currentFaceImage);
-                currentFaceImage = img;
-                if (fakeidCanvas) {
-                    fakeidCanvas.add(img);
-                    fakeidCanvas.renderAll();
-                }
-                prefetchNextFace();
-            });
-        }
-    } catch (e) { console.error(e); }
+        const img = await loadFaceFromProvider();
+        applyFaceObject(img);
+        hasShownFaceError = false;
+        prefetchNextFace();
+    } catch (e) {
+        console.error("Error loading fallback face:", e);
+        applyPlaceholderFace(true);
+    }
 }
 
 // Preload data on page load (regardless of active tab)
