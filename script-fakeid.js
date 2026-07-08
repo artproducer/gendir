@@ -64,7 +64,6 @@ const MAX_FACES = 10;
 let isLoadingFace = false;
 let hasShownFaceError = false;
 let hasShownGasWarning = false;
-let faceObjectUrl = null;
 
 async function refillNameBuffer() {
     if (!GAS_URL) {
@@ -150,10 +149,9 @@ function randomCode() {
     return Math.floor(Math.random() * 9000 + 1000).toString();
 }
 
-function revokeFaceObjectUrl() {
-    if (faceObjectUrl) {
-        URL.revokeObjectURL(faceObjectUrl);
-        faceObjectUrl = null;
+function revokeFaceObjectUrl(url) {
+    if (url) {
+        URL.revokeObjectURL(url);
     }
 }
 
@@ -177,21 +175,34 @@ function createFaceImage(url) {
             });
 
             resolve(img);
-        }, {
-            crossOrigin: null
         });
     });
 }
 
 async function loadFaceFromProvider() {
-    if (typeof window.fetchFaceImageViaSupabaseProxy !== 'function') {
-        throw new Error('Supabase face proxy is not available.');
+    let proxyImageUrl;
+    try {
+        if (typeof window.fetchFaceImageViaSupabaseProxy === 'function') {
+            proxyImageUrl = await window.fetchFaceImageViaSupabaseProxy();
+        } else {
+            throw new Error('Supabase face proxy is not available.');
+        }
+    } catch (error) {
+        console.warn("Supabase proxy unavailable or failed. Falling back to randomuser.me:", error.message);
+        const res = await fetch('https://randomuser.me/api/');
+        if (!res.ok) throw new Error("randomuser.me API failed");
+        const data = await res.json();
+        const fallbackUrl = data.results[0].picture.large;
+        
+        const imgRes = await fetch(fallbackUrl);
+        if (!imgRes.ok) throw new Error("Failed to fetch image from randomuser.me");
+        const blob = await imgRes.blob();
+        proxyImageUrl = URL.createObjectURL(blob);
     }
 
-    const proxyImageUrl = await window.fetchFaceImageViaSupabaseProxy();
     try {
         const imageObject = await createFaceImage(proxyImageUrl);
-        faceObjectUrl = proxyImageUrl;
+        imageObject.blobUrl = proxyImageUrl;
         return imageObject;
     } catch (error) {
         URL.revokeObjectURL(proxyImageUrl);
@@ -380,9 +391,11 @@ let currentFaceImage = null;
 function removeCurrentFace() {
     if (currentFaceImage && fakeidCanvas) {
         fakeidCanvas.remove(currentFaceImage);
+        if (currentFaceImage.blobUrl) {
+            revokeFaceObjectUrl(currentFaceImage.blobUrl);
+        }
     }
     currentFaceImage = null;
-    revokeFaceObjectUrl();
 }
 
 function buildFacePlaceholder() {
