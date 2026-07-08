@@ -1,6 +1,6 @@
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts';
 
-const FACE_PROVIDER_URL = 'https://thispersondoesnotexist.com/';
+const FACE_PROVIDER_URL = 'https://thispersondoesnotexist.com/random-person.jpeg';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',

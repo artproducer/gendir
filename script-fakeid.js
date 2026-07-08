@@ -180,15 +180,23 @@ function createFaceImage(url) {
 }
 
 async function loadFaceFromProvider() {
-    let proxyImageUrl;
     try {
-        if (typeof window.fetchFaceImageViaSupabaseProxy === 'function') {
-            proxyImageUrl = await window.fetchFaceImageViaSupabaseProxy();
-        } else {
-            throw new Error('Supabase face proxy is not available.');
+        let proxyImageUrl;
+        try {
+            if (typeof window.fetchFaceImageViaSupabaseProxy === 'function') {
+                proxyImageUrl = await window.fetchFaceImageViaSupabaseProxy();
+            } else {
+                throw new Error('Supabase face proxy is not available.');
+            }
+            const imageObject = await createFaceImage(proxyImageUrl);
+            imageObject.blobUrl = proxyImageUrl;
+            return imageObject;
+        } catch (error) {
+            if (proxyImageUrl) URL.revokeObjectURL(proxyImageUrl);
+            throw error;
         }
     } catch (error) {
-        console.warn("Supabase proxy unavailable or failed. Falling back to randomuser.me:", error.message);
+        console.warn("Primary face provider failed, falling back to randomuser.me:", error.message);
         const res = await fetch('https://randomuser.me/api/');
         if (!res.ok) throw new Error("randomuser.me API failed");
         const data = await res.json();
@@ -197,16 +205,16 @@ async function loadFaceFromProvider() {
         const imgRes = await fetch(fallbackUrl);
         if (!imgRes.ok) throw new Error("Failed to fetch image from randomuser.me");
         const blob = await imgRes.blob();
-        proxyImageUrl = URL.createObjectURL(blob);
-    }
-
-    try {
-        const imageObject = await createFaceImage(proxyImageUrl);
-        imageObject.blobUrl = proxyImageUrl;
-        return imageObject;
-    } catch (error) {
-        URL.revokeObjectURL(proxyImageUrl);
-        throw error;
+        const blobUrl = URL.createObjectURL(blob);
+        
+        try {
+            const fallbackImage = await createFaceImage(blobUrl);
+            fallbackImage.blobUrl = blobUrl;
+            return fallbackImage;
+        } catch (fbError) {
+            URL.revokeObjectURL(blobUrl);
+            throw fbError;
+        }
     }
 }
 
