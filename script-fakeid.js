@@ -330,6 +330,22 @@ function setupFakeidEvents() {
         showToast(window.currentTranslations?.toast_copied || '¡Copiado!');
     });
 
+    document.getElementById("fakeid-btn-paste-name").addEventListener("click", async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            if (text) {
+                const upperText = text.toUpperCase();
+                document.getElementById("fakeid-nombre").value = upperText;
+                localStorage.setItem("fakeid-nombre", upperText);
+                nombreText.text = upperText;
+                fakeidCanvas.renderAll();
+            }
+        } catch (err) {
+            console.error('Error al pegar: ', err);
+            showFakeidToast(window.currentTranslations?.toast_copy_error || 'Error al pegar', true);
+        }
+    });
+
     document.getElementById("fakeid-btn-random-name").addEventListener("click", () => {
         if (nameBuffer.length > 0) {
             const name = nameBuffer.shift();
