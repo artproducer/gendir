@@ -634,6 +634,8 @@ select.text-input {
     transition: all 0.2s ease;
     cursor: pointer;
     border: 1px solid transparent;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .card-item:hover {
