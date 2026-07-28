@@ -10,7 +10,7 @@
     --border: #363636;
     --success: #14B8A6;
     --error: #EF4444;
-    --accent-subtle: #06211E;
+    --accent-subtle: #072B27;
     --accent-soft: #072B27;
     --accent-medium: #083630;
     --accent-strong: #09413B;
@@ -2009,10 +2009,15 @@ body.dark-mode .lang-toggle:hover,
 body.dark-mode .theme-toggle:hover,
 body.dark-mode .theme-toggle-icon:hover {
     border-color: var(--accent-border) !important;
+    color: var(--accent-on-solid) !important;
 }
 
 body.dark-mode .fakeid-secondary-btn {
     border-color: var(--accent-border) !important;
+}
+
+body.dark-mode .copy-btn {
+    background: var(--accent-soft);
 }
 
 /* Light mode adjustments for Fake ID */
