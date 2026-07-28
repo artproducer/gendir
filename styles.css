@@ -10,34 +10,50 @@
     --border: #363636;
     --success: #14B8A6;
     --error: #EF4444;
-    --card-bg: rgba(255, 255, 255, 0.07);
+    --accent-subtle: #143D39;
+    --accent-soft: #165047;
+    --accent-medium: #12675E;
+    --accent-strong: #0F7F74;
+    --accent-active: #0D9488;
+    --accent-on-solid: #F2FFFD;
+    --error-bg: #3D2020;
+    --card-bg: #282828;
     --input-bg: #292929;
     --panel-bg: #242424;
     --inset-bg: #1C1C1C;
-    --item-bg: rgba(255, 255, 255, 0.06);
-    --hover-bg: rgba(255, 255, 255, 0.1);
-    --hover-strong: rgba(255, 255, 255, 0.14);
-    --loading-overlay: rgba(24, 24, 24, 0.82);
+    --item-bg: #292929;
+    --hover-bg: #333333;
+    --hover-strong: #3A3A3A;
+    --loading-overlay: #181818;
     --dropdown-shadow: rgba(0, 0, 0, 0.45);
     --modal-overlay: rgba(0, 0, 0, 0.62);
 }
 
 /* Light Mode */
 body.light-mode {
+    --primary: #0F766E;
+    --primary-dark: #115E59;
     --surface: #FFFFFF;
     --background: #F1F5F9;
     --text: #0F172A;
     --text-secondary: #475569;
     --text-hint: #64748B;
     --border: rgba(20, 184, 166, 0.3);
-    --card-bg: rgba(0, 0, 0, 0.03);
-    --input-bg: rgba(0, 0, 0, 0.04);
-    --panel-bg: rgba(255, 255, 255, 0.8);
-    --inset-bg: rgba(0, 0, 0, 0.03);
-    --item-bg: rgba(0, 0, 0, 0.02);
-    --hover-bg: rgba(0, 0, 0, 0.06);
-    --hover-strong: rgba(0, 0, 0, 0.1);
-    --loading-overlay: rgba(255, 255, 255, 0.8);
+    --accent-subtle: #DDF5F1;
+    --accent-soft: #C2ECE6;
+    --accent-medium: #9EDED6;
+    --accent-strong: #72D0C4;
+    --accent-active: #4BC4B6;
+    --accent-on-solid: #134E4A;
+    --error-bg: #FDE8E8;
+    --card-bg: #F7F7F7;
+    --input-bg: #F5F5F5;
+    --panel-bg: #FFFFFF;
+    --inset-bg: #F5F7F9;
+    --item-bg: #F8FAFC;
+    --hover-bg: #ECEFF1;
+    --hover-strong: #E2E7EA;
+    --loading-overlay: #FFFFFF;
     --dropdown-shadow: rgba(0, 0, 0, 0.15);
     --modal-overlay: rgba(0, 0, 0, 0.5);
 }
@@ -85,7 +101,7 @@ body.light-mode {
 }
 
 .result-card {
-    background: rgba(20, 184, 166, 0.08);
+    background: var(--accent-subtle);
 }
 
 /* Fields */
@@ -219,7 +235,7 @@ select.text-input {
     width: 48px;
     height: 48px;
     border: none;
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     color: var(--primary);
     font-size: 1.4rem;
     font-weight: 600;
@@ -231,12 +247,12 @@ select.text-input {
 }
 
 .qty-btn:hover {
-    background: rgba(20, 184, 166, 0.25);
+    background: var(--accent-medium);
 }
 
 .qty-btn:active {
     transform: scale(0.95);
-    background: rgba(20, 184, 166, 0.35);
+    background: var(--accent-active);
 }
 
 .qty-minus {
@@ -282,7 +298,7 @@ select.text-input {
 }
 
 .clear-input-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--hover-strong);
     color: var(--text);
 }
 
@@ -305,7 +321,7 @@ select.text-input {
     border: none;
     border-radius: 10px;
     padding: 8px 12px;
-    background: rgba(20, 184, 166, 0.2);
+    background: var(--accent-medium);
     color: var(--primary);
     cursor: pointer;
     display: inline-flex;
@@ -316,7 +332,7 @@ select.text-input {
 
 .copy-btn:hover {
     transform: translateY(-1px);
-    background: rgba(20, 184, 166, 0.3);
+    background: var(--accent-strong);
 }
 
 .copy-btn:active {
@@ -375,7 +391,7 @@ select.text-input {
     min-height: 52px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(20, 184, 166, 0.1);
+    background: var(--accent-subtle);
     color: var(--primary);
     font-weight: 600;
     font-size: 0.95rem;
@@ -419,7 +435,7 @@ select.text-input {
     padding: 0 18px;
     border-radius: 14px;
     border: 1px solid var(--border);
-    background: rgba(20, 184, 166, 0.1);
+    background: var(--accent-subtle);
     color: var(--primary);
     font-weight: 600;
     font-size: 1rem;
@@ -511,11 +527,11 @@ select.text-input {
 }
 
 .country-option:hover {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
 }
 
 .country-option[aria-selected="true"] {
-    background: rgba(20, 184, 166, 0.2);
+    background: var(--accent-medium);
     color: var(--primary);
 }
 
@@ -608,11 +624,11 @@ select.text-input {
 }
 
 .mini-option:hover {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
 }
 
 .mini-option.selected {
-    background: rgba(20, 184, 166, 0.2);
+    background: var(--accent-medium);
     color: var(--primary);
 }
 
@@ -653,11 +669,11 @@ select.text-input {
 }
 
 .card-item:hover {
-    background: rgba(20, 184, 166, 0.08);
+    background: var(--accent-subtle);
 }
 
 .card-item.last-copied {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     border-color: var(--primary);
     box-shadow: 0 0 8px rgba(20, 184, 166, 0.3);
 }
@@ -681,7 +697,7 @@ select.text-input {
 .card-number:hover,
 .card-date:hover,
 .card-cvv:hover {
-    background: rgba(20, 184, 166, 0.25);
+    background: var(--accent-medium);
     color: var(--primary);
 }
 
@@ -852,7 +868,7 @@ select.text-input {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(20, 184, 166, 0.3);
+    background: var(--accent-strong);
     border-radius: 3px;
 }
 
@@ -904,7 +920,7 @@ select.text-input {
 }
 
 .lang-toggle:hover {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     border-color: var(--primary);
     color: var(--primary);
 }
@@ -952,7 +968,7 @@ select.text-input {
 }
 
 .tab-btn.active {
-    background: rgba(20, 184, 166, 0.1);
+    background: var(--accent-subtle);
     color: var(--primary);
     border: 2px solid var(--primary);
     box-shadow: 0 2px 8px rgba(20, 184, 166, 0.15);
@@ -1034,7 +1050,7 @@ select.text-input {
 }
 
 .sub-tab-btn.active {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     color: var(--primary);
 }
 
@@ -1076,7 +1092,7 @@ select.text-input {
 }
 
 .history-header-btn {
-    background: rgba(20, 184, 166, 0.1);
+    background: var(--accent-subtle);
     color: #14B8A6;
     border: none;
     border-radius: 8px;
@@ -1091,7 +1107,7 @@ select.text-input {
 }
 
 .history-header-btn:hover {
-    background: rgba(20, 184, 166, 0.2);
+    background: var(--accent-medium);
 }
 
 .history-header-btn:focus {
@@ -1104,11 +1120,11 @@ select.text-input {
 }
 
 .clear-history-btn {
-    background: rgba(20, 184, 166, 0.14);
+    background: var(--accent-soft);
 }
 
 .clear-history-btn:hover {
-    background: rgba(20, 184, 166, 0.24);
+    background: var(--accent-medium);
 }
 
 .history-sync-panel {
@@ -1175,13 +1191,13 @@ select.text-input {
 .history-sync-status.is-ready {
     color: var(--primary);
     border-color: rgba(20, 184, 166, 0.35);
-    background: rgba(20, 184, 166, 0.08);
+    background: var(--accent-subtle);
 }
 
 .history-sync-status.is-error {
     color: #fca5a5;
     border-color: rgba(239, 68, 68, 0.35);
-    background: rgba(127, 29, 29, 0.12);
+    background: var(--error-bg);
 }
 
 .history-sync-panel.is-compact {
@@ -1245,7 +1261,7 @@ select.text-input {
 }
 
 .history-item:hover {
-    background: rgba(20, 184, 166, 0.08);
+    background: var(--accent-subtle);
     border-color: var(--primary);
     transform: translateX(4px);
 }
@@ -1427,7 +1443,7 @@ select.text-input {
 }
 
 .theme-toggle:hover {
-    background: rgba(20, 184, 166, 0.1);
+    background: var(--accent-subtle);
     border-color: var(--primary);
 }
 
@@ -1469,7 +1485,7 @@ select.text-input {
 }
 
 .theme-toggle-icon:hover {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     border-color: var(--primary);
     color: var(--primary);
 }
@@ -1480,7 +1496,7 @@ select.text-input {
 
 /* Light mode specific adjustments */
 body.light-mode .tabs-container {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--panel-bg);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
@@ -1494,11 +1510,11 @@ body.light-mode .address-card {
 }
 
 body.light-mode .result-card {
-    background: rgba(20, 184, 166, 0.05);
+    background: var(--accent-subtle);
 }
 
 body.light-mode .output-container {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--inset-bg);
 }
 
 body.light-mode .country-dropdown {
@@ -1514,15 +1530,15 @@ body.light-mode .modal-overlay {
 }
 
 body.light-mode .history-item {
-    background: rgba(0, 0, 0, 0.02);
+    background: var(--item-bg);
 }
 
 body.light-mode .sub-tabs-container {
-    background: rgba(255, 255, 255, 0.6);
+    background: var(--panel-bg);
 }
 
 body.light-mode .loading-overlay {
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--loading-overlay);
 }
 
 body.light-mode .action-btn.primary-btn {
@@ -1779,7 +1795,7 @@ body.light-mode .history-badge {
 }
 
 .help-icon-btn:hover {
-    background: rgba(20, 184, 166, 0.2);
+    background: var(--accent-medium);
     transform: scale(1.1);
     box-shadow: 0 0 8px rgba(20, 184, 166, 0.4);
 }
@@ -1826,7 +1842,7 @@ body.light-mode .history-badge {
 }
 
 .help-tooltip-content code {
-    background: rgba(20, 184, 166, 0.15);
+    background: var(--accent-soft);
     color: var(--primary);
     padding: 2px 6px;
     border-radius: 4px;
@@ -1843,7 +1859,7 @@ body.light-mode .history-badge {
     padding: 0;
     border: none;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--hover-bg);
     color: var(--text-secondary);
     font-size: 1.2rem;
     line-height: 1;
@@ -1855,7 +1871,7 @@ body.light-mode .history-badge {
 }
 
 .help-close-btn:hover {
-    background: rgba(239, 68, 68, 0.2);
+    background: var(--error-bg);
     color: var(--error);
 }
 
@@ -1970,13 +1986,13 @@ body.light-mode .history-badge {
 }
 
 .fakeid-secondary-btn {
-    background: rgba(20, 184, 166, 0.15) !important;
+    background: var(--accent-soft) !important;
     border: 1px solid var(--border) !important;
     color: var(--primary) !important;
 }
 
 .fakeid-secondary-btn:hover {
-    background: rgba(20, 184, 166, 0.25) !important;
+    background: var(--accent-medium) !important;
 }
 
 /* Light mode adjustments for Fake ID */
@@ -2053,105 +2069,59 @@ body.light-mode .fakeid-mini-btn {
     }
 }
 
-/* Stronger translucent accents for the lighter neutral dark palette */
-body.dark-mode .result-card,
-body.dark-mode .action-btn:not(.primary-btn),
-body.dark-mode .country-button,
-body.dark-mode .card-item:hover,
-body.dark-mode .tab-btn.active,
-body.dark-mode .history-header-btn,
-body.dark-mode .history-sync-status.is-ready,
-body.dark-mode .history-item:hover,
-body.dark-mode .theme-toggle:hover {
-    background: rgba(20, 184, 166, 0.16);
+/* Solid accent surfaces; each theme supplies its own opaque palette */
+.result-card,
+.action-btn:not(.primary-btn),
+.country-button,
+.card-item:hover,
+.tab-btn.active,
+.history-header-btn,
+.history-sync-status.is-ready,
+.history-item:hover,
+.theme-toggle:hover {
+    background: var(--accent-subtle);
 }
 
-body.dark-mode .qty-btn,
-body.dark-mode .country-option:hover,
-body.dark-mode .mini-option:hover,
-body.dark-mode .card-item.last-copied,
-body.dark-mode .lang-toggle:hover,
-body.dark-mode .sub-tab-btn.active,
-body.dark-mode .clear-history-btn,
-body.dark-mode .theme-toggle-icon:hover,
-body.dark-mode .help-tooltip-content code {
-    background: rgba(20, 184, 166, 0.22);
+.qty-btn,
+.country-option:hover,
+.mini-option:hover,
+.card-item.last-copied,
+.lang-toggle:hover,
+.sub-tab-btn.active,
+.clear-history-btn,
+.theme-toggle-icon:hover,
+.help-tooltip-content code {
+    background: var(--accent-soft);
+    color: var(--accent-on-solid);
 }
 
-body.dark-mode .copy-btn,
-body.dark-mode .country-option[aria-selected="true"],
-body.dark-mode .mini-option.selected,
-body.dark-mode .card-cvv:hover,
-body.dark-mode .history-header-btn:hover,
-body.dark-mode .clear-history-btn:hover,
-body.dark-mode .help-icon-btn:hover {
-    background: rgba(20, 184, 166, 0.3);
+.copy-btn,
+.country-option[aria-selected="true"],
+.mini-option.selected,
+.card-cvv:hover,
+.history-header-btn:hover,
+.clear-history-btn:hover,
+.help-icon-btn:hover {
+    background: var(--accent-medium);
+    color: var(--accent-on-solid);
 }
 
-body.dark-mode .copy-btn:hover {
-    background: rgba(20, 184, 166, 0.38);
+.copy-btn:hover {
+    background: var(--accent-strong);
+    color: var(--accent-on-solid);
 }
 
-body.dark-mode .qty-btn:active {
-    background: rgba(20, 184, 166, 0.42);
+.qty-btn:active {
+    background: var(--accent-active);
+    color: var(--accent-on-solid);
 }
 
-body.dark-mode .fakeid-secondary-btn {
-    background: rgba(20, 184, 166, 0.22) !important;
+.fakeid-secondary-btn {
+    background: var(--accent-soft) !important;
+    color: var(--accent-on-solid) !important;
 }
 
-body.dark-mode .fakeid-secondary-btn:hover {
-    background: rgba(20, 184, 166, 0.3) !important;
-}
-
-/* Visible but softer translucent accents on light surfaces */
-body.light-mode .result-card,
-body.light-mode .action-btn:not(.primary-btn),
-body.light-mode .country-button,
-body.light-mode .card-item:hover,
-body.light-mode .tab-btn.active,
-body.light-mode .history-header-btn,
-body.light-mode .history-sync-status.is-ready,
-body.light-mode .history-item:hover,
-body.light-mode .theme-toggle:hover {
-    background: rgba(20, 184, 166, 0.12);
-}
-
-body.light-mode .qty-btn,
-body.light-mode .country-option:hover,
-body.light-mode .mini-option:hover,
-body.light-mode .card-item.last-copied,
-body.light-mode .lang-toggle:hover,
-body.light-mode .sub-tab-btn.active,
-body.light-mode .clear-history-btn,
-body.light-mode .theme-toggle-icon:hover,
-body.light-mode .help-tooltip-content code {
-    background: rgba(20, 184, 166, 0.18);
-}
-
-body.light-mode .copy-btn,
-body.light-mode .country-option[aria-selected="true"],
-body.light-mode .mini-option.selected,
-body.light-mode .card-cvv:hover,
-body.light-mode .history-header-btn:hover,
-body.light-mode .clear-history-btn:hover,
-body.light-mode .help-icon-btn:hover {
-    background: rgba(20, 184, 166, 0.24);
-}
-
-body.light-mode .copy-btn:hover {
-    background: rgba(20, 184, 166, 0.32);
-}
-
-body.light-mode .qty-btn:active {
-    background: rgba(20, 184, 166, 0.36);
-}
-
-body.light-mode .fakeid-secondary-btn {
-    background: rgba(20, 184, 166, 0.18) !important;
-}
-
-body.light-mode .fakeid-secondary-btn:hover {
-    background: rgba(20, 184, 166, 0.24) !important;
+.fakeid-secondary-btn:hover {
+    background: var(--accent-medium) !important;
 }
 
