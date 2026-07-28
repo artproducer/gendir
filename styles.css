@@ -10,12 +10,13 @@
     --border: #363636;
     --success: #14B8A6;
     --error: #EF4444;
-    --accent-subtle: #143D39;
-    --accent-soft: #165047;
-    --accent-medium: #12675E;
-    --accent-strong: #0F7F74;
-    --accent-active: #0D9488;
-    --accent-on-solid: #F2FFFD;
+    --accent-subtle: #06211E;
+    --accent-soft: #072B27;
+    --accent-medium: #083630;
+    --accent-strong: #09413B;
+    --accent-active: #0A4D46;
+    --accent-border: #08665D;
+    --accent-on-solid: #2DD4BF;
     --error-bg: #3D2020;
     --card-bg: #282828;
     --input-bg: #292929;
@@ -1993,6 +1994,25 @@ body.light-mode .history-badge {
 
 .fakeid-secondary-btn:hover {
     background: var(--accent-medium) !important;
+}
+
+/* Dark accents keep the deep appearance they had over a black background */
+body.dark-mode .result-card,
+body.dark-mode .action-btn:not(.primary-btn),
+body.dark-mode .country-button,
+body.dark-mode .card-item:hover,
+body.dark-mode .tab-btn.active,
+body.dark-mode .history-header-btn,
+body.dark-mode .history-sync-status.is-ready,
+body.dark-mode .history-item:hover,
+body.dark-mode .lang-toggle:hover,
+body.dark-mode .theme-toggle:hover,
+body.dark-mode .theme-toggle-icon:hover {
+    border-color: var(--accent-border) !important;
+}
+
+body.dark-mode .fakeid-secondary-btn {
+    border-color: var(--accent-border) !important;
 }
 
 /* Light mode adjustments for Fake ID */
