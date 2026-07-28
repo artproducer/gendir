@@ -2,17 +2,24 @@
     --primary: #14B8A6;
     /* Teal/Turquoise */
     --primary-dark: #0D9488;
-    --surface: #1A1A1A;
-    --background: #000000;
-    --text: #FFFFFF;
-    --text-secondary: #808080;
-    --border: rgba(20, 184, 166, 0.25);
+    --surface: #202020;
+    --background: #181818;
+    --text: #F2F2F2;
+    --text-secondary: #B0B0B0;
+    --text-hint: #858585;
+    --border: #363636;
     --success: #14B8A6;
     --error: #EF4444;
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --input-bg: rgba(255, 255, 255, 0.05);
-    --dropdown-shadow: rgba(0, 0, 0, 0.7);
-    --modal-overlay: rgba(0, 0, 0, 0.7);
+    --card-bg: rgba(255, 255, 255, 0.07);
+    --input-bg: #292929;
+    --panel-bg: #242424;
+    --inset-bg: #1C1C1C;
+    --item-bg: rgba(255, 255, 255, 0.06);
+    --hover-bg: rgba(255, 255, 255, 0.1);
+    --hover-strong: rgba(255, 255, 255, 0.14);
+    --loading-overlay: rgba(24, 24, 24, 0.82);
+    --dropdown-shadow: rgba(0, 0, 0, 0.45);
+    --modal-overlay: rgba(0, 0, 0, 0.62);
 }
 
 /* Light Mode */
@@ -21,9 +28,16 @@ body.light-mode {
     --background: #F1F5F9;
     --text: #0F172A;
     --text-secondary: #475569;
+    --text-hint: #64748B;
     --border: rgba(20, 184, 166, 0.3);
     --card-bg: rgba(0, 0, 0, 0.03);
     --input-bg: rgba(0, 0, 0, 0.04);
+    --panel-bg: rgba(255, 255, 255, 0.8);
+    --inset-bg: rgba(0, 0, 0, 0.03);
+    --item-bg: rgba(0, 0, 0, 0.02);
+    --hover-bg: rgba(0, 0, 0, 0.06);
+    --hover-strong: rgba(0, 0, 0, 0.1);
+    --loading-overlay: rgba(255, 255, 255, 0.8);
     --dropdown-shadow: rgba(0, 0, 0, 0.15);
     --modal-overlay: rgba(0, 0, 0, 0.5);
 }
@@ -457,7 +471,7 @@ select.text-input {
     border-radius: 14px;
     background: var(--surface);
     border: 1px solid var(--border);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 -10px 40px var(--dropdown-shadow);
     max-height: 520px;
     overflow-y: auto;
     opacity: 0;
@@ -534,7 +548,7 @@ select.text-input {
 }
 
 .select-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--hover-bg);
 }
 
 .select-btn svg {
@@ -557,7 +571,7 @@ select.text-input {
     border-radius: 12px;
     background: var(--surface);
     border: 1px solid var(--border);
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 -8px 30px var(--dropdown-shadow);
     max-height: 200px;
     overflow-y: auto;
     opacity: 0;
@@ -604,7 +618,7 @@ select.text-input {
 
 /* Output */
 .output-container {
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--inset-bg);
     border-radius: 12px;
     padding: 16px;
     max-height: 360px;
@@ -630,7 +644,7 @@ select.text-input {
     align-items: center;
     padding: 2px 10px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--item-bg);
     transition: all 0.2s ease;
     cursor: pointer;
     border: 1px solid transparent;
@@ -802,7 +816,7 @@ select.text-input {
     display: grid;
     place-items: center;
     border-radius: 16px;
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--loading-overlay);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -911,7 +925,7 @@ select.text-input {
 .tabs-container {
     display: flex;
     flex: 1;
-    background: rgba(30, 30, 30, 0.8);
+    background: var(--panel-bg);
     border-radius: 16px;
     padding: 4px;
     border: 1px solid var(--border);
@@ -993,7 +1007,7 @@ select.text-input {
 
 .sub-tabs-container {
     display: flex;
-    background: rgba(30, 30, 30, 0.4);
+    background: var(--panel-bg);
     border-radius: 12px;
     padding: 3px;
     margin-bottom: 12px;
@@ -1102,7 +1116,7 @@ select.text-input {
     padding: 12px;
     border-radius: 12px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--item-bg);
 }
 
 .history-sync-copy {
@@ -1152,7 +1166,7 @@ select.text-input {
     padding: 10px 12px;
     border-radius: 10px;
     border: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.18);
+    background: var(--inset-bg);
     color: var(--text-secondary);
     font-size: 0.82rem;
     line-height: 1.4;
@@ -1224,7 +1238,7 @@ select.text-input {
     justify-content: space-between;
     padding: 12px 14px;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--item-bg);
     border: 1px solid var(--border);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -1263,7 +1277,7 @@ select.text-input {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: var(--modal-overlay);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     display: flex;
@@ -1285,7 +1299,7 @@ select.text-input {
     padding: 30px;
     width: 100%;
     max-width: 360px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 25px 50px -12px var(--dropdown-shadow);
     animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
@@ -1342,12 +1356,12 @@ select.text-input {
 }
 
 .cancel-btn {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--hover-bg);
     color: var(--text-secondary);
 }
 
 .cancel-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: var(--hover-strong);
     color: var(--text);
 }
 
@@ -2037,5 +2051,107 @@ body.light-mode .fakeid-mini-btn {
     .fakeid-btn-group {
         flex-shrink: 0;
     }
+}
+
+/* Stronger translucent accents for the lighter neutral dark palette */
+body.dark-mode .result-card,
+body.dark-mode .action-btn:not(.primary-btn),
+body.dark-mode .country-button,
+body.dark-mode .card-item:hover,
+body.dark-mode .tab-btn.active,
+body.dark-mode .history-header-btn,
+body.dark-mode .history-sync-status.is-ready,
+body.dark-mode .history-item:hover,
+body.dark-mode .theme-toggle:hover {
+    background: rgba(20, 184, 166, 0.16);
+}
+
+body.dark-mode .qty-btn,
+body.dark-mode .country-option:hover,
+body.dark-mode .mini-option:hover,
+body.dark-mode .card-item.last-copied,
+body.dark-mode .lang-toggle:hover,
+body.dark-mode .sub-tab-btn.active,
+body.dark-mode .clear-history-btn,
+body.dark-mode .theme-toggle-icon:hover,
+body.dark-mode .help-tooltip-content code {
+    background: rgba(20, 184, 166, 0.22);
+}
+
+body.dark-mode .copy-btn,
+body.dark-mode .country-option[aria-selected="true"],
+body.dark-mode .mini-option.selected,
+body.dark-mode .card-cvv:hover,
+body.dark-mode .history-header-btn:hover,
+body.dark-mode .clear-history-btn:hover,
+body.dark-mode .help-icon-btn:hover {
+    background: rgba(20, 184, 166, 0.3);
+}
+
+body.dark-mode .copy-btn:hover {
+    background: rgba(20, 184, 166, 0.38);
+}
+
+body.dark-mode .qty-btn:active {
+    background: rgba(20, 184, 166, 0.42);
+}
+
+body.dark-mode .fakeid-secondary-btn {
+    background: rgba(20, 184, 166, 0.22) !important;
+}
+
+body.dark-mode .fakeid-secondary-btn:hover {
+    background: rgba(20, 184, 166, 0.3) !important;
+}
+
+/* Visible but softer translucent accents on light surfaces */
+body.light-mode .result-card,
+body.light-mode .action-btn:not(.primary-btn),
+body.light-mode .country-button,
+body.light-mode .card-item:hover,
+body.light-mode .tab-btn.active,
+body.light-mode .history-header-btn,
+body.light-mode .history-sync-status.is-ready,
+body.light-mode .history-item:hover,
+body.light-mode .theme-toggle:hover {
+    background: rgba(20, 184, 166, 0.12);
+}
+
+body.light-mode .qty-btn,
+body.light-mode .country-option:hover,
+body.light-mode .mini-option:hover,
+body.light-mode .card-item.last-copied,
+body.light-mode .lang-toggle:hover,
+body.light-mode .sub-tab-btn.active,
+body.light-mode .clear-history-btn,
+body.light-mode .theme-toggle-icon:hover,
+body.light-mode .help-tooltip-content code {
+    background: rgba(20, 184, 166, 0.18);
+}
+
+body.light-mode .copy-btn,
+body.light-mode .country-option[aria-selected="true"],
+body.light-mode .mini-option.selected,
+body.light-mode .card-cvv:hover,
+body.light-mode .history-header-btn:hover,
+body.light-mode .clear-history-btn:hover,
+body.light-mode .help-icon-btn:hover {
+    background: rgba(20, 184, 166, 0.24);
+}
+
+body.light-mode .copy-btn:hover {
+    background: rgba(20, 184, 166, 0.32);
+}
+
+body.light-mode .qty-btn:active {
+    background: rgba(20, 184, 166, 0.36);
+}
+
+body.light-mode .fakeid-secondary-btn {
+    background: rgba(20, 184, 166, 0.18) !important;
+}
+
+body.light-mode .fakeid-secondary-btn:hover {
+    background: rgba(20, 184, 166, 0.24) !important;
 }
 
