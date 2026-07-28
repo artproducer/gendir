@@ -16,6 +16,11 @@
     --accent-strong: #0F7F74;
     --accent-active: #0D9488;
     --accent-on-solid: #F2FFFD;
+    --button-solid: #2FA89D;
+    --button-solid-hover: #298F87;
+    --button-solid-active: #237A73;
+    --button-solid-disabled: #345B57;
+    --button-solid-text: #071A18;
     --error-bg: #3D2020;
     --card-bg: #282828;
     --input-bg: #292929;
@@ -2123,5 +2128,37 @@ body.light-mode .fakeid-mini-btn {
 
 .fakeid-secondary-btn:hover {
     background: var(--accent-medium) !important;
+}
+
+/* Unified solid buttons in dark mode */
+body.dark-mode button:not(:disabled) {
+    background: var(--button-solid) !important;
+    color: var(--button-solid-text) !important;
+    border-color: var(--button-solid) !important;
+    box-shadow: none;
+}
+
+body.dark-mode button:not(:disabled):hover {
+    background: var(--button-solid-hover) !important;
+    border-color: var(--button-solid-hover) !important;
+}
+
+body.dark-mode button:not(:disabled):active,
+body.dark-mode .tab-btn.active,
+body.dark-mode .sub-tab-btn.active {
+    background: var(--button-solid-active) !important;
+    border-color: var(--button-solid-active) !important;
+    color: #FFFFFF !important;
+}
+
+body.dark-mode button:disabled {
+    background: var(--button-solid-disabled) !important;
+    color: #AFC3C0 !important;
+    border-color: var(--button-solid-disabled) !important;
+    opacity: 1;
+}
+
+body.dark-mode button svg {
+    stroke: currentColor;
 }
 
