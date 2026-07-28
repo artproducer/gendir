@@ -1996,6 +1996,28 @@ body.light-mode .history-badge {
     background: var(--accent-medium) !important;
 }
 
+/* Match address copy controls and result UI to the Fake ID reload button */
+body.dark-mode .copy-btn,
+body.dark-mode .sub-tab-btn.active {
+    background: var(--accent-soft) !important;
+    color: var(--accent-on-solid) !important;
+    border: 1px solid var(--accent-border) !important;
+}
+
+body.dark-mode .copy-btn:hover {
+    background: var(--accent-medium) !important;
+}
+
+body.dark-mode .result-card {
+    background: var(--accent-soft) !important;
+    border-color: var(--accent-border) !important;
+}
+
+body.dark-mode .result-card .output-container {
+    background: var(--inset-bg);
+    border: 1px solid #303030;
+}
+
 /* Dark accents keep the deep appearance they had over a black background */
 body.dark-mode .result-card,
 body.dark-mode .action-btn:not(.primary-btn),
