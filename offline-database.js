@@ -2727,6 +2727,85 @@ const offlineAddressDatabase = {
       { city: "Constanta", state: "Constanta", postalCodes: ["900001", "900002", "900003"], phonePrefix: "40241" }
     ],
     phone: { suffixLength: 6 }
+  },
+  // Belgium
+  be: {
+    firstNames: ["Lucas", "Louis", "Arthur", "Jules", "Liam", "Emma", "Olivia", "Louise", "Mila", "Juliette", "Noah", "Victor", "Alice", "Marie", "Elena", "Mathis", "Gabriel", "Sofia", "Amélie", "Camille"],
+    lastNames: ["Peeters", "Janssens", "Maes", "Willems", "Claes", "Goossens", "Wouters", "De Smet", "Jacobs", "Dubois", "Lambert", "Martin", "Dupont", "Simon", "Leclercq", "Laurent", "Lejeune", "Renard", "Michel", "Gérard"],
+    streets: ["Rue de la Loi", "Avenue Louise", "Meir", "Frankrijklei", "Veldstraat", "Korenmarkt", "Steenstraat", "Bondgenotenlaan", "Rue de Fer", "Rue Saint-Gilles"],
+    houseNumberRange: [1, 250],
+    cities: [
+      { city: "Bruselas", state: "Bruselas-Capital", postalCodes: ["1000"], phonePrefix: "322" },
+      { city: "Amberes", state: "Flandes", postalCodes: ["2000"], phonePrefix: "323" },
+      { city: "Gante", state: "Flandes", postalCodes: ["9000"], phonePrefix: "329" },
+      { city: "Brujas", state: "Flandes", postalCodes: ["8000"], phonePrefix: "3250" },
+      { city: "Lovaina", state: "Flandes", postalCodes: ["3000"], phonePrefix: "3216" },
+      { city: "Lieja", state: "Valonia", postalCodes: ["4000"], phonePrefix: "324" },
+      { city: "Namur", state: "Valonia", postalCodes: ["5000"], phonePrefix: "3281" }
+    ],
+    phone: { suffixLength: 6 }
+  },
+  // Austria
+  at: {
+    firstNames: ["Lukas", "Leon", "Jakob", "Paul", "Felix", "Maximilian", "Anna", "Emma", "Marie", "Sophie", "Elias", "Jonas", "David", "Florian", "Laura", "Lena", "Julia", "Katharina", "Matthias", "Johanna"],
+    lastNames: ["Gruber", "Huber", "Bauer", "Wagner", "Müller", "Pichler", "Steiner", "Moser", "Mayer", "Berger", "Hofer", "Eder", "Fischer", "Schmid", "Weber", "Leitner", "Schwarz", "Maier", "Fuchs", "Reiter"],
+    streets: ["Kärntner Straße", "Mariahilfer Straße", "Landstraßer Hauptstraße", "Herrengasse", "Getreidegasse", "Linzer Gasse", "Museumstraße", "Anichstraße", "Sporgasse", "Herrenstraße"],
+    houseNumberRange: [1, 220],
+    cities: [
+      { city: "Viena", state: "Viena", postalCodes: ["1010"], phonePrefix: "431" },
+      { city: "Graz", state: "Estiria", postalCodes: ["8010"], phonePrefix: "43316" },
+      { city: "Linz", state: "Alta Austria", postalCodes: ["4020"], phonePrefix: "43732" },
+      { city: "Salzburgo", state: "Salzburgo", postalCodes: ["5020"], phonePrefix: "43662" },
+      { city: "Innsbruck", state: "Tirol", postalCodes: ["6020"], phonePrefix: "43512" },
+      { city: "Klagenfurt", state: "Carintia", postalCodes: ["9020"], phonePrefix: "43463" }
+    ],
+    phone: { suffixLength: 6 }
+  },
+  // Lithuania
+  lt: {
+    firstNames: ["Lukas", "Matas", "Nojus", "Jokūbas", "Dominykas", "Gabija", "Emilija", "Austėja", "Ugnė", "Ieva", "Dovydas", "Rokas", "Tomas", "Paulius", "Eglė", "Greta", "Rūta", "Monika", "Karolis", "Simona"],
+    lastNames: ["Kazlauskas", "Jankauskas", "Petrauskas", "Stankevičius", "Vasiliauskas", "Žukauskas", "Butkus", "Paulauskas", "Urbonas", "Kavaliauskas", "Balčiūnas", "Navickas", "Ramanauskas", "Ivanauskas", "Mikalauskas", "Sakalauskas", "Baranauskas", "Jakubauskas", "Šimkus", "Mažeika"],
+    streets: ["Gedimino prospektas", "Vilniaus gatvė", "Laisvės alėja", "Savanorių prospektas", "Taikos prospektas", "H. Manto gatvė", "Tilžės gatvė", "Respublikos gatvė", "Naujoji gatvė", "J. Basanavičiaus gatvė"],
+    houseNumberRange: [1, 220],
+    cities: [
+      { city: "Vilna", state: "Condado de Vilna", postalCodes: ["01100"], phonePrefix: "3705" },
+      { city: "Kaunas", state: "Condado de Kaunas", postalCodes: ["44001"], phonePrefix: "37037" },
+      { city: "Klaipėda", state: "Condado de Klaipėda", postalCodes: ["91001"], phonePrefix: "37046" },
+      { city: "Šiauliai", state: "Condado de Šiauliai", postalCodes: ["76001"], phonePrefix: "37041" },
+      { city: "Panevėžys", state: "Condado de Panevėžys", postalCodes: ["35001"], phonePrefix: "37045" },
+      { city: "Alytus", state: "Condado de Alytus", postalCodes: ["62001"], phonePrefix: "370315" }
+    ],
+    phone: { suffixLength: 5 }
+  },
+  // Luxembourg
+  lu: {
+    firstNames: ["Gabriel", "Louis", "Léo", "Arthur", "Noah", "Emma", "Mia", "Sofia", "Léa", "Anna", "Ben", "Tom", "Luc", "Max", "Julie", "Claire", "Chloé", "Elise", "Nicolas", "Camille"],
+    lastNames: ["Schmit", "Muller", "Weber", "Hoffmann", "Wagner", "Thill", "Klein", "Schneider", "Meyer", "Kremer", "Faber", "Welter", "Simon", "Majerus", "Reuter", "Kayser", "Baumann", "Jacobs", "Lorang", "Da Silva"],
+    streets: ["Grand-Rue", "Avenue de la Liberté", "Rue de l'Alzette", "Rue du Brill", "Rue de Belvaux", "Route de Luxembourg", "Avenue Grande-Duchesse Charlotte", "Rue de la Gare", "Rue Michel Rodange", "Rue du Canal"],
+    houseNumberRange: [1, 180],
+    cities: [
+      { city: "Luxemburgo", state: "Cantón de Luxemburgo", postalCodes: ["L-2449"], phonePrefix: "35226" },
+      { city: "Esch-sur-Alzette", state: "Cantón de Esch-sur-Alzette", postalCodes: ["L-4001"], phonePrefix: "35227" },
+      { city: "Differdange", state: "Cantón de Esch-sur-Alzette", postalCodes: ["L-4501"], phonePrefix: "35258" },
+      { city: "Dudelange", state: "Cantón de Esch-sur-Alzette", postalCodes: ["L-3401"], phonePrefix: "35251" },
+      { city: "Ettelbruck", state: "Cantón de Diekirch", postalCodes: ["L-9001"], phonePrefix: "35281" }
+    ],
+    phone: { suffixLength: 6 }
+  },
+  // Portugal
+  pt: {
+    firstNames: ["João", "Martim", "Rodrigo", "Afonso", "Tomás", "Maria", "Leonor", "Matilde", "Beatriz", "Carolina", "Diogo", "Tiago", "Miguel", "Gonçalo", "Inês", "Mariana", "Ana", "Sofia", "Rafael", "Margarida"],
+    lastNames: ["Silva", "Santos", "Ferreira", "Pereira", "Oliveira", "Costa", "Rodrigues", "Martins", "Jesus", "Sousa", "Fernandes", "Gonçalves", "Gomes", "Lopes", "Marques", "Alves", "Almeida", "Ribeiro", "Pinto", "Carvalho"],
+    streets: ["Avenida da Liberdade", "Rua Augusta", "Rua de Santa Catarina", "Avenida dos Aliados", "Rua Ferreira Borges", "Avenida Central", "Rua de Santo António", "Rua do Carmo", "Avenida da República", "Rua do Município"],
+    houseNumberRange: [1, 300],
+    cities: [
+      { city: "Lisboa", state: "Distrito de Lisboa", postalCodes: ["1000-001"], phonePrefix: "35121" },
+      { city: "Porto", state: "Distrito de Porto", postalCodes: ["4000-007"], phonePrefix: "35122" },
+      { city: "Coimbra", state: "Distrito de Coimbra", postalCodes: ["3000-001"], phonePrefix: "351239" },
+      { city: "Braga", state: "Distrito de Braga", postalCodes: ["4700-001"], phonePrefix: "351253" },
+      { city: "Faro", state: "Distrito de Faro", postalCodes: ["8000-072"], phonePrefix: "351289" }
+    ],
+    phone: { suffixLength: 5 }
   }
 };
 

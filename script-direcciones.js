@@ -176,6 +176,12 @@
                 return `+49 ${digits}`;
             case 'gb':
                 return `+44 ${digits}`;
+            case 'be':
+            case 'at':
+            case 'lt':
+            case 'lu':
+            case 'pt':
+                return `+${digits}`;
         }
         return digits;
     }
