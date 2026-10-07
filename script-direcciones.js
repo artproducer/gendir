@@ -18,20 +18,27 @@
         dragImage.textContent = text;
         Object.assign(dragImage.style, {
             position: "fixed",
-            left: "-10000px",
-            top: "0",
+            left: `${event.clientX}px`,
+            top: `${event.clientY}px`,
             display: "inline-block",
             width: "max-content",
             padding: "0",
+            margin: "0",
             border: "0",
             background: "transparent",
-            color: "#111",
+            color: "#fff",
             font: "16px Arial, sans-serif",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            boxShadow: "none",
+            textShadow: "none",
+            filter: "none",
+            opacity: "1",
+            zIndex: "2147483647",
+            pointerEvents: "none"
         });
         document.body.appendChild(dragImage);
         event.dataTransfer.setDragImage(dragImage, 0, 0);
-        requestAnimationFrame(() => dragImage.remove());
+        requestAnimationFrame(() => requestAnimationFrame(() => dragImage.remove()));
     }
 
     // Permitir arrastrar los valores visibles de la dirección como texto.
