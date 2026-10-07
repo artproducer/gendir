@@ -8,6 +8,35 @@
     let dropdownOpen = false;
     let dropdownBuilt = false; // Cache flag
 
+    // Permitir arrastrar los valores visibles de la dirección como texto.
+    document.querySelectorAll("#address-content .value").forEach(value => {
+        value.draggable = true;
+        value.addEventListener("dragstart", event => {
+            const text = value.textContent.trim();
+            if (!text || text === "-") {
+                event.preventDefault();
+                return;
+            }
+            event.dataTransfer.setData("text/plain", text);
+            event.dataTransfer.effectAllowed = "copy";
+        });
+    });
+
+    // Nombre y apellido se arrastran individualmente desde sus botones.
+    document.querySelectorAll(".name-part-btn").forEach((button, index) => {
+        button.draggable = true;
+        button.addEventListener("dragstart", event => {
+            const part = index === 0 ? "name-first" : "name-last";
+            const value = document.getElementById(part)?.textContent.trim();
+            if (!value) {
+                event.preventDefault();
+                return;
+            }
+            event.dataTransfer.setData("text/plain", value);
+            event.dataTransfer.effectAllowed = "copy";
+        });
+    });
+
     // Actualizar bandera
     function updateFlag() {
         if (!countrySelect) return;
