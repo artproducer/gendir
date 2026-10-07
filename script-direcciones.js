@@ -8,6 +8,32 @@
     let dropdownOpen = false;
     let dropdownBuilt = false; // Cache flag
 
+    function setTextDragImage(event, text) {
+        event.dataTransfer.setData("text/plain", text);
+        event.dataTransfer.effectAllowed = "copy";
+
+        // Sustituir la previsualización nativa (que puede incluir el botón)
+        // por un elemento sin estilos que contenga únicamente el texto.
+        const dragImage = document.createElement("span");
+        dragImage.textContent = text;
+        Object.assign(dragImage.style, {
+            position: "fixed",
+            left: "-10000px",
+            top: "0",
+            display: "inline-block",
+            width: "max-content",
+            padding: "0",
+            border: "0",
+            background: "transparent",
+            color: "#111",
+            font: "16px Arial, sans-serif",
+            whiteSpace: "nowrap"
+        });
+        document.body.appendChild(dragImage);
+        event.dataTransfer.setDragImage(dragImage, 0, 0);
+        requestAnimationFrame(() => dragImage.remove());
+    }
+
     // Permitir arrastrar los valores visibles de la dirección como texto.
     document.querySelectorAll("#address-content .value").forEach(value => {
         value.draggable = true;
@@ -17,8 +43,7 @@
                 event.preventDefault();
                 return;
             }
-            event.dataTransfer.setData("text/plain", text);
-            event.dataTransfer.effectAllowed = "copy";
+            setTextDragImage(event, text);
         });
     });
 
@@ -32,8 +57,7 @@
                 event.preventDefault();
                 return;
             }
-            event.dataTransfer.setData("text/plain", value);
-            event.dataTransfer.effectAllowed = "copy";
+            setTextDragImage(event, value);
         });
     });
 
