@@ -41,11 +41,14 @@
         requestAnimationFrame(() => requestAnimationFrame(() => dragImage.remove()));
     }
 
-    // Permitir arrastrar los valores visibles de la dirección como texto.
-    document.querySelectorAll("#address-content .value").forEach(value => {
-        value.draggable = true;
-        value.addEventListener("dragstart", event => {
-            const text = value.textContent.trim();
+    // Permitir arrastrar el valor desde cualquier parte de su campo.
+    document.querySelectorAll("#address-content .field").forEach(field => {
+        field.draggable = true;
+        field.addEventListener("dragstart", event => {
+            // Los botones de nombre y apellido conservan su arrastre individual.
+            if (event.target.closest(".name-part-btn")) return;
+
+            const text = field.querySelector(".value")?.textContent.trim();
             if (!text || text === "-") {
                 event.preventDefault();
                 return;
