@@ -25,7 +25,6 @@
     --item-bg: #292929;
     --hover-bg: #333333;
     --hover-strong: #3A3A3A;
-    --loading-overlay: #181818;
     --dropdown-shadow: rgba(0, 0, 0, 0.45);
     --modal-overlay: rgba(0, 0, 0, 0.62);
 }
@@ -54,7 +53,6 @@ body.light-mode {
     --item-bg: #F8FAFC;
     --hover-bg: #ECEFF1;
     --hover-strong: #E2E7EA;
-    --loading-overlay: #FFFFFF;
     --dropdown-shadow: rgba(0, 0, 0, 0.15);
     --modal-overlay: rgba(0, 0, 0, 0.5);
 }
@@ -837,39 +835,6 @@ select.text-input {
     color: #fff;
 }
 
-/* Loading */
-.loading-overlay {
-    position: absolute;
-    inset: 10px;
-    display: grid;
-    place-items: center;
-    border-radius: 16px;
-    background: var(--loading-overlay);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.loading-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.spinner {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 3px solid rgba(20, 184, 166, 0.2);
-    border-top-color: var(--primary);
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
@@ -1547,10 +1512,6 @@ body.light-mode .history-item {
 
 body.light-mode .sub-tabs-container {
     background: var(--panel-bg);
-}
-
-body.light-mode .loading-overlay {
-    background: var(--loading-overlay);
 }
 
 body.light-mode .action-btn.primary-btn {

@@ -197,28 +197,21 @@
 
     // Generar dirección
     window.generateNewAddress = function () {
-        const loading = document.getElementById("loading");
-        if (loading) loading.classList.add("active");
+        const country = countrySelect ? countrySelect.value : "us";
+        const address = generateAddress(country);
 
-        setTimeout(() => {
-            const country = countrySelect ? countrySelect.value : "us";
-            const address = generateAddress(country);
+        document.getElementById("name").textContent = address.name;
+        // Store first/last name separately for individual copy
+        const firstEl = document.getElementById("name-first");
+        const lastEl = document.getElementById("name-last");
+        if (firstEl) firstEl.textContent = address.firstName || '';
+        if (lastEl) lastEl.textContent = address.lastName || '';
 
-            document.getElementById("name").textContent = address.name;
-            // Store first/last name separately for individual copy
-            const firstEl = document.getElementById("name-first");
-            const lastEl = document.getElementById("name-last");
-            if (firstEl) firstEl.textContent = address.firstName || '';
-            if (lastEl) lastEl.textContent = address.lastName || '';
-
-            document.getElementById("street").textContent = address.street;
-            document.getElementById("city").textContent = address.city;
-            document.getElementById("state").textContent = address.state;
-            document.getElementById("zip").textContent = address.zip;
-            document.getElementById("phone").textContent = address.phone;
-
-            if (loading) loading.classList.remove("active");
-        }, 300);
+        document.getElementById("street").textContent = address.street;
+        document.getElementById("city").textContent = address.city;
+        document.getElementById("state").textContent = address.state;
+        document.getElementById("zip").textContent = address.zip;
+        document.getElementById("phone").textContent = address.phone;
     };
 
     // Generar datos según país
