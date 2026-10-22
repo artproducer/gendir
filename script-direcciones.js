@@ -7,6 +7,8 @@
     const countryDropdown = document.getElementById("country-dropdown");
     let dropdownOpen = false;
     let dropdownBuilt = false; // Cache flag
+    let lastCountrySearchLetter = "";
+    let lastCountryMatchIndex = -1;
 
     function setTextDragImage(event, text) {
         event.dataTransfer.setData("text/plain", text);
@@ -88,6 +90,8 @@
     function toggleDropdown() {
         dropdownOpen = !dropdownOpen;
         if (dropdownOpen) {
+            lastCountrySearchLetter = "";
+            lastCountryMatchIndex = -1;
             // Solo construir una vez
             if (!dropdownBuilt) {
                 buildDropdown();
@@ -147,6 +151,34 @@
         countryButton.addEventListener("click", toggleDropdown);
     }
 
+    // Saltar al siguiente pais que empieza por la letra pulsada.
+    document.addEventListener("keydown", event => {
+        if (!dropdownOpen || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.target instanceof HTMLElement &&
+            (event.target.isContentEditable || event.target.closest("input, textarea, select"))) return;
+
+        const normalizeCountryName = value => value.normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+        const letter = normalizeCountryName(event.key);
+        if (!/^[a-z]$/.test(letter)) return;
+
+        const options = Array.from(countryDropdown.querySelectorAll(".country-option"));
+        const matches = options
+            .map((option, index) => ({ option, index }))
+            .filter(({ option }) => normalizeCountryName(option.querySelector("span:last-child")?.textContent || "").startsWith(letter));
+        if (!matches.length) return;
+
+        const nextMatch = letter === lastCountrySearchLetter
+            ? matches.find(match => match.index > lastCountryMatchIndex) || matches[0]
+            : matches[0];
+        lastCountrySearchLetter = letter;
+        lastCountryMatchIndex = nextMatch.index;
+        event.preventDefault();
+        nextMatch.option.focus({ preventScroll: true });
+        nextMatch.option.scrollIntoView({ block: "nearest" });
+    });
+
     if (countrySelect) {
         countrySelect.addEventListener("change", () => {
             updateFlag();
@@ -198,7 +230,9 @@
                 firstName: data.firstName,
                 lastName: data.lastName,
                 name: `${data.firstName} ${data.lastName}`,
-                street: `${data.streetNumber} ${data.streetName}`,
+                street: country === 'pl'
+                    ? `${data.streetName} ${data.streetNumber}`
+                    : `${data.streetNumber} ${data.streetName}`,
                 city: data.city,
                 state: data.state,
                 zip: data.zip || generateZip(country),
@@ -239,6 +273,13 @@
                 return `+49 ${digits}`;
             case 'gb':
                 return `+44 ${digits}`;
+            case 'pl': {
+                const nationalNumber = digits.startsWith('48') ? digits.slice(2) : digits;
+                if (nationalNumber.length === 9) {
+                    return `+48 ${nationalNumber.slice(0, 2)} ${nationalNumber.slice(2, 5)} ${nationalNumber.slice(5, 7)} ${nationalNumber.slice(7)}`;
+                }
+                return `+48 ${nationalNumber}`;
+            }
             case 'be':
             case 'at':
             case 'lt':
@@ -257,6 +298,7 @@
             case 'es': return String(Math.floor(Math.random() * 90000) + 10000);
             case 'de': return String(Math.floor(Math.random() * 90000) + 10000);
             case 'gb': return generateUKPostcode();
+            case 'pl': return `${Math.floor(Math.random() * 90) + 10}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`;
             default: return String(Math.floor(Math.random() * 90000) + 10000);
         }
     }

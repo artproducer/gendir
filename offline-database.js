@@ -2792,6 +2792,22 @@ const offlineAddressDatabase = {
     ],
     phone: { suffixLength: 6 }
   },
+  // Poland
+  pl: {
+    firstNames: ["Jakub", "Antoni", "Jan", "Szymon", "Aleksander", "Franciszek", "Mikołaj", "Wojciech", "Kacper", "Adam", "Zuzanna", "Julia", "Maja", "Zofia", "Hanna", "Lena", "Alicja", "Maria", "Oliwia", "Amelia"],
+    lastNames: ["Nowak", "Kowalski", "Wiśniewski", "Wójcik", "Kowalczyk", "Kamiński", "Lewandowski", "Zieliński", "Szymański", "Woźniak", "Dąbrowski", "Kozłowski", "Jankowski", "Mazur", "Kwiatkowski", "Krawczyk", "Piotrowski", "Grabowski", "Nowakowski", "Pawłowski"],
+    streets: ["ul. Marszałkowska", "Aleje Jerozolimskie", "ul. Nowy Świat", "ul. Floriańska", "ul. Długa", "ul. Piotrkowska", "ul. Świętojańska", "ul. Grodzka", "ul. Królewska", "ul. Szeroka", "ul. Wrocławska", "ul. Gdańska", "ul. Wielicka", "ul. Mickiewicza"],
+    houseNumberRange: [1, 250],
+    cities: [
+      { city: "Varsovia", state: "Mazowieckie", postalCodes: ["00-001", "00-020", "00-950"], phonePrefix: "4822" },
+      { city: "Cracovia", state: "Malopolskie", postalCodes: ["30-001", "31-001", "30-062"], phonePrefix: "4812" },
+      { city: "Łódź", state: "Łódzkie", postalCodes: ["90-001", "90-101", "91-001"], phonePrefix: "4842" },
+      { city: "Breslavia", state: "Dolnośląskie", postalCodes: ["50-001", "50-101", "50-200"], phonePrefix: "4871" },
+      { city: "Poznań", state: "Wielkopolskie", postalCodes: ["60-001", "60-101", "61-001"], phonePrefix: "4861" },
+      { city: "Gdańsk", state: "Pomorskie", postalCodes: ["80-001", "80-100", "80-200"], phonePrefix: "4858" }
+    ],
+    phone: { suffixLength: 7 }
+  },
   // Portugal
   pt: {
     firstNames: ["João", "Martim", "Rodrigo", "Afonso", "Tomás", "Maria", "Leonor", "Matilde", "Beatriz", "Carolina", "Diogo", "Tiago", "Miguel", "Gonçalo", "Inês", "Mariana", "Ana", "Sofia", "Rafael", "Margarida"],
