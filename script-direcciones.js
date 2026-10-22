@@ -41,14 +41,14 @@
         requestAnimationFrame(() => requestAnimationFrame(() => dragImage.remove()));
     }
 
-    // Permitir arrastrar el valor desde cualquier parte de su campo.
-    document.querySelectorAll("#address-content .field").forEach(field => {
-        field.draggable = true;
-        field.addEventListener("dragstart", event => {
+    // Permitir arrastrar el valor desde cualquier parte de su caja, sin incluir el título.
+    document.querySelectorAll("#address-content .value-container").forEach(container => {
+        container.draggable = true;
+        container.addEventListener("dragstart", event => {
             // Los botones de nombre y apellido conservan su arrastre individual.
             if (event.target.closest(".name-part-btn")) return;
 
-            const text = field.querySelector(".value")?.textContent.trim();
+            const text = container.querySelector(".value")?.textContent.trim();
             if (!text || text === "-") {
                 event.preventDefault();
                 return;
